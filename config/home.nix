@@ -6,12 +6,16 @@
   ];
   users.users.mx = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "libvirtd" ];
   };
   home-manager.users.mx = { pkgs, ... }: {
     home.packages = with pkgs; [
       httpie
       nodejs
+      wl-copy
+      fw-ectool
+      grim
+      slurp
     ];
 
     programs.less.enable = true;
@@ -46,6 +50,8 @@
         export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
         export ZSH_HISTFILE="$ZDOTDIR/zsh_history"
         export ANKI_WAYLAND="1"
+
+        alias svim="sudo -E -s nvim"
       '';
     };
 
@@ -290,6 +296,12 @@ $character
       };
     };
 
+    programs.eza = {
+      enable = true;
+      enableAliases = true;
+      icons = true;
+    };
+
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;
@@ -524,6 +536,13 @@ $character
       defaultEditor = true;
     };
     xdg.configFile.nvim.source = ../extra/nvim/;
+
+    programs.vscode = {
+      enable = true;
+      extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+      ];
+    };
 
     programs.thunderbird = {
       enable = true;

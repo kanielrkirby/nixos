@@ -7,5 +7,7 @@
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
     # networking.firewall.enable = false;
+    services.openssh.enable = true;
+    services.mullvad-vpn.enable = true;
 }
 

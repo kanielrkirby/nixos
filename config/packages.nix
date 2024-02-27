@@ -9,4 +9,12 @@
         enable = true;
         enableSSHSupport = true;
     };
+
+    programs.thunar = {
+      enable = true;
+      plugins = [
+        thunar-volman
+        thunar-archive-plugin
+      ];
+    };
 }
