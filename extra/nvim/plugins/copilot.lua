@@ -1,0 +1,47 @@
+return {
+  -- "zbirenbaum/copilot.lua",
+  -- event = { 'InsertEnter' },
+  -- opts = {
+  --   panel = {
+  --     enabled = true,
+  --     auto_refresh = false,
+  --     keymap = {
+  --       accept = "<CR>",
+  --       jump_prev = "[[",
+  --       jump_next = "]]",
+  --       refresh = "gr",
+  --       open = "<M-;>",
+  --     },
+  --     layout = {
+  --       position = "bottom", -- | top | left | right
+  --       ratio = 0.4
+  --     },
+  --   },
+  --   suggestion = {
+  --     enabled = true,
+  --     auto_trigger = true,
+  --     debounce = 75,
+  --     keymap = {
+  --       accept = "<Tab>",
+  --       prev = "<M-[>",
+  --       next = "<M-]>",
+  --       accept_word = false,
+  --       accept_line = false,
+  --       dismiss = "<C-]>",
+  --     },
+  --   },
+  --   filetypes = {
+  --     yaml = true,
+  --     markdown = true,
+  --     help = true,
+  --     gitcommit = true,
+  --     gitrebase = true,
+  --     hgcommit = true,
+  --     svn = true,
+  --     cvs = true,
+  --     ["."] = true,
+  --   },
+  --   copilot_node_command = 'node', -- Node.js version must be > 16.x
+  --   server_opts_overrides = {},
+  -- }
+}
