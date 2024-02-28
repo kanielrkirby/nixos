@@ -383,7 +383,7 @@
     bindl= , switch:Lid Switch, exec, sys lock
     '';
   };
-  plugins = [
-    #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-  ];
+  #plugins = [
+  #  #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+  #];
 }
