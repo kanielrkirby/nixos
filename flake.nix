@@ -6,7 +6,7 @@
 
   outputs = {nixpkgs, ...} @ inputs: {
     nixosConfigurations = {
-      nix-mx = nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
