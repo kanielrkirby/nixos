@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
-      <home-manager/nixos>
+#      "${builtins.getFlake "path:../flake.nix"}/nixosModules.home-manager"
+      inputs.home-manager.nixosModules.home-manager
+
   ];
   users = {
       defaultUserShell = pkgs.zsh;
