@@ -1,5 +1,5 @@
 {
-  virtualization = {
+  virtualisation = {
     podman = {
       enable = true;
       dockerCompat = true;
@@ -8,12 +8,12 @@
 
     libvirtd = {
       enable = true;
-    }
+    };
   };
 
   programs.virt-manager.enable = true;
 
-  dconf.settings = {
+  home-manager.users.mx.dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
       uris = ["qemu:///system"];

@@ -1,8 +1,13 @@
-{ inputs, pkgs, ... }
+{ inputs, pkgs, ... }: 
 
 {
   services.xserver = {
     enable = true;
+    displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "where_is_my_sddm_theme";
+    };
   };
 
   home-manager.users.mx.home.pointerCursor = {
@@ -13,7 +18,7 @@
     size = 16;
   };
 
-  home-manager.users.mx.home.gtk = {
+  home-manager.users.mx.gtk = {
     enable = true;
     theme = {
       package = pkgs.flat-remix-gtk;
@@ -35,8 +40,10 @@
     enable = true;
     settings = {
       # ENV
-      monitor="eDP-1,2400x1600,0x0,1.6";
-      monitor=",preferred,auto,1";
+      monitor=[
+        "eDP-1,2400x1600,0x0,1.6"
+        ",preferred,auto,1"
+      ];
       env = [
         "XCURSOR_SIZE,20"
       ];
@@ -117,14 +124,14 @@
     $mod1 = SUPER
     
     # Global / General
-    bind = $mod1, space, exec, sys menu
+    bind = $mod1, space, exec, fuzzel
     bind = $mod1, P, togglefloating,
     bind = $mod1+SHIFT, P, togglesplit,
     binde = $mod1, Q, killactive
     
     # Fn / Function Keys
-    bindelt = , XF86AudioRaiseVolume, exec, sys volume up
-    bindelt = , XF86AudioLowerVolume, exec, sys volume down
+    bindelt = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+ -l 1.0
+    bindelt = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%- -l 1.0
     bindelt = , XF86AudioMute, exec, sys volume mute
     bindelt = $mod1, XF86AudioRaiseVolume, exec, sys volume up --bypass
     bindelt = $mod1, XF86AudioLowerVolume, exec, sys volume down --bypass
@@ -174,10 +181,10 @@
     
     # Launch
     submap = launch
-    bindil = $mod1, T, exec, hyprctl dispatch submap reset & sys terminal
+    bindil = $mod1, T, exec, hyprctl dispatch submap reset & alacritty
     bindil = $mod1, E, exec, hyprctl dispatch submap reset & sys file
     bindil = $mod1, V, exec, hyprctl dispatch submap reset & virt-manager
-    bindil = $mod1, W, exec, hyprctl dispatch submap reset & sys browser
+    bindil = $mod1, W, exec, hyprctl dispatch submap reset & brave
     bindil = $mod1, B, exec, hyprctl dispatch submap reset & alacritty -e btop
     bindil = $mod1, Z, exec, hyprctl dispatch submap reset & signal-desktop --ozone-platform=wayland
     bindil = $mod1, C, exec, hyprctl dispatch submap reset & code
@@ -377,6 +384,6 @@
     '';
   };
   plugins = [
-    inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
   ];
 }

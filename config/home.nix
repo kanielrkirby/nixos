@@ -2,20 +2,31 @@
 
 {
   imports = [
-      "<home-manager/nixos>"
+      <home-manager/nixos>
   ];
-  users.users.mx = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" ];
+  users = {
+      defaultUserShell = pkgs.zsh;
+      users.mx = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" "libvirtd" ];
+      };
   };
+
+  home-manager.useGlobalPkgs = true;
+
   home-manager.users.mx = { pkgs, ... }: {
+
     home.packages = with pkgs; [
       httpie
       nodejs
-      wl-copy
+      wl-clipboard
       fw-ectool
       grim
       slurp
+      ripgrep
+      nixd
+      hyprpaper
+      hyprshade
     ];
 
     programs.less.enable = true;
@@ -23,34 +34,12 @@
     programs.zsh = {
       enable = true; 
       enableAutosuggestions = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       enableCompletion = true;
-      history.path = "${config.xdg.dataHome}/zsh/zsh_history";
       profileExtra = ''
-        export XDG_CONFIG_HOME="$HOME/.config"
-        export XDG_CACHE_HOME="$HOME/.cache"
-        export XDG_DATA_HOME="$HOME/.local/share"
-        export BASH_HOME="$XDG_CONFIG_HOME/bash"
-        export BASH_ENV="$BASH_HOME/bashrc"
-        export HISTFILE="$BASH_HOME/bash_history"
-        export BASH_SESSIONS="$BASH_HOME/bash_sessions"
-        export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
-        export RUSTUP_HOME="$XDG_CONFIG_HOME/rustup"
-        export _Z_DATA="$XDG_CONFIG_HOME/z"
-        export ADOTDIR="$XDG_CONFIG_HOME/antigen"
-        export ANTIGEN_HOME="$ADOTDIR"
-        #export GIT_CONFIG="$XDG_CONFIG_HOME/git/config"
-        export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-        export YARN_CACHE_FOLDER="$XDG_CONFIG_HOME/yarn"
-        export YARN_CONFIG="$YARN_CACHE_FOLDER/yarnrc"
-        export NPM_CONFIG_CACHE="$XDG_CONFIG_HOME/npm"
-        export NPM_CONFIG_USERCONFIG="$NPM_CONFIG_CACHE/npmrc"
         export LANG="en_US.UTF-8"
         export LC_ALL="$LANG"
-        export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-        export ZSH_HISTFILE="$ZDOTDIR/zsh_history"
         export ANKI_WAYLAND="1"
-
         alias svim="sudo -E -s nvim"
       '';
     };
@@ -59,88 +48,7 @@
       enable = true;
       enableZshIntegration = true;
       settings = {
-        format = ''
-$username\
-$hostname\
-$localip\
-$shlvl\
-$singularity\
-$kubernetes\
-$directory\
-$vcsh\
-$fossil_branch\
-$git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$hg_branch\
-$pijul_channel\
-$docker_context\
-$package\
-$c\
-$cmake\
-$cobol\
-$daml\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$fennel\
-$golang\
-$guix_shell\
-$haskell\
-$haxe\
-$helm\
-$java\
-$julia\
-$kotlin\
-$gradle\
-$lua\
-$nim\
-$nodejs\
-$ocaml\
-$opa\
-$perl\
-$php\
-$pulumi\
-$purescript\
-$python\
-$raku\
-$rlang\
-$red\
-$ruby\
-$rust\
-$scala\
-$solidity\
-$swift\
-$terraform\
-$vlang\
-$vagrant\
-$zig\
-$buf\
-$nix_shell\
-$conda\
-$meson\
-$spack\
-$memory_usage\
-$aws\
-$gcloud\ $openstack\ $azure\ $env_var\ $crystal\
-$custom\
-$sudo\
-$cmd_duration\
-$line_break\
-$jobs\
-$battery\
-$time\
-$status\
-$os\
-$container\
-$shell\
-$character
-'';
+        format=''$username$hostname$localip$shlvl$singularity$kubernetes$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$pijul_channel$docker_context$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$golang$guix_shell$haskell$haxe$helm$java$julia$kotlin$gradle$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$nix_shell$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$os$container$shell$character'';
         scan_timeout = 10;
       
         add_newline = false;
@@ -186,7 +94,7 @@ $character
           symbol = "🌱 ";
           truncation_length = 4;
           truncation_symbol = "";
-          ignore_branches = ["master", "main"];
+          ignore_branches = ["master" "main"];
         };
       
         git_commit = {
@@ -196,7 +104,7 @@ $character
       
         git_state = {
           format = "[\($state( $progress_current of $progress_total)\)]($style) ";
-          cherry_pick = "[🍒 PICKING](bold red)"
+          cherry_pick = "[🍒 PICKING](bold red)";
         };
       
         git_metrics = {
@@ -269,8 +177,7 @@ $character
         };
       
         shell = {
-          disabled = true;
-        };
+          disabled = true; };
       
         sudo = {
           style = "bold green";
@@ -318,67 +225,81 @@ $character
         window = {
           opacity = 0.8;
         };
-        font = {
-          normal = {
-            family = "MonaspiceAr Nerd Font";
-          };
-        };
+        shell = "zsh";
+       # font = {
+       #   normal = {
+       #     family = "MonaspiceAr Nerd Font";
+       #   };
+       # };
       };
     };
 
+   # programs.eww = {
+   # };
+
     programs.tealdeer = {
       enable = true;
-      settings = ''
-        [display]
-        use_pager = false
-        compact = false
+      settings = {
+        display = {
+          use_pager = false;
+          compact = false;
+        };
         
-        [style.description]
-        foreground = 'white'
-        [style.command_name]
-        foreground = { rgb = { r = 255, g = 190, b = 255 } } # b784b7
-        [style.example_text]
-        foreground = { rgb = { r = 220, g = 180, b = 220 } } # e493b3
-        [style.example_code]
-        foreground = { rgb = { r = 255, g = 205, b = 206 } } # eea5a6
-        [style.example_variable]
-        foreground = { rgb = { r = 180, g = 160, b = 220 } } # 8e7ab5
+        style = {
+          description = {
+            foreground = "white";
+          };
+          command_name = {
+            foreground = { rgb = "{ r = 255, g = 190, b = 255 }"; }; # b784b7
+          };
+          example_text = {
+            foreground = { rgb = "{ r = 220, g = 180, b = 220 }"; }; # e493b3
+          };
+          example_code = {
+            foreground = { rgb = "{ r = 255, g = 205, b = 206 }"; }; # eea5a6
+          };
+          example_variable = {
+            foreground = { rgb = "{ r = 180, g = 160, b = 220 }"; }; # 8e7ab5
+          };
+        };
         
-        [updates]
-        auto_update = true
-        auto_update_interval_hours = 24
-      '';
+        updates = {
+          auto_update = true;
+          auto_update_interval_hours = 24;
+        };
+      };
     };
 
     programs.fuzzel = {
       enable = true;
-      settings = {
-        dpi-aware = false;
-        icon-theme = "Papirus-Dark";
-        width = 25;
-        font = "Hack:weight=medium:size=12";
-        line-height = 14;
-        fields = "name,generic,comment,categories,filename,keywords";
-        terminal = "foot -e";
-        prompt = ">   ";
-        layer = "overlay";
-        
-        colors = {
-          background = "000000aa";
-          selection = "C188DAaa";
-          border = "ffffff20";
-          text = "ffffffff";
-          selection-text = "000000ff";
-        };
+      # settings = {
+      #   icon-theme = "Papirus-Dark";
+      #   width = 25;
+      #   font = "Hack:weight=medium:size=12";
+      #   line-height = 14;
+      #   fields = "name,generic,comment,categories,filename,keywords";
+      #   terminal = "foot -e";
+      #   prompt = ">   ";
+      #   main = {
+      #     layer = "overlay";
+      #   };
+      #   
+      #   colors = {
+      #     background = "000000aa";
+      #     selection = "C188DAaa";
+      #     border = "ffffff20";
+      #     text = "ffffffff";
+      #     selection-text = "000000ff";
+      #   };
 
-        border = {
-          radius = 4;
-        };
+      #   border = {
+      #     radius = 4;
+      #   };
   
-        dmenu = {
-          exit-immediately-if-empty = true;
-        };
-      };
+      #   dmenu = {
+      #     exit-immediately-if-empty = true;
+      #   };
+      # };
     };
 
     programs.btop = {
@@ -458,7 +379,7 @@ $character
 
     programs.bat = {
       enable = true; 
-      settings = {
+      config = {
         paging = "always";
         pager = "less -RF";
       };
@@ -467,6 +388,9 @@ $character
     programs.chromium = {
       enable = true;
       package = pkgs.brave;
+      commandLineArgs = [
+        "--ozone-platform-hint=wayland"
+      ];
       extensions = [
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
@@ -483,7 +407,7 @@ $character
       enable = true;
       settings = {
         version = "1";
-        git_protocol = ssh;
+        git_protocol = "ssh";
       };
     };
 
@@ -501,7 +425,7 @@ $character
       };
     };
 
-    programs.mako = {
+    services.mako = {
       enable = true;
       sort = "-time";
       layer = "overlay";
@@ -510,9 +434,9 @@ $character
       height = 110;
       borderSize = 1;
       borderColor = "#FFFFFF80";
-      padding = 10;
+      padding = "10";
       borderRadius = 2;
-      icons = 0;
+      icons = true;
       maxIconSize = 64;
       defaultTimeout = 5000;
       ignoreTimeout = true;
@@ -531,12 +455,6 @@ $character
       '';
     };
 
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-    xdg.configFile.nvim.source = ../extra/nvim/;
-
     programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
@@ -544,10 +462,11 @@ $character
       ];
     };
 
-    programs.thunderbird = {
-      enable = true;
-    };
+    # programs.thunderbird = {
+    #   enable = true;
+    #   profiles = [];
+    # };
 
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.05";
   };
 }

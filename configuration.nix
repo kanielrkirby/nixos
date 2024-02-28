@@ -7,19 +7,16 @@
 {
   imports =
     [
-      ./config/hardware-configuration.nix
+      ./config/nixos.nix
+      ./hardware-configuration.nix
+      ./config/boot.nix
       ./config/hardware.nix
       ./config/packages.nix
       ./config/home.nix
-      ./config/services.nix
-      ./config/boot.nix
+      ./config/desktop-environment.nix
+      ./config/nixvim.nix
       ./config/network.nix
+      ./config/virtualization.nix
     ];
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # system.copySystemConfiguration = true;
-
-  system.stateVersion = "23.11";
 }
 
