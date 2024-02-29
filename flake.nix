@@ -2,26 +2,35 @@
   description = "My NixOS configuration";
 
   inputs = {
-      hyprland.url = "github:hyprwm/Hyprland";
-
-      nixpkgs.url = "github:NixOS/nixpkgs/d8e0944e6d2ce0f326040e654c07a410e2617d47";
-      # Switch to unstable when the problem above is fixed
-      #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-      home-manager.url = "github:nix-community/home-manager";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+      home-manager.url = "github:nix-community/home-manager/release-23.11";
       home-manager.inputs.nixpkgs.follows = "nixpkgs";
+      hyprland.url = "github:hyprwm/Hyprland";
+      hyprland.inputs.nixpkgs.follows = "nixpkgs";
+      nixvim.url = "github:nix-community/nixvim/nixos-23.11";
+      nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-
-  outputs = {nixpkgs, home-manager, ...} @ inputs: {
-    nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-        ];
+  outputs = { nixpkgs, ... } @ inputs:
+    {
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hardware-configuration.nix
+            ./config/nixos.nix
+            ./config/boot.nix
+            ./config/hardware.nix
+      
+            ./config/packages.nix
+            ./config/home.nix
+            ./config/desktop-environment.nix
+            ./config/nixvim.nix
+            ./config/network.nix
+            ./config/virtualization.nix
+          ];
+        };
       };
     };
-  };
 }

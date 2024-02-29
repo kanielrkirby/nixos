@@ -1,8 +1,21 @@
+{ inputs, ... }:
+
 {
   nixpkgs = {
+    system = "x86_64-linux";
+
     config = {
       allowUnfree = true;
     };
+
+    overlays = [
+      (final: _prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      })
+    ];
   };
 
   i18n.defaultLocale = "en_US.UTF-8";

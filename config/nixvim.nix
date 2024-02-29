@@ -1,12 +1,9 @@
-let
-    nixvim = import (builtins.fetchGit {
-        url = "https://github.com/nix-community/nixvim";
-    });
-in
+{ inputs, pkgs, ... }:
+
 {
 
     imports = [
-        nixvim.nixosModules.nixvim
+        inputs.nixvim.nixosModules.nixvim
     ];
 
     programs.nixvim = {
@@ -15,67 +12,81 @@ in
         colorschemes.gruvbox.enable = true;
 
         plugins = {
+            # none-ls = {
+            #   enable = true;
+            #   enableLspFormat = true;
+            #   sources = {
+            #     formatting = {
+
+            #     };
+            #     diagnostics = {};
+            #     code_actions = {};
+            #   };
+            # };
+
             treesitter = {
                 enable = true;
                 folding = true;
                 indent = true;
                 ensureInstalled = [
                     "go"
-                        "lua"
-                        "query"
-                        "javascript"
-                        "typescript"
-                        "tsx"
-                        "html"
-                        "json"
-                        "yaml"
-                        "bash"
-                        "python"
-                        "vue"
-                        "astro"
-                        "svelte"
-                        "rust"
-                        "toml"
-                        "dockerfile"
-                        "regex"
-                        "comment" "graphql" "java"
-                        "awk"
-                        "cpp"
-                        "cmake"
-                        "make"
-                        "c_sharp"
-                        "css"
-                        "csv"
-                        "c"
-                        "git_config"
-                        "gitcommit"
-                        "gitignore"
-                        "git_rebase"
-                        "gitattributes"
-                        "gpg"
-                        "htmldjango"
-                        "http"
-                        "json5"
-                        "jsdoc"
-                        "jq"
-                        "luadoc"
-                        "markdown_inline"
-                        "markdown"
-                        "nix"
-                        "passwd"
-                        "prisma"
-                        "proto"
-                        "ruby"
-                        "rust"
-                        "scss"
-                        "sql"
-                        "vim"
-                        "vimdoc"
-                        "vue"
-                        "xml"
-                        "yaml"
-                        "nix"
-                        ];
+                    "lua"
+                    "query"
+                    "javascript"
+                    "typescript"
+                    "tsx"
+                    "html"
+                    "json"
+                    "yaml"
+                    "bash"
+                    "python"
+                    "vue"
+                    "astro"
+                    "svelte"
+                    "rust"
+                    "toml"
+                    "dockerfile"
+                    "regex"
+                    "comment"
+                    "graphql"
+                    "java"
+                    "awk"
+                    "cpp"
+                    "cmake"
+                    "make"
+                    "c_sharp"
+                    "css"
+                    "csv"
+                    "c"
+                    "git_config"
+                    "gitcommit"
+                    "gitignore"
+                    "git_rebase"
+                    "gitattributes"
+                    "gpg"
+                    "htmldjango"
+                    "http"
+                    "json5"
+                    "jsdoc"
+                    "jq"
+                    "luadoc"
+                    "markdown_inline"
+                    "markdown"
+                    "nix"
+                    "passwd"
+                    "prisma"
+                    "proto"
+                    "ruby"
+                    "rust"
+                    "scss"
+                    "sql"
+                    "vim"
+                    "vimdoc"
+                    "vue"
+                    "xml"
+                    "yaml"
+                    "nix"
+                    ];
             };
             ts-autotag.enable = true;
             nvim-autopairs = {
@@ -83,43 +94,45 @@ in
                 checkTs = true;
             };
 
-            codeium-vim = {
-                enable = true;
-            };
+            #codeium-vim = {
+            #    enable = true;
+            #};
 
             lsp = {
-                enable = true;
-                enabledServers = [
-                    "astro"
-                        "biome"
-                        "eslint"
-                        "lua_ls"
-                        "emmet_language_server"
-                        "bashls"
-                        "volar"
-                        "tailwindcss"
-                        "sqlls"
-                        "gopls"
-                        "html"
-                        "stylelint_lsp"
-                        "jedi_language_server"
-                        "nixd"
-                ];
-                keymaps = {
-                    lspBuf = {
-                        "<leader>gd" = "definition";
-                        "K" = "hover";
-                        "<leader>vws" = "workspace_symbol";
-                        "<leader>vca" = "code_action";
-                        "<leader>vrr" = "references";
-                        "<leader>vrn" = "rename";
-                    };
-                    diagnostic = {
-                        "<leader>vd" = "open_float";
-                        "[d" = "goto_next";
-                        "]d" = "goto_prev";
-                    };
+              enable = true;
+              servers = { 
+                astro.enable = true;
+                bashls.enable = true;
+                biome.enable = true;
+                emmet_ls.enable = true;
+                eslint.enable = true;
+                gopls.enable = true;
+                html.enable = true;
+                # jedi_language_server.enable = true;
+                lua-ls.enable = true;
+                nixd.enable = true;
+                # stylelint_lsp.enable = true;
+                # sqlls.enable = true;
+                tailwindcss.enable = true;
+                volar.enable = true;
+              };
+              keymaps = {
+                silent = true;
+                lspBuf = {
+                  "<leader>gd" = "definition";
+                  "K" = "hover";
+                  "<leader>vws" = "workspace_symbol";
+                  "<leader>vca" = "code_action";
+                  "<leader>vrr" = "references";
+                  "<leader>vrn" = "rename";
+                  "<leader>F" = "format";
                 };
+                diagnostic = {
+                  "<leader>vd" = "open_float";
+                  "[d" = "goto_next";
+                  "]d" = "goto_prev";
+                };
+              };
             };
 
             nvim-cmp = {
@@ -133,22 +146,25 @@ in
                 };
                 snippet.expand = "luasnip";
                 sources = [
-                { name = "nvim_lsp"; }
-                { name = "luasnip"; }
-                { name = "path"; }
-                { name = "codeium"; }
+                  { name = "nvim_lsp"; }
+                  { name = "luasnip"; }
+                  { name = "path"; }
+                  { name = "codeium"; }
                 ];
             };
             cmp-nvim-lsp.enable = true;
             cmp-path.enable = true;
             luasnip.enable = true;
 
-            conform-nvim = {
-                enable = true;
-                formattersByFt = {
-                    lua = [ "stylua" ];
-                };
-            };
+#             conform-nvim = {
+#                 enable = true;
+#                 formattersByFt = {
+#                     lua = [ "stylua" ];
+#                     nix = [ "nixd" ];
+#                     "*" = [ "codespell" ];
+#                     "_" = [ "trim_whitespace" ];
+#                 };
+#             };
 
             lualine = {
                 enable = true;
@@ -304,10 +320,6 @@ in
         {
             mode = "n"; key = "Q"; action = "<nop>";
         }
-#      --vim.keymap.set("n", "<leader>f", function()
-#      --  vim.lsp.buf.format()
-#      --end)
-
         {
             mode = "n"; key = "<C-k>"; action = "<cmd>cprev<CR>zz";
         }
@@ -371,6 +383,14 @@ in
         }
         {
             mode = "n"; key = "<C-w>ev"; action = "<cmd>vsplit term://zsh<CR>";
+        }
+        {
+
+            mode = "n"; key = "<leader>f"; lua = true; action = ''
+                function (args)
+                     require('conform').format({ async = true, lsp_fallback = true })
+                end
+            '';
         }
         ];
 

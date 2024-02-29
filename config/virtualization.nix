@@ -13,12 +13,7 @@
 
   programs.virt-manager.enable = true;
 
-  home-manager.users.mx.dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
-    };
-  };
+  # mx.dconf settings are in ./home-manager.nix
 
-  # mx is added it "libvirtd" group in ./home.nix
+  # mx is added to "libvirtd" group in ./home-manager.nix
 }
