@@ -10,23 +10,26 @@
     (nerdfonts.override { fonts = [ "Monaspace" ]; })
   ];
 
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
+  programs = {
+    mtr.enable = true;
+    gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+    };
+
+    thunar = {
       enable = true;
-      enableSSHSupport = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+      ];
+    };
+
+    zsh.enable = true;
+
+    hyprland.enable = true;
   };
 
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-volman
-      thunar-archive-plugin
-    ];
-  };
-
-  programs.zsh.enable = true;
-
-  programs.hyprland.enable = true;
 
 #  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
