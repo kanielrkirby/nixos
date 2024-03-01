@@ -12,17 +12,19 @@
         colorschemes.gruvbox.enable = true;
 
         plugins = {
-            # none-ls = {
-            #   enable = true;
-            #   enableLspFormat = true;
-            #   sources = {
-            #     formatting = {
+            none-ls = {
+              enable = true;
+              enableLspFormat = true;
+              sources = {
+                formatting = {
 
-            #     };
-            #     diagnostics = {};
-            #     code_actions = {};
-            #   };
-            # };
+                };
+                diagnostics = {};
+                code_actions = {};
+              };
+            };
+
+            lsp-format.enable = true;
 
             treesitter = {
                 enable = true;
@@ -197,14 +199,6 @@
 
             comment-nvim = {
                 enable = true;
-            };
-
-            noice = {
-                enable = true;
-                cmdline.enabled = true;
-                messages.enabled = true;
-                popupmenu.enabled = true;
-                notify.enabled = true;
             };
 
             notify = {

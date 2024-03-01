@@ -2,8 +2,10 @@
 
 {
   security.rtkit.enable = true;
+  sound.enable = true;
   services.pipewire = {
     enable = true;
+    wireplumber.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -16,12 +18,14 @@
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
-        mesa
-        intel-compute-runtime
         intel-media-driver
+        vaapiVdpau
+        libvdpau-va-gl
       ];
     };
   };
+
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
   services.tlp = {
     enable = true;

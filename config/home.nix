@@ -9,15 +9,15 @@
     defaultUserShell = pkgs.zsh;
     users.mx = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" ];
+      extraGroups = [ "wheel" "libvirtd" "networkmanager" ];
     };
   };
 
-#  qt = {
-#    enable = true;
-#    platformTheme = "gtk2";
-#    style = "gtk2";
-#  };
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "gtk2";
+  };
 
   home-manager = {
     useGlobalPkgs = true;
@@ -25,39 +25,21 @@
     users.mx = { pkgs, ... }: {
       home.stateVersion = "23.11";
 
-#      gtk = {
-#        enable = true;
-#        theme = {
-#          package = pkgs.fluent-gtk-theme;
-#          name = "Fluent-GTK";
-#        };
-#
-#        iconTheme = {
-#          package = pkgs.fluent-icon-theme;
-#          name = "Fluent";
-#        };
-#
-#        font = {
-#          name = "Noto Sans";
-#          size = 14;
-#        };
-#      };
-
       gtk = {
         enable = true;
         theme = {
-          package = pkgs.flat-remix-gtk;
-          name = "Flat-Remix-GTK-Grey-Darkest";
+          package = pkgs.fluent-gtk-theme;
+          name = "Fluent-GTK";
         };
 
         iconTheme = {
-          package = pkgs.gnome.adwaita-icon-theme;
-          name = "Adwaita";
+          package = pkgs.fluent-icon-theme;
+          name = "Fluent";
         };
 
         font = {
-          name = "Sans";
-          size = 12;
+          name = "Noto Sans";
+          size = 14;
         };
       };
 
@@ -83,21 +65,55 @@
         brightnessctl
         playerctl
         libnotify
-        glib
+        hyprpaper
       ];
 
       programs.less.enable = true;
 
       programs.zsh = {
-        enable = true; 
+        enable = true;
         enableAutosuggestions = true;
         syntaxHighlighting.enable = true;
         enableCompletion = true;
-        profileExtra = ''
+        initExtra = ''
           export LANG="en_US.UTF-8"
           export LC_ALL="$LANG"
           export ANKI_WAYLAND="1"
           alias svim="sudo -E -s nvim"
+          update() {
+              local name=""
+              local type="test"  # Default type
+
+              for arg in "$@"; do
+                  case $arg in
+                      --type=*)
+                          type="${"\${'arg#*=}"}"
+                          shift
+                          ;;
+                      *)
+                          # Assuming the first non-option argument is the name
+                          if [[ -z "$name" ]]; then
+                              name="$arg"
+                          else
+                              echo "Error: Unexpected argument: $arg"
+                              return 1
+                          fi
+                          ;;
+                  esac
+              done
+
+              if [[ -z "$name" ]]; then
+                  echo "Error: Name is required."
+                  return 1
+              fi
+
+              name="$(echo $name | sed "s/ /_/g")"
+
+              NIXOS_LABEL="$(date "+%Y-%m-%dT%H-%M-%S")__$name"
+              sudo --preserve-env=NIXOS_LABEL nixos-rebuild "$type" --flake /etc/nixos#nixos
+              env -u NIXOS_LABEL
+          }
+
         '';
       };
 
@@ -277,12 +293,11 @@
       };
 
       programs.alacritty = {
-        enable = true; 
+        enable = true;
         settings = {
           window = {
             opacity = 0.8;
           };
-          shell = "zsh";
           font = {
             normal = {
               family = "MonaspiceNe NF";
@@ -296,40 +311,257 @@
         };
       };
 
-     # programs.eww = {
-     # };
-
       programs.tealdeer = {
         enable = true;
-#        settings = {
-#          display = {
-#            use_pager = false;
-#            compact = false;
-#          };
-#
-#          style = {
-#            description = {
-#              foreground = "white";
-#            };
-#            command_name = {
-#              foreground = { rgb = "{ r = 255, g = 190, b = 255 }"; }; # b784b7
-#            };
-#            example_text = {
-#              foreground = { rgb = "{ r = 220, g = 180, b = 220 }"; }; # e493b3
-#            };
-#            example_code = {
-#              foreground = { rgb = "{ r = 255, g = 205, b = 206 }"; }; # eea5a6
-#            };
-#            example_variable = {
-#              foreground = { rgb = "{ r = 180, g = 160, b = 220 }"; }; # 8e7ab5
-#            };
-#          };
-#
-#          updates = {
-#            auto_update = true;
-#            auto_update_interval_hours = 24;
-#          };
-#        };
+        settings = {
+          display = {
+            use_pager = false;
+            compact = false;
+          };
+
+          style = {
+            description = {
+              foreground = "white";
+            };
+            command_name = {
+              foreground = { rgb = "{ r = 255, g = 190, b = 255 }"; }; # b784b7
+            };
+            example_text = {
+              foreground = { rgb = "{ r = 220, g = 180, b = 220 }"; }; # e493b3
+            };
+            example_code = {
+              foreground = { rgb = "{ r = 255, g = 205, b = 206 }"; }; # eea5a6
+            };
+            example_variable = {
+              foreground = { rgb = "{ r = 180, g = 160, b = 220 }"; }; # 8e7ab5
+            };
+          };
+
+          updates = {
+            auto_update = true;
+            auto_update_interval_hours = 24;
+          };
+        };
+      };
+
+      programs.waybar = {
+          enable = true;
+          settings = {
+            mainBar = {
+              layer = "top";
+              position = "left";
+              modules-left = ["hyprland/workspaces"];
+              modules-center = [];
+              modules-right = ["pulseaudio" "network" "backlight" "battery" "clock" "tray" "custom/power"];
+
+              "hyprland/workspaces" = {
+                disable-scroll = true;
+                sort-by-name = false;
+                active-only = false;
+                all-outputs = true;
+                format = "{icon}";
+                format-icons = {default = "";};
+              };
+
+              pulseaudio = {
+                format = " {icon} ";
+                format-muted = "󰖁";
+                format-icons = ["" "" ""];
+                tooltip = true;
+                tooltip-format = "{volume}%";
+              };
+
+              network = {
+                format-wifi = "󰤨 ";
+                format-disconnected = "󰤭 ";
+                format-ethernet = "󰈀 ";
+                tooltip = true;
+                tooltip-format = "{signalStrength}%";
+                onclick = "hyprctl dispatch workspace special:network && alacritty -e 'nmcli d w'";
+              };
+
+              backlight = {
+                device = "intel_backlight";
+                format = "{icon}";
+                format-icons = ["" "" "" "" "" "" "" "" ""];
+                tooltip = true;
+                tooltip-format = "{percent}%";
+              };
+
+              battery = {
+                states = {
+                  warning = 30;
+                  critical = 15;
+                };
+                format = "{icon}";
+                format-charging = "󰂄";
+                format-plugged = "󰂄";
+                format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+                tooltip = true;
+                tooltip-format = "{capacity}%";
+              };
+
+              clock = {
+                tooltip-format = ''
+                  <big>{:%Y %B}</big>
+                  <tt><small>{calendar}</small></tt>'';
+                format-alt = ''
+                   {:%d
+                   %m
+                  %Y}'';
+                format = ''
+                  {:%H
+                  %M}'';
+              };
+
+              tray = {
+                icon-size = 18;
+                spacing = 20;
+              };
+            };
+          };
+          style = ''
+            /*
+            *
+            * Catppuccin Mocha palette
+            * Maintainer: rubyowo
+            *
+            */
+
+            @define-color base   #1e1e2e;
+            @define-color mantle #181825;
+            @define-color crust  #11111b;
+
+            @define-color text     #cdd6f4;
+            @define-color subtext0 #a6adc8;
+            @define-color subtext1 #bac2de;
+
+            @define-color surface0 #313244;
+            @define-color surface1 #45475a;
+            @define-color surface2 #585b70;
+
+            @define-color overlay0 #6c7086;
+            @define-color overlay1 #7f849c;
+            @define-color overlay2 #9399b2;
+
+            @define-color blue      #89b4fa;
+            @define-color lavender  #b4befe;
+            @define-color sapphire  #74c7ec;
+            @define-color sky       #89dceb;
+            @define-color teal      #94e2d5;
+            @define-color green     #a6e3a1;
+            @define-color yellow    #f9e2af;
+            @define-color peach     #fab387;
+            @define-color maroon    #eba0ac;
+            @define-color red       #f38ba8;
+            @define-color mauve     #cba6f7;
+            @define-color pink      #f5c2e7;
+            @define-color flamingo  #f2cdcd;
+            @define-color rosewater #f5e0dc;
+
+            * {
+              font-family: MonaspiceXe Nerd Font Regular;
+              font-size: 16px;
+              min-height: 0;
+            }
+
+            window#waybar {
+              background: transparent;
+            }
+
+            #workspaces {
+              border-radius: 1rem;
+              background-color: @surface0;
+              margin-top: 1rem;
+              margin: 7px 3px 0px 7px;
+            }
+
+            #workspaces button {
+              color: @pink;
+              border-radius: 1rem;
+              padding-left: 6px;
+              margin: 5px 0;
+              box-shadow: inset 0 -3px transparent;
+              transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68);
+              background-color: transparent;
+            }
+
+            #workspaces button.active {
+              color: @flamingo;
+              border-radius: 1rem;
+            }
+
+            #workspaces button:hover {
+              color: @rosewater;
+              border-radius: 1rem;
+            }
+
+            #tray,
+            #network,
+            #backlight,
+            #clock,
+            #battery,
+            #pulseaudio,
+            #custom-lock,
+            #custom-power {
+              background-color: @surface0;
+              margin: 7px 3px 0px 7px;
+              padding: 10px 5px 10px 5px;
+              border-radius: 1rem;
+            }
+
+            #clock {
+              color: @lavender;
+            }
+
+            #battery {
+              color: @green;
+            }
+
+            #battery.charging {
+              color: @green;
+            }
+
+            #battery.warning:not(.charging) {
+              color: @red;
+            }
+
+            #network {
+                color: @flamingo;
+            }
+
+            #backlight {
+              color: @yellow;
+            }
+
+            #pulseaudio {
+              color: @pink;
+            }
+
+            #pulseaudio.muted {
+                color: @red;
+            }
+
+            #custom-power {
+                border-radius: 1rem;
+                color: @red;
+                margin-bottom: 1rem;
+            }
+
+            #tray {
+              border-radius: 1rem;
+            }
+
+            tooltip {
+                background: @base;
+                border: 1px solid @pink;
+            }
+
+            tooltip label {
+                color: @text;
+            }
+          '';
+
       };
 
       programs.fuzzel = {
@@ -345,7 +577,7 @@
         #   main = {
         #     layer = "overlay";
         #   };
-        #   
+        #
         #   colors = {
         #     background = "000000aa";
         #     selection = "C188DAaa";
@@ -365,7 +597,7 @@
       };
 
       programs.btop = {
-        enable = true; 
+        enable = true;
         settings = {
           theme_background = false;
           truecolor = true;
@@ -440,7 +672,7 @@
       };
 
       programs.bat = {
-        enable = true; 
+        enable = true;
         config = {
           paging = "always";
           pager = "less -RF";
@@ -457,6 +689,7 @@
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
           "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
           "naepdomgkenhinolocfifgehidddafch" # Browserpass
+          "hipekcciheckooncpjeljhnekcoolahp" # Tabliss
         ];
       };
 
@@ -532,3 +765,4 @@
     };
   };
 }
+

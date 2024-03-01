@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ inputs, pkgs, ... }:
 
 {
   services.xserver = {
@@ -16,6 +16,14 @@
     };
   };
 
+  xdg.portal = {
+      wlr.enable = true;
+      extraPortals = with pkgs; [
+          xdg-desktop-portal-hyprland
+          xdg-desktop-portal-gtk
+      ];
+  };
+
   home-manager = {
     users.mx.home.pointerCursor = {
       gtk.enable = true;
@@ -28,26 +36,38 @@
     users.mx.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
+      systemd.enable = true;
 
       settings = {
         # ENV
-        monitor=[
-          "eDP-1,2400x1600,0x0,1.6"
-          ",preferred,auto,1"
+        monitor = [
+          ",preferred,auto,1.6"
         ];
         env = [
-          "XCURSOR_SIZE,20"
         ];
-        
-        # STARTUP
+
+        workspace = [
+          "1,persistent:true"
+          "2,persistent:true"
+          "3,persistent:true"
+          "4,persistent:true"
+          "5,persistent:true"
+          "6,persistent:true"
+          "7,persistent:true"
+          "8,persistent:true"
+          "9,persistent:true"
+          "10,persistent:true"
+        ];
+
         exec-once = [
-          "xcalib /usr/share/color/icc/BOE_CQ_______NE135FBM_N41_01.icm"
-          "hyprpm enable hyprbars"
-          "eww open bar0"
-          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          #"hyprpm enable hyprbars"
           "systemctl --user import-environment"
+          "waybar"
+          "hyprpaper"
         ];
-        
+
+        #debug.overlay = true;
+
         # VARS
         input = {
           kb_layout = "us";
@@ -60,12 +80,13 @@
             disable_while_typing = true;
           };
           sensitivity = 0.2;
+          kb_options = [ ];
         };
-        
+
         device.logitech-mx-master-3-for-mac-1 = {
           sensitivity = -0.2;
         };
-        
+
         general = {
           gaps_in = 2;
           gaps_out = 2;
@@ -75,87 +96,80 @@
           layout = "dwindle";
           allow_tearing = false;
         };
-        
+
         decoration = {
           rounding = 3;
-          blur = {
-            enabled = false;
-            size = 3;
-            passes = 1;
-            vibrancy = 0.1696;
-          };
+          blur.enabled = false;
           drop_shadow = false;
-          shadow_range = 4;
-          shadow_render_power = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
+          dim_inactive = false;
         };
-        
-        animations = {
-          enabled = false;
-        };
-        
+
+        animations.enabled = false;
+
         dwindle = {
           pseudotile = true;
           preserve_split = true;
         };
-        
+
         gestures = {
           workspace_swipe = true;
         };
-        
+
         misc = {
           force_default_wallpaper = false;
           disable_hyprland_logo = true;
+          vfr=false;
         };
 
       };
+      plugins = [
+        # inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      ];
       extraConfig = ''
       # BINDS
 
-      $mod1 = SUPER
-      
       # Global / General
-      bind = $mod1, space, exec, fuzzel
-      bind = $mod1, P, togglefloating,
-      bind = $mod1+SHIFT, P, togglesplit,
-      binde = $mod1, Q, killactive
-      
+      bind = SUPER, space, exec, fuzzel
+      bind = SUPER, P, togglefloating,
+      bind = SUPER+SHIFT, P, togglesplit,
+      binde = SUPER, Q, killactive
+
       # Fn / Function Keys
       bindelt = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+ -l 1.0
       bindelt = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%- -l 1.0
       bindelt = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle
-      bindelt = $mod1, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+
-      bindelt = $mod1, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-
+      bindelt = SUPER, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+
+      bindelt = SUPER, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-
       bindelt = , XF86MonBrightnessUp, exec, brightnessctl set +5%
       bindelt = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
       bindt = , Print, exec, grim -g "$(slurp)
-      bindt = $mod1, Print, exec, grim -g "$(slurp)
+      bindt = SUPER, Print, exec, grim -g "$(slurp)
       bindelt = , XF86AudioPlay, exec, playerctl play-pause
       bindelt = , XF86AudioNext, exec, playerctl position 5+
       bindelt = , XF86AudioPrev, exec, playerctl position 5-
-      
+
       # Pass / 2FA
-      bind = $mod1, Period, exec, hyprctl exec 
-      bind = $mod1+CTRL, Period, exec, sys secure 2fa insert
-      bind = $mod1+SHIFT, Period, togglespecialworkspace, 2fa
-      bind = $mod1, Comma, exec, sys secure pass show
-      bind = $mod1+CTRL, Comma, exec, sys secure pass insert
-      bind = $mod1+SHIFT, Comma, togglespecialworkspace, pass
-      
+      bind = SUPER, Period, exec, hyprctl exec
+      bind = SUPER+CTRL, Period, exec, sys secure 2fa insert
+      bind = SUPER+SHIFT, Period, togglespecialworkspace, 2fa
+      bind = SUPER, Comma, exec, sys secure pass show
+      bind = SUPER+CTRL, Comma, exec, sys secure pass insert
+      bind = SUPER+SHIFT, Comma, togglespecialworkspace, pass
+
       # Vim-like window movement
-      bind = $mod1, H, movewindow, l
-      bind = $mod1, L, movewindow, r
-      bind = $mod1, K, movewindow, u
-      bind = $mod1, J, movewindow, d
-      bind = $mod1+SHIFT_L, H, movefocus, l
-      bind = $mod1+SHIFT_L, L, movefocus, r
-      bind = $mod1+SHIFT_L, K, movefocus, u
-      bind = $mod1+SHIFT_L, J, movefocus, d
-      
+      bind = SUPER, H, movewindow, l
+      bind = SUPER, L, movewindow, r
+      bind = SUPER, K, movewindow, u
+      bind = SUPER, J, movewindow, d
+      bind = SUPER+SHIFT_L, H, movefocus, l
+      bind = SUPER+SHIFT_L, L, movefocus, r
+      bind = SUPER+SHIFT_L, K, movefocus, u
+      bind = SUPER+SHIFT_L, J, movefocus, d
+
       bindirtl = SUPER, SUPER_L, submap, reset
-      
+
       # Primary Submap
-      bindl = $mod1, semicolon, submap, primary
+      bindl = SUPER, semicolon, submap, primary
       submap = primary
       bindil = , N, submap, n
       bindil = , M, submap, mullvad
@@ -169,25 +183,26 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Launch
       submap = launch
-      bindil = $mod1, T, exec, alacritty
-      bindil = $mod1, E, exec, sys file
-      bindil = $mod1, V, exec, virt-manager
-      bindil = $mod1, W, exec, brave
-      bindil = $mod1, B, exec, alacritty -e btop
-      bindil = $mod1, Z, exec, signal-desktop --ozone-platform=wayland
-      bindil = $mod1, C, exec, code
-      bindil = $mod1, N, exec, alacritty -e nvim ~
-      bindil = $mod1, M, exec, thunderbird
-      bindil = $mod1, V, exec, virt-manager
-      bindil = $mod1, D, exec, dbeaver
-      bindil = $mod1, L, exec, localsend
+      bindil = SUPER, T, exec, alacritty
+      bindil = SUPER, R, exec, kitty
+      bindil = SUPER, E, exec, sys file
+      bindil = SUPER, V, exec, virt-manager
+      bindil = SUPER, W, exec, brave
+      bindil = SUPER, B, exec, alacritty -e btop
+      bindil = SUPER, Z, exec, signal-desktop --ozone-platform=wayland
+      bindil = SUPER, C, exec, code
+      bindil = SUPER, N, exec, alacritty -e nvim ~
+      bindil = SUPER, M, exec, thunderbird
+      bindil = SUPER, V, exec, virt-manager
+      bindil = SUPER, D, exec, dbeaver
+      bindil = SUPER, L, exec, localsend
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Browser Mode
       submap = browser
       bindil = , Y, exec, brave https://youtube.com
@@ -207,7 +222,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # System Mode
       submap = system
       bindil = , R, exec, reboot
@@ -216,7 +231,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Fan Duty Mode
       submap = fanduty
       bindil = , A, exec, ectool autofanctrl & notify-send "Fan: Auto"
@@ -234,7 +249,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Mullvad Mode
       submap = mullvad
       bindil = , R, exec, mullvad reconnect --wait; if [[ "$(mullvad status)" = "Disconnected" ]]; then mullvad connect --wait; fi; notify-send "$(mullvad status)"
@@ -244,7 +259,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap=reset
-      
+
       # Nightlight / Notification Mode
       submap = n
       bindil = , A, exec, hyprshade auto & notify-send "Nightlight: Auto"
@@ -254,7 +269,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Syncthing Mode
       # submap = syncthing
       # bindil = , R, exec, sys syncthing restart
@@ -263,7 +278,7 @@
       # bindil = , escape, submap, reset
       # bindirtl = SUPER, SUPER_L, submap, reset
       # submap = reset
-      
+
       # Bluetooth Mode
       submap = bluetooth
       bindil = , C, submap, bluetooth_connect
@@ -271,7 +286,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Bluetooth Connect Mode
       submap = bluetooth_connect
       bindil = , H, exec, bluetoothctl connect "" & notify-send "Bluetooth: Headphones Connected"
@@ -279,7 +294,7 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Bluetooth Disconnect Mode
       submap = bluetooth_disconnect
       bindil = , H, exec, bluetoothctl disconnect "" & notify-send "Bluetooth: Headphones Disconnected"
@@ -287,46 +302,44 @@
       bindil = , escape, submap, reset
       bindirtl = SUPER, SUPER_L, submap, reset
       submap = reset
-      
+
       # Workspaces
-      bind = $mod1, 1, workspace, 1
-      bind = $mod1, 2, workspace, 2
-      bind = $mod1, 3, workspace, 3
-      bind = $mod1, 4, workspace, 4
-      bind = $mod1, 5, workspace, 5
-      bind = $mod1, 6, workspace, 6
-      bind = $mod1, 7, workspace, 7
-      bind = $mod1, 8, workspace, 8
-      bind = $mod1, 9, workspace, 9
-      bind = $mod1, 0, workspace, 10
-      bind = $mod1 SHIFT, 1, movetoworkspace, 1
-      bind = $mod1 SHIFT, 2, movetoworkspace, 2
-      bind = $mod1 SHIFT, 3, movetoworkspace, 3
-      bind = $mod1 SHIFT, 4, movetoworkspace, 4
-      bind = $mod1 SHIFT, 5, movetoworkspace, 5
-      bind = $mod1 SHIFT, 6, movetoworkspace, 6
-      bind = $mod1 SHIFT, 7, movetoworkspace, 7
-      bind = $mod1 SHIFT, 8, movetoworkspace, 8
-      bind = $mod1 SHIFT, 9, movetoworkspace, 9
-      bind = $mod1 SHIFT, 0, movetoworkspace, 10
-      
+      bind = SUPER, 1, workspace, 1
+      bind = SUPER, 2, workspace, 2
+      bind = SUPER, 3, workspace, 3
+      bind = SUPER, 4, workspace, 4
+      bind = SUPER, 5, workspace, 5
+      bind = SUPER, 6, workspace, 6
+      bind = SUPER, 7, workspace, 7
+      bind = SUPER, 8, workspace, 8
+      bind = SUPER, 9, workspace, 9
+      bind = SUPER, 0, workspace, 10
+      bind = SUPER SHIFT, 1, movetoworkspace, 1
+      bind = SUPER SHIFT, 2, movetoworkspace, 2
+      bind = SUPER SHIFT, 3, movetoworkspace, 3
+      bind = SUPER SHIFT, 4, movetoworkspace, 4
+      bind = SUPER SHIFT, 5, movetoworkspace, 5
+      bind = SUPER SHIFT, 6, movetoworkspace, 6
+      bind = SUPER SHIFT, 7, movetoworkspace, 7
+      bind = SUPER SHIFT, 8, movetoworkspace, 8
+      bind = SUPER SHIFT, 9, movetoworkspace, 9
+      bind = SUPER SHIFT, 0, movetoworkspace, 10
+
       # Special Workspaces
-      bind = $mod1, A, togglespecialworkspace, scratchpad-1
-      bind = $mod1, S, togglespecialworkspace, scratchpad-2
-      bind = $mod1, D, togglespecialworkspace, scratchpad-3
-      bind = $mod1, F, togglespecialworkspace, scratchpad-4
-      bind = $mod1 SHIFT, A, movetoworkspace, special:scratchpad-1
-      bind = $mod1 SHIFT, S, movetoworkspace, special:scratchpad-2
-      bind = $mod1 SHIFT, D, movetoworkspace, special:scratchpad-3
-      bind = $mod1 SHIFT, F, movetoworkspace, special:scratchpad-4
-      bind = $mod1, N, exec, alacritty -e nvim /home/mx/Documents/
-      
+      bind = SUPER, A, togglespecialworkspace, scratchpad-1
+      bind = SUPER, S, togglespecialworkspace, scratchpad-2
+      bind = SUPER, D, togglespecialworkspace, scratchpad-3
+      bind = SUPER, F, togglespecialworkspace, scratchpad-4
+      bind = SUPER SHIFT, A, movetoworkspace, special:scratchpad-1
+      bind = SUPER SHIFT, S, movetoworkspace, special:scratchpad-2
+      bind = SUPER SHIFT, D, movetoworkspace, special:scratchpad-3
+      bind = SUPER SHIFT, F, movetoworkspace, special:scratchpad-4
+      bind = SUPER, N, exec, alacritty -e nvim /home/mx/Documents/
+
       # SWITCH
       bindl= , switch:Lid Switch, exec, sys lock
       '';
     };
-    #plugins = [
-    #  #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-    #];
   };
 }
+
