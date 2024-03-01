@@ -17,11 +17,49 @@
   };
 
   outputs = { nixpkgs, ... } @ inputs:
+  let 
+    system = "x86_64-linux";
+    kernel = "6_7";
+    version = "23.11";
+    hostName = "nixos";
+    username = "mx";
+    locale = "en_US.UTF-8";
+    kbLayout = "us";
+    timeZone = "America/Chicago";
+    wallpaperGit = "https://github.com/grapeofwrath/wallpapers.git";
+    wallpaperDir = "/home/${username}/Pictures/Wallpapers";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+      overlays = [
+        (final: _prev: {
+          unstable = import inputs.nixpkgs-unstable {
+            system = system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+    };
+  in
     {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit system;
+            inherit kernel;
+            inherit version;
+            inherit inputs;
+            inherit hostName;
+            inherit username;
+            inherit timeZone;
+            inherit locale;
+            inherit kbLayout;
+            inherit wallpaperDir;
+            inherit wallpaperGit;
+            inherit pkgs;
+          };
           modules = [
             ./hardware-configuration.nix
             ./config/nixos.nix
@@ -33,12 +71,7 @@
             ./config/nixvim.nix
             ./config/network.nix
             ./config/virtualization.nix
-            import ./config/hyprpaper.nix {
-                inherit nixpkgs;
-                username = "mx";
-                wallpaperDir = "/nixos/etc/extra/wallpapers";
-                wallpaperGit = "https://github.com/antoniosarosi/Wallpapers.git";
-            }
+            ./config/hyprpaper.nix
           ];
         };
       };

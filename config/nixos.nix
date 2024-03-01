@@ -1,8 +1,8 @@
-{ inputs, ... }:
+{ system, locale, version, inputs, ... }:
 
 {
   nixpkgs = {
-    system = "x86_64-linux";
+    system = system;
 
     config = {
       allowUnfree = true;
@@ -11,14 +11,14 @@
     overlays = [
       (final: _prev: {
         unstable = import inputs.nixpkgs-unstable {
-          system = "x86_64-linux";
+          system = system;
           config.allowUnfree = true;
         };
       })
     ];
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = locale;
 
   # system.copySystemConfiguration = true;
 
@@ -30,5 +30,5 @@
 
   system.nixos.label = "";
 
-  system.stateVersion = "23.11";
+  system.stateVersion = version;
 }

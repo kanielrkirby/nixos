@@ -12,15 +12,24 @@
         colorschemes.gruvbox.enable = true;
 
         plugins = {
-            none-ls = {
+            null-ls = {
               enable = true;
               enableLspFormat = true;
               sources = {
                 formatting = {
-
+                  biome.enable = true; 
+                  prettierd.enable = true;
+                  nixfmt.enable = true;
+                  codespell.enable = true;
+                  gofmt.enable = true;
                 };
-                diagnostics = {};
+                diagnostics = {
+                    
+                };
                 code_actions = {};
+                completion = {
+                  luasnip.enable = true;
+                };
               };
             };
 
@@ -30,65 +39,67 @@
                 enable = true;
                 folding = true;
                 indent = true;
-                ensureInstalled = [
-                    "go"
-                    "lua"
-                    "query"
-                    "javascript"
-                    "typescript"
-                    "tsx"
-                    "html"
-                    "json"
-                    "yaml"
-                    "bash"
-                    "python"
-                    "vue"
-                    "astro"
-                    "svelte"
-                    "rust"
-                    "toml"
-                    "dockerfile"
-                    "regex"
-                    "comment"
-                    "graphql"
-                    "java"
-                    "awk"
-                    "cpp"
-                    "cmake"
-                    "make"
-                    "c_sharp"
-                    "css"
-                    "csv"
-                    "c"
-                    "git_config"
-                    "gitcommit"
-                    "gitignore"
-                    "git_rebase"
-                    "gitattributes"
-                    "gpg"
-                    "htmldjango"
-                    "http"
-                    "json5"
-                    "jsdoc"
-                    "jq"
-                    "luadoc"
-                    "markdown_inline"
-                    "markdown"
-                    "nix"
-                    "passwd"
-                    "prisma"
-                    "proto"
-                    "ruby"
-                    "rust"
-                    "scss"
-                    "sql"
-                    "vim"
-                    "vimdoc"
-                    "vue"
-                    "xml"
-                    "yaml"
-                    "nix"
-                    ];
+                ensureInstalled = 
+                  "all";
+                  #[
+                  #  "go"
+                  #  "lua"
+                  #  "query"
+                  #  "javascript"
+                  #  "typescript"
+                  #  "tsx"
+                  #  "html"
+                  #  "json"
+                  #  "yaml"
+                  #  "bash"
+                  #  "python"
+                  #  "vue"
+                  #  "astro"
+                  #  "svelte"
+                  #  "rust"
+                  #  "toml"
+                  #  "dockerfile"
+                  #  "regex"
+                  #  "comment"
+                  #  "graphql"
+                  #  "java"
+                  #  "awk"
+                  #  "cpp"
+                  #  "cmake"
+                  #  "make"
+                  #  "c_sharp"
+                  #  "css"
+                  #  "csv"
+                  #  "c"
+                  #  "git_config"
+                  #  "gitcommit"
+                  #  "gitignore"
+                  #  "git_rebase"
+                  #  "gitattributes"
+                  #  "gpg"
+                  #  "htmldjango"
+                  #  "http"
+                  #  "json5"
+                  #  "jsdoc"
+                  #  "jq"
+                  #  "luadoc"
+                  #  "markdown_inline"
+                  #  "markdown"
+                  #  "nix"
+                  #  "passwd"
+                  #  "prisma"
+                  #  "proto"
+                  #  "ruby"
+                  #  "rust"
+                  #  "scss"
+                  #  "sql"
+                  #  "vim"
+                  #  "vimdoc"
+                  #  "vue"
+                  #  "xml"
+                  #  "yaml"
+                  #  "nix"
+                  #];
             };
             ts-autotag.enable = true;
             nvim-autopairs = {
