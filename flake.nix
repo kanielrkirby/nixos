@@ -2,51 +2,49 @@
   description = "My NixOS configuration";
 
   inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-      home-manager.url = "github:nix-community/home-manager/release-23.11";
-      home-manager.inputs.nixpkgs.follows = "nixpkgs";
-      hyprland.url = "github:hyprwm/Hyprland/main";
-      hyprland.inputs.nixpkgs.follows = "nixpkgs";
-      hyprland-plugins = {
-        url = "github:hyprwm/hyprland-plugins";
-        inputs.hyprland.follows = "hyprland";
-      };
-      nixvim.url = "github:nix-community/nixvim/nixos-23.11";
-      nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.url = "github:hyprwm/Hyprland/main";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    nixvim.url = "github:nix-community/nixvim/nixos-23.11";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, ... } @ inputs:
-  let 
-    system = "x86_64-linux";
-    kernel = "6_7";
-    version = "23.11";
-    hostName = "nixos";
-    username = "mx";
-    locale = "en_US.UTF-8";
-    kbLayout = "us";
-    timeZone = "America/Chicago";
-    wallpaperGit = "https://github.com/grapeofwrath/wallpapers.git";
-    wallpaperDir = "/home/${username}/Pictures/Wallpapers";
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
+  outputs = { self, nixpkgs, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      kernel = "6_7";
+      version = "23.11";
+      hostName = "nixos";
+      username = "mx";
+      locale = "en_US.UTF-8";
+      kbLayout = "us";
+      timeZone = "America/Chicago";
+      wallpaperGit = "https://github.com/grapeofwrath/wallpapers.git";
+      wallpaperDir = "/home/${username}/.config/wallpapers";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+        overlays = [
+          (final: _prev: {
+            unstable = import inputs.nixpkgs-unstable {
+              system = system;
+              config.allowUnfree = true;
+            };
+          })
+        ];
       };
-      overlays = [
-        (final: _prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            system = system;
-            config.allowUnfree = true;
-          };
-        })
-      ];
-    };
-  in
-    {
+    in {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           specialArgs = {
+            inherit self;
             inherit system;
             inherit kernel;
             inherit version;
