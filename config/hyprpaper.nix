@@ -1,4 +1,4 @@
-{ pkgs, username, wallpaperDir, wallpaperGit, ... }:
+{ pkgs, username, wallpaperDir, wallpaperSubDir, wallpaperGit, ... }:
 
 let
   bin = pkgs.writeShellScriptBin "wallpaper" ''
@@ -16,7 +16,7 @@ let
 
     while true; do
       if [[ $cache == $wal ]]; then
-        wal=$(find ${wallpaperDir} -name '*' | awk '!/.git/' | tail -n +2 | shuf -n 1)
+        wal=$(find ${wallpaperSubDir} -name '*' | awk '!/.git/' | tail -n +2 | shuf -n 1)
       else
         cache=$wal
         hyprctl hyprpaper unload all

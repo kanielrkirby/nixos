@@ -24,7 +24,7 @@
       };
 
       nix.enable = true;
-      hmts.enable = true;
+#      hmts.enable = true;
       nix-develop.enable = true;
       dap.extensions.dap-go.enable = true;
 
@@ -54,9 +54,9 @@
       };
 
       ts-autotag.enable = true;
-
+      
       nvim-autopairs.enable = true;
-
+      
       lsp = {
         enable = true;
         servers = {
@@ -108,10 +108,10 @@
           };
         };
       };
-
+      
       conform-nvim = {
         enable = true;
-
+      
         formattersByFt = {
           nix = [ "nixfmt" ];
           javascript = [ "prettierd" ];
@@ -120,7 +120,7 @@
           lua = [ "stylua" ];
           go = [ "goimports" ];
         };
-
+      
         formatters = {
           nixfmt.command = "${pkgs.nixfmt}/bin/nixfmt";
           prettierd.command = "${pkgs.prettierd}/bin/prettierd";
@@ -131,7 +131,7 @@
           };
         };
       };
-
+     
       lint = {
         enable = true;
         lintersByFt = {
@@ -152,9 +152,9 @@
           stylelint = { cmd = "${pkgs.stylelint}/bin/stylelint"; };
         };
       };
-
+      
       lsp-format.enable = true;
-
+      
       nvim-cmp = {
         enable = true;
         autoEnableSources = true;
@@ -169,7 +169,7 @@
         sources =
           [ { name = "nvim_lsp"; } { name = "luasnip"; } { name = "path"; } ];
       };
-
+      
       luasnip.enable = true;
 
       lualine = {

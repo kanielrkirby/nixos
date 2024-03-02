@@ -60,8 +60,8 @@
           #"hyprpm enable hyprbars"
           "systemctl --user import-environment"
           "waybar"
-          "hyprpaper"
-          "wallpaper"
+#          "hyprpaper"
+#          "wallpaper"
         ];
 
         #debug.overlay = true;
@@ -112,6 +112,7 @@
         misc = {
           force_default_wallpaper = false;
           disable_hyprland_logo = true;
+          background_color = "0x000000";
           vfr = false;
         };
 

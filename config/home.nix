@@ -27,12 +27,12 @@
         enable = true;
         theme = {
           package = pkgs.fluent-gtk-theme;
-          name = "Fluent-GTK";
+          name = "Fluent-Dark";
         };
 
         iconTheme = {
           package = pkgs.fluent-icon-theme;
-          name = "Fluent";
+          name = "Fluent-dark";
         };
 
         font = {
@@ -45,6 +45,9 @@
         "org/virt-manager/virt-manager/connections" = {
           autoconnect = [ "qemu:///system" ];
           uris = [ "qemu:///system" ];
+        };
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
         };
       };
 
@@ -117,6 +120,14 @@
               name="$(echo $name | sed "s/ /_/g")"
 
               sudo NIXOS_LABEL="$name" nixos-rebuild "$type" --flake /etc/nixos#nixos
+
+              wd=$(pwd)
+              if [[ "$type" == "boot" || "$type" == "switch" ]]; then
+                cd /etc/nixos
+                sudo -E git add .
+                sudo -E git commit -m "$name"
+                cd "$wd"
+              fi
           }
 
         '';
@@ -688,7 +699,7 @@
         ];
       };
 
-      home.file.".config/BraveSoftware/Brave-Browser/Default/Preferences".source = "${self}/../extra/brave-preferences.json";
+#      home.file.".config/BraveSoftware/Brave-Browser/Default/Preferences".source = "${self}/../extra/brave-preferences.json";
 
       programs.browserpass = {
         enable = true;

@@ -26,8 +26,9 @@
       locale = "en_US.UTF-8";
       kbLayout = "us";
       timeZone = "America/Chicago";
-      wallpaperGit = "https://github.com/grapeofwrath/wallpapers.git";
-      wallpaperDir = "/home/${username}/.config/wallpapers";
+#      wallpaperGit = "https://github.com/amtoine/wallpapers";
+#      wallpaperDir = "/home/${username}/.config/wallpapers";
+#      wallpaperSubDir = "/home/${username}/.config/wallpapers/wallpapers/other";
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
@@ -54,8 +55,9 @@
             inherit timeZone;
             inherit locale;
             inherit kbLayout;
-            inherit wallpaperDir;
-            inherit wallpaperGit;
+#            inherit wallpaperDir;
+#            inherit wallpaperSubDir;
+#            inherit wallpaperGit;
             inherit pkgs;
           };
           modules = [
@@ -69,7 +71,7 @@
             ./config/nixvim.nix
             ./config/network.nix
             ./config/virtualization.nix
-            ./config/hyprpaper.nix
+#            ./config/hyprpaper.nix
           ];
         };
       };
