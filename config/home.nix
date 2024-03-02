@@ -54,7 +54,7 @@
       home.packages = with pkgs; [
         git
         httpie
-        nodejs
+        nodejs_21
         wl-clipboard
         fw-ectool
         grim
