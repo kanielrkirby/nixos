@@ -593,29 +593,35 @@
       programs.fuzzel = {
         enable = true;
          settings = {
-           icon-theme = "Fluent-dark";
-           width = 25;
-           font = "Monaspice:weight=medium:size=14";
-           line-height = 14;
-           fields = "name,generic,comment,categories,filename,keywords";
-           terminal = "alacritty -e";
-           prompt = "> ";
-           main.layer = "overlay";
-
+           main = {
+             icon-theme = "Fluent-dark";
+             width = 25;
+             font = "Noto Sans:weight=medium:size=16";
+             line-height = 16;
+             fields = "name,generic,comment,categories,filename,keywords";
+             terminal = "alacritty -e";
+             prompt = "> ";
+             layer = "overlay";
+           };
            colors = {
-             background = "000000dd";
+             background = "111111dd";
              selection = "101010dd";
              border = "000000dd";
-             text = "eeeeeeff";
+             text = "dddddddd";
              selection-text = "ffffffff";
            };
 
            border = {
-             radius = 4;
+             radius = 6;
            };
 
            dmenu = {
              exit-immediately-if-empty = true;
+           };
+
+           key-bindings = {
+             prev = "Ctrl+K";
+             next = "Ctrl+J";
            };
          };
       };
