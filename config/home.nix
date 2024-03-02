@@ -68,6 +68,7 @@
         hyprpaper
         codeium
         pinentry
+        powertop
       ];
 
       programs.less.enable = true;
@@ -131,6 +132,11 @@
           }
 
         '';
+      };
+
+      programs.atuin = {
+        enable = true;
+        enableZshIntegration = true;
       };
 
       programs.starship = {
