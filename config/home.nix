@@ -380,6 +380,11 @@
               format-icons = [ "" "" "" ];
               tooltip = true;
               tooltip-format = "{volume}%";
+              onclick = ''
+              hyprctl dispatch workspace special:audio && \
+              alacritty -e wpctl get-volume @DEFAULT_AUDIO_SINK@ &
+              alacritty
+              '';
             };
 
             network = {
@@ -388,8 +393,11 @@
               format-ethernet = "󰈀 ";
               tooltip = true;
               tooltip-format = "{signalStrength}%";
-              onclick =
-                "hyprctl dispatch workspace special:network && alacritty -e 'nmcli d w'";
+              onclick =''
+              hyprctl dispatch workspace special:network && \
+              alacritty -e nmcli d w &
+              alacritty
+              '';
             };
 
             backlight = {
@@ -398,6 +406,11 @@
               format-icons = [ "" "" "" "" "" "" "" "" "" ];
               tooltip = true;
               tooltip-format = "{percent}%";
+              onclick = ''
+              hyprctl dispatch workspace special:backlight && \
+              alacritty -e brightnessctl &
+              alacritty
+              '';
             };
 
             battery = {
@@ -579,34 +592,32 @@
 
       programs.fuzzel = {
         enable = true;
-        # settings = {
-        #   icon-theme = "Papirus-Dark";
-        #   width = 25;
-        #   font = "Hack:weight=medium:size=12";
-        #   line-height = 14;
-        #   fields = "name,generic,comment,categories,filename,keywords";
-        #   terminal = "foot -e";
-        #   prompt = ">   ";
-        #   main = {
-        #     layer = "overlay";
-        #   };
-        #
-        #   colors = {
-        #     background = "000000aa";
-        #     selection = "C188DAaa";
-        #     border = "ffffff20";
-        #     text = "ffffffff";
-        #     selection-text = "000000ff";
-        #   };
+         settings = {
+           icon-theme = "Fluent-dark";
+           width = 25;
+           font = "Monaspice:weight=medium:size=14";
+           line-height = 14;
+           fields = "name,generic,comment,categories,filename,keywords";
+           terminal = "alacritty -e";
+           prompt = "> ";
+           main.layer = "overlay";
 
-        #   border = {
-        #     radius = 4;
-        #   };
+           colors = {
+             background = "000000dd";
+             selection = "101010dd";
+             border = "000000dd";
+             text = "eeeeeeff";
+             selection-text = "ffffffff";
+           };
 
-        #   dmenu = {
-        #     exit-immediately-if-empty = true;
-        #   };
-        # };
+           border = {
+             radius = 4;
+           };
+
+           dmenu = {
+             exit-immediately-if-empty = true;
+           };
+         };
       };
 
       programs.btop = {
@@ -769,10 +780,10 @@
 
       programs.swaylock = { enable = true; };
 
-      #      # programs.thunderbird = {
-      #      #   enable = true;
-      #      #   profiles = [];
-      #      # };
+      #       programs.thunderbird = {
+      #         enable = true;
+      #         profiles = [];
+      #       };
       #
     };
   };
