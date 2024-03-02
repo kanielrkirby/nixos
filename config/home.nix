@@ -620,8 +620,8 @@
            };
 
            key-bindings = {
-             prev = "Ctrl+K";
-             next = "Ctrl+J";
+             prev = "Control+k";
+             next = "Control+j";
            };
          };
       };
