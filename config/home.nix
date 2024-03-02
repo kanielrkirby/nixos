@@ -316,36 +316,31 @@
         };
       };
 
-      programs.tealdeer = {
-        enable = true;
-        settings = {
-          display = {
-            use_pager = false;
-            compact = false;
-          };
-
-          style = {
-            description = { foreground = "white"; };
-            command_name = {
-              foreground = { rgb = "{ r = 255, g = 190, b = 255 }"; }; # b784b7
-            };
-            example_text = {
-              foreground = { rgb = "{ r = 220, g = 180, b = 220 }"; }; # e493b3
-            };
-            example_code = {
-              foreground = { rgb = "{ r = 255, g = 205, b = 206 }"; }; # eea5a6
-            };
-            example_variable = {
-              foreground = { rgb = "{ r = 180, g = 160, b = 220 }"; }; # 8e7ab5
-            };
-          };
-
-          updates = {
-            auto_update = true;
-            auto_update_interval_hours = 24;
-          };
-        };
-      };
+      programs.tealdeer.enable = true;
+      xdg.configFile."tealdeer/config.toml".text = ''
+        [display]
+        compact = false
+        use_pager = false
+        
+        [style.description]
+        foreground = "white"
+        
+        [style.command_name]
+        foreground = { rgb = { r = 255, g = 190, b = 255 } }
+        
+        [style.example_code]
+        foreground = { rgb = { r = 255, g = 205, b = 206 } }
+        
+        [style.example_text]
+        foreground = { rgb = { r = 220, g = 180, b = 220 } }
+        
+        [style.example_variable]
+        foreground = { rgb = { r = 180, g = 160, b = 220 } }
+        
+        [updates]
+        auto_update = true
+        auto_update_interval_hours = 24
+      '';
 
       programs.waybar = {
         enable = true;
