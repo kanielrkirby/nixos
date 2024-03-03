@@ -9,6 +9,8 @@
       };
       systemd-boot = { enable = true; };
     };
+    supportedFilesystems = [ "zfs" ];
+    zfs.forceImportRoot = false;
 
     initrd.systemd.enable = true;
 

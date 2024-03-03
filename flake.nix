@@ -15,10 +15,9 @@
     nixvim.url = "github:nix-community/nixvim/nixos-23.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
-    impermanence.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, impermanence, ... }@inputs:
     let
       system = "x86_64-linux";
       kernel = "6_7";
@@ -63,6 +62,8 @@
             inherit pkgs;
           };
           modules = [
+            impermanence.nixosModules.impermanence
+            ./config/impermanence.nix
             ./hardware-configuration.nix
             ./config/nixos.nix
             ./config/boot.nix

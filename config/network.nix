@@ -1,13 +1,11 @@
 { hostName, timeZone, ... }:
 
 {
-  networking.hostName = hostName;
-  networking.networkmanager.enable = true;
-  # mx is added to the networkmanager group in ./home.nix
-  time.timeZone = timeZone;
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking = {
+    hostName = hostName;
+    hostId = "yourHostId";
+    networkmanager.enable = true;
+    # mx is added to the networkmanager group in ./home.nix
     nameservers = [ "9.9.9.9" ];
     firewall = {
       enable = true;
@@ -32,6 +30,8 @@
       ];
     };
   };
+
+  time.timeZone = timeZone;
   services.openssh.enable = true;
   services.mullvad-vpn.enable = true;
 }
