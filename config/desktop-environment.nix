@@ -229,7 +229,7 @@
         submap = system
         bindil = , R, exec, reboot
         bindil = , D, exec, shutdown
-        bindil = , L, exec, swaylock -c black
+        bindil = , L, exec, swaylock -c #000000
         bindil = , escape, submap, reset
         bindirtl = SUPER, SUPER_L, submap, reset
         submap = reset
@@ -339,7 +339,7 @@
         bind = SUPER, N, exec, alacritty -e nvim /home/mx/Documents/
 
         # SWITCH
-        bindl= , switch:Lid Switch, exec, swaylock -c black
+        bindl= , switch:Lid Switch, exec, swaylock -c #000000
       '';
     };
   };
