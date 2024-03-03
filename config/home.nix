@@ -146,7 +146,7 @@
             args="$@"
             cmd="''${args%% *}"
             args="''${args#* }"
-            nix shell "nixpkgs#$cmd" --command "$cmd $args"
+            nix shell "nixpkgs#$cmd" --command $cmd $args
           }
         '';
       };
