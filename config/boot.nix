@@ -1,4 +1,4 @@
-{ pkgs, kernel, ... }:
+{ pkgs, config, ... }:
 
 {
   boot = {
@@ -10,10 +10,14 @@
       systemd-boot = { enable = true; };
     };
     supportedFilesystems = [ "zfs" ];
-    zfs.forceImportRoot = false;
+
+    zfs = {
+      forceImportRoot = false;
+      extraPools = [ "zprimary" ];
+    };
 
     initrd.systemd.enable = true;
 
-    kernelPackages = pkgs."linuxPackages_${kernel}";
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   };
 }

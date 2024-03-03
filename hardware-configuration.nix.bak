@@ -14,28 +14,13 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "zprimary/root";
+    { device = "none";
       fsType = "zfs";
       options = [ "defaults" "mode=755" ];
     };
-    
+
   fileSystems."/nix/store" =
-    { device = "zprimary/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/var" =
-    { device = "zprimary/var";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "zprimary/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix/persist" =
-    { device = "zprimary/persist";
+    { device = "/nix/store";
       fsType = "none";
       options = [ "bind" ];
     };
@@ -43,7 +28,6 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/FC5B-9872";
       fsType = "vfat";
-      options = [ "size=100MB" ];
     };
 
   swapDevices =

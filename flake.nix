@@ -20,7 +20,7 @@
   outputs = { self, nixpkgs, impermanence, ... }@inputs:
     let
       system = "x86_64-linux";
-      kernel = "6_7";
+      # kernel = "6_7"; # for ZFS
       version = "23.11";
       hostName = "nixos";
       username = "mx";
@@ -48,7 +48,7 @@
           specialArgs = {
             inherit self;
             inherit system;
-            inherit kernel;
+            # inherit kernel; # for ZFS
             inherit version;
             inherit inputs;
             inherit hostName;

@@ -3,7 +3,7 @@
 {
   networking = {
     hostName = hostName;
-    hostId = "yourHostId";
+    hostId = "3759be58";
     networkmanager.enable = true;
     # mx is added to the networkmanager group in ./home.nix
     nameservers = [ "9.9.9.9" ];

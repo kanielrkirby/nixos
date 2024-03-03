@@ -1,7 +1,11 @@
-{ username }:
+{ username, impermanence }:
 
 {
-  environment.persistence."/persistent" = {
+  imports = [
+    "${impermanence}/nixos.nix"
+  ];
+
+  environment.persistence."/nix/persist/environment" = {
     hideMounts = true;
     directories = [
       "/var/log"
@@ -17,7 +21,15 @@
       "/etc/machine-id"
       "/etc/resolv.conf"
     ];
-    users.${username} = {
+  };
+
+  home-manager.users.mx = {
+    imports = [
+      "${impermanence}/home-manager.nix"
+    ];
+
+    home.persistence."/nix/persist/home" = {
+      allowOther = true;
       directories = [
         "Downloads"
         "Pictures"
