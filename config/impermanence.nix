@@ -1,11 +1,11 @@
-{ username, impermanence }:
+{ username, impermanence, ... }:
 
 {
   imports = [
-    "${impermanence}/nixos.nix"
+    impermanence.nixosModules.impermanence
   ];
 
-  environment.persistence."/nix/persist/environment" = {
+  environment.persistence."/nix/persist" = {
     hideMounts = true;
     directories = [
       "/var/log"
@@ -21,14 +21,21 @@
       "/etc/machine-id"
       "/etc/resolv.conf"
     ];
+    users."${username}" = {
+      directories = [
+        { directory = ".gnupg"; mode = "0700"; }
+        { directory = ".ssh"; mode = "0700"; }
+        { directory = ".config/password-store"; mode = "0700"; }
+      ];
+    };
   };
 
-  home-manager.users.mx = {
+  home-manager.users."${username}" = {
     imports = [
-      "${impermanence}/home-manager.nix"
+      impermanence.nixosModules.home-manager.impermanence
     ];
 
-    home.persistence."/nix/persist/home" = {
+    home.persistence."/nix/persist/home/${username}" = {
       allowOther = true;
       directories = [
         "Downloads"
@@ -39,12 +46,9 @@
         ".hyprland"
         ".vscode"
         "dev"
-        { directory = ".gnupg"; mode = "0700"; }
-        { directory = ".ssh"; mode = "0700"; }
         ".config/BraveSoftware"
         ".config/Signal"
         ".config/gopass"
-        { directory = ".config/password-store"; mode = "0700"; }
         ".local/share/direnv"
       ];
       files = [

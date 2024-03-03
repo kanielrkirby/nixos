@@ -12,11 +12,14 @@
     supportedFilesystems = [ "zfs" ];
 
     zfs = {
-      forceImportRoot = false;
-      extraPools = [ "zprimary" ];
+      forceImportRoot = true;
+      extraPools = [ "zpool" ];
     };
 
-    initrd.systemd.enable = true;
+    initrd = {
+      systemd.enable = true;
+      kernelModules = [ "zfs" ];
+    };
 
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   };

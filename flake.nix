@@ -60,9 +60,9 @@
 #            inherit wallpaperSubDir;
 #            inherit wallpaperGit;
             inherit pkgs;
+            inherit impermanence;
           };
           modules = [
-            impermanence.nixosModules.impermanence
             ./config/impermanence.nix
             ./hardware-configuration.nix
             ./config/nixos.nix
