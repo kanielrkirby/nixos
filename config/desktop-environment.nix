@@ -13,6 +13,11 @@
         wayland.enable = true;
         theme = "where_is_my_sddm_theme";
       };
+      autoLogin = {
+        enable = true;
+        user = "mx";
+        relogin = true;
+      };
     };
   };
 

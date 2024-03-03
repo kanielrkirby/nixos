@@ -7,6 +7,7 @@
     };
 
     libvirtd = { enable = true; };
+    xen = { enable = true; };
   };
 
   programs.virt-manager.enable = true;
