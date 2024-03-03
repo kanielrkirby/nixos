@@ -5,7 +5,9 @@
     impermanence.nixosModules.impermanence
   ];
 
-  environment.persistence."/nix/persist" = {
+  programs.fuse.userAllowOther = true;
+
+  environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
       "/var/log"
@@ -19,7 +21,6 @@
     ];
     files = [
       "/etc/machine-id"
-      "/etc/resolv.conf"
     ];
     users."${username}" = {
       directories = [
@@ -35,7 +36,7 @@
       impermanence.nixosModules.home-manager.impermanence
     ];
 
-    home.persistence."/nix/persist/home/${username}" = {
+    home.persistence."/persist/home/${username}" = {
       allowOther = true;
       directories = [
         "Downloads"
