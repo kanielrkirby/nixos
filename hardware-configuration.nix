@@ -24,18 +24,6 @@
       options = [ "bind" ];
     };
 
-  fileSystems."/nix/store" =
-    { device = "/nix/store";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
-  fileSystems."/nix/store" =
-    { device = "/nix/store";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/FC5B-9872";
       fsType = "vfat";
