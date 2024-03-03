@@ -79,6 +79,7 @@
         codeium
         pinentry
         powertop
+        localsend
       ];
 
       programs.less.enable = true;
