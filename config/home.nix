@@ -144,8 +144,8 @@
 
           n() {
             args="$@"
-            cmd="$\{args%% *}"
-            args="$\{args#* }"
+            cmd="''${args%% *}"
+            args="''${args#* }"
             nix shell "nixpkgs#$cmd" --command "$cmd"
           }
         '';
