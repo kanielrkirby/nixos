@@ -66,14 +66,14 @@
             ./config/impermanence.nix
             ./hardware-configuration.nix
             ./config/nixos.nix
-            ./config/boot.nix
+            ./config/boot
             ./config/hardware.nix
             ./config/packages.nix
             ./config/home.nix
             ./config/desktop-environment.nix
-            ./config/nixvim.nix
+            ./config/nixvim
             ./config/network.nix
-            ./config/virtualization.nix
+            ./config/virt
 #            ./config/hyprpaper.nix
           ];
         };

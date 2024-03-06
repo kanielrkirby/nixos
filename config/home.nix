@@ -8,7 +8,9 @@
     users.mx = {
       isNormalUser = true;
       extraGroups = [ "wheel" "libvirtd" "networkmanager" ];
+      initialPassword = "asdf";
     };
+    mutableUsers = false;
   };
 
   qt = {
@@ -20,7 +22,7 @@
   home-manager = {
     useGlobalPkgs = true;
 
-    users.mx = { pkgs, ... }: {
+    users.mx = { pkgs, config, ... }: {
       home.stateVersion = "23.11";
 
       services.easyeffects = {
@@ -36,8 +38,13 @@
       gtk = {
         enable = true;
         theme = {
-          package = pkgs.fluent-gtk-theme;
-          name = "Fluent-Dark";
+          name = "Catppuccin-Mocha-Standard-Blue-Dark";
+          package = pkgs.catppuccin-gtk.override {
+            # accents = [ "pink" ];
+            # size = "compact";
+            # tweaks = [ "rimless" "black" ];
+            variant = "mocha";
+          };
         };
 
         iconTheme = {
@@ -49,6 +56,12 @@
           name = "Noto Sans";
           size = 14;
         };
+      };
+
+      xdg.configFile = {
+        "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+        "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+        "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
       };
 
       dconf.settings = {
@@ -80,9 +93,22 @@
         pinentry
         powertop
         localsend
+        vagrant
+        catppuccin-papirus-folders
+        pkgs.libsForQt5.qtgraphicaleffects
+        pkgs.libsForQt5.qtsvg
+        pkgs.libsForQt5.qtquickcontrols
       ];
 
       programs.less.enable = true;
+
+      xdg.configFile."zsh/catppuccin_mocha.zsh".source =
+        "${pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "zsh-syntax-highlighting";
+          rev = "master";
+          sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
+        }}/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
 
       programs.zsh = {
         enable = true;
@@ -90,6 +116,7 @@
         syntaxHighlighting.enable = true;
         enableCompletion = true;
         initExtra = ''
+          source ${config.xdg.configHome}/zsh/catppuccin_mocha.zsh
           export LANG="en_US.UTF-8"
           export LC_ALL="$LANG"
           export ANKI_WAYLAND="1"
@@ -156,10 +183,22 @@
         enableZshIntegration = true;
       };
 
-      programs.starship = {
+      programs.starship = 
+      let
+        flavour = "mocha";
+      in
+      {
         enable = true;
         enableZshIntegration = true;
-        settings = {
+        settings = builtins.fromTOML (builtins.readFile (pkgs.fetchFromGitHub
+        {
+            owner = "catppuccin";
+            repo = "starship";
+            rev = "master";
+            sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
+          } + /palettes/${flavour}.toml))
+           // {
+          palette = "catppuccin_${flavour}";
           format =
             "$username$hostname$localip$shlvl$singularity$kubernetes$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$pijul_channel$docker_context$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$golang$guix_shell$haskell$haxe$helm$java$julia$kotlin$gradle$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$nix_shell$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$os$container$shell$character";
           scan_timeout = 10;
@@ -309,6 +348,20 @@
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;
+        colors = {
+          "bg+" = "#313244";
+          bg = "#1e1e2e";
+          spinner = "#f5e0dc";
+          hl = "#f38ba8";
+          fg = "#cdd6f4";
+          header = "#f38ba8";
+          info = "#cba6f7";
+          pointer = "#f5e0dc";
+          marker = "#f5e0dc";
+          "fg+" = "#cdd6f4";
+          prompt = "#cba6f7";
+          "hl+" = "#f38ba8";
+        };
       };
 
       programs.zoxide = {
@@ -319,6 +372,14 @@
       programs.alacritty = {
         enable = true;
         settings = {
+          imports = [
+            "${pkgs.fetchFromGitHub {
+              owner = "alacritty";
+              repo = "alacritty-theme";
+              rev = "master";
+              sha256 = "sha256-+35S6eQkxLBuS/fDKD5bglQDIuz2xeEc5KSaK6k7IjI=";
+            }}/themes/catppuccin_mocha.toml"
+          ];
           window = { opacity = 0.9; };
           font = {
             normal = {
@@ -340,19 +401,19 @@
         use_pager = false
         
         [style.description]
-        foreground = "white"
+        foreground = { rgb = { r = 205, g = 214, b = 244 } }
         
         [style.command_name]
-        foreground = { rgb = { r = 255, g = 190, b = 255 } }
+        foreground = { rgb = { r = 180, g = 160, b = 220 } }
         
         [style.example_code]
-        foreground = { rgb = { r = 255, g = 205, b = 206 } }
+        foreground = { rgb = { r = 205, g = 214, b = 244 } }
         
         [style.example_text]
-        foreground = { rgb = { r = 220, g = 180, b = 220 } }
+        foreground = { rgb = { r = 205, g = 214, b = 244 } }
         
         [style.example_variable]
-        foreground = { rgb = { r = 180, g = 160, b = 220 } }
+        foreground = { rgb = { r = 205, g = 214, b = 244 } }
         
         [updates]
         auto_update = true
@@ -392,11 +453,6 @@
               format-icons = [ "" "" "" ];
               tooltip = true;
               tooltip-format = "{volume}%";
-              onclick = ''
-              hyprctl dispatch workspace special:audio && \
-              alacritty -e wpctl get-volume @DEFAULT_AUDIO_SINK@ &
-              alacritty
-              '';
             };
 
             network = {
@@ -405,11 +461,6 @@
               format-ethernet = "󰈀 ";
               tooltip = true;
               tooltip-format = "{signalStrength}%";
-              onclick =''
-              hyprctl dispatch workspace special:network && \
-              alacritty -e nmcli d w &
-              alacritty
-              '';
             };
 
             backlight = {
@@ -418,11 +469,6 @@
               format-icons = [ "" "" "" "" "" "" "" "" "" ];
               tooltip = true;
               tooltip-format = "{percent}%";
-              onclick = ''
-              hyprctl dispatch workspace special:backlight && \
-              alacritty -e brightnessctl &
-              alacritty
-              '';
             };
 
             battery = {
@@ -616,11 +662,13 @@
              layer = "overlay";
            };
            colors = {
-             background = "111111dd";
-             selection = "101010dd";
-             border = "000000dd";
-             text = "dddddddd";
-             selection-text = "ffffffff";
+             background = "1e1e2edd";
+             text = "cdd6f4ff";
+             match = "f38ba8ff";
+             selection = "585b70ff";
+             selection-match = "f38ba8ff";
+             selection-text = "cdd6f4ff";
+             border = "b4befeff";
            };
 
            border = {
@@ -630,18 +678,21 @@
            dmenu = {
              exit-immediately-if-empty = true;
            };
-
-           key-bindings = {
-             prev = "Control+k";
-             next = "Control+j";
-           };
          };
       };
+
+      xdg.configFile."btop/themes/catppuccin_mocha.theme".source = "${pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "btop";
+        rev = "master";
+        sha256 = "sha256-jodJl4f2T9ViNqsY9fk8IV62CrpC5hy7WK3aRpu70Cs=";
+      }}/themes/catppuccin_mocha.theme";
 
       programs.btop = {
         enable = true;
         settings = {
-          theme_background = false;
+          color_theme = "catppuccin_mocha";
+          theme_background = true;
           truecolor = true;
           force_tty = false;
           presets =
@@ -719,6 +770,17 @@
         config = {
           paging = "always";
           pager = "less -RF";
+          theme = "catppuccin";
+        };
+        themes = {
+          catppuccin = {
+           src = "${pkgs.fetchFromGitHub {
+             owner = "catppuccin";
+             repo = "bat";
+             rev = "master";
+             sha256 = "sha256-PLbTLj0qhsDj+xm+OML/AQsfRQVPXLYQNEPllgKcEx4=";
+           }}/themes/Catppuccin Mocha.tmTheme";
+         };
         };
       };
 
@@ -796,7 +858,40 @@
         extensions = with pkgs.vscode-extensions; [ vscodevim.vim ];
       };
 
-      programs.swaylock = { enable = true; };
+      programs.swaylock = {
+        enable = true;
+        settings = {
+          color="1e1e2e";
+          bs-hl-color = "f5e0dc";
+          caps-lock-bs-hl-color = "f5e0dc";
+          caps-lock-key-hl-color = "a6e3a1";
+          inside-color = "00000000";
+          inside-clear-color = "00000000";
+          inside-caps-lock-color = "00000000";
+          inside-ver-color = "00000000";
+          inside-wrong-color = "00000000";
+          key-hl-color = "a6e3a1";
+          layout-bg-color = "00000000";
+          layout-border-color = "00000000";
+          layout-text-color = "cdd6f4";
+          line-color = "00000000";
+          line-clear-color = "00000000";
+          line-caps-lock-color = "00000000";
+          line-ver-color = "00000000";
+          line-wrong-color = "00000000";
+          ring-color = "b4befe";
+          ring-clear-color = "f5e0dc";
+          ring-caps-lock-color = "fab387";
+          ring-ver-color = "89b4fa";
+          ring-wrong-color = "eba0ac";
+          separator-color = "00000000";
+          text-color = "cdd6f4";
+          text-clear-color = "f5e0dc";
+          text-caps-lock-color = "fab387";
+          text-ver-color = "89b4fa";
+          text-wrong-color = "eba0ac";
+        };
+      };
 
       #       programs.thunderbird = {
       #         enable = true;

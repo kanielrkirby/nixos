@@ -1,6 +1,8 @@
 { inputs, pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [ catppuccin-sddm-corners ];
+
   services.xserver = {
     enable = true;
     xkb.layout = "us";
@@ -11,15 +13,15 @@
       sddm = {
         enable = true;
         wayland.enable = true;
-        theme = "where_is_my_sddm_theme";
-        autoLogin = {
-          relogin = true;
-        };
+        theme = "${import ./derivations/sddm-catppuccin.nix { inherit pkgs; }}/src/catppuccin-mocha";
+     #   autoLogin = {
+     #     relogin = true;
+     #   };
       };
-      autoLogin = {
-        enable = true;
-        user = "mx";
-      };
+     # autoLogin = {
+     #   enable = true;
+     #   user = "mx";
+     # };
     };
   };
 
@@ -81,10 +83,10 @@
           follow_mouse = true;
           touchpad = {
             natural_scroll = true;
-            scroll_factor = 0.25;
+            scroll_factor = 0.80;
             disable_while_typing = true;
           };
-          sensitivity = 0.2;
+          sensitivity = 0.3;
           kb_options = [ ];
         };
 
@@ -144,8 +146,8 @@
         bindelt = SUPER, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-
         bindelt = , XF86MonBrightnessUp, exec, brightnessctl set +5%
         bindelt = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
-        bindt = , Print, exec, grim -g "$(slurp)
-        bindt = SUPER, Print, exec, grim -g "$(slurp)
+        bind = , Print, exec, grim -g "$(slurp)"
+        bind = SUPER, Print, exec, grim -g "$(slurp)"
         bindelt = , XF86AudioPlay, exec, playerctl play-pause
         bindelt = , XF86AudioNext, exec, playerctl position 5+
         bindelt = , XF86AudioPrev, exec, playerctl position 5-
@@ -229,7 +231,7 @@
         submap = system
         bindil = , R, exec, reboot
         bindil = , D, exec, shutdown
-        bindil = , L, exec, swaylock -c #000000
+        bindil = , L, exec, swaylock
         bindil = , escape, submap, reset
         bindirtl = SUPER, SUPER_L, submap, reset
         submap = reset

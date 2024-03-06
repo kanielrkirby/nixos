@@ -16,15 +16,17 @@
   fileSystems."/" =
     { device = "zpool/root";
       fsType = "zfs";
-    };
-
-  fileSystems."/var" =
-    { device = "zpool/var";
-      fsType = "zfs";
+      neededForBoot = true;
     };
 
   fileSystems."/nix" =
     { device = "zpool/nix";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+
+  fileSystems."/var" =
+    { device = "zpool/var";
       fsType = "zfs";
     };
 
@@ -33,13 +35,21 @@
       fsType = "zfs";
     };
 
+  fileSystems."/persist" =
+    { device = "zpool/persist";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/DEF1-0F90";
+    { device = "/dev/nvme0n1p3";
       fsType = "vfat";
+      neededForBoot = true;
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/ad7759e6-ac5f-422d-93ec-7ebc7443cf59"; }
+    [ 
+      { device = "/dev/nvme0n1p2"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

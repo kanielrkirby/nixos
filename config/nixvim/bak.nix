@@ -6,7 +6,10 @@
   programs.nixvim = {
     enable = true;
 
-    colorschemes.gruvbox.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      flavour = "mocha";
+    };
 
     clipboard = {
       providers.wl-copy.enable = true;
@@ -66,6 +69,7 @@
           emmet_ls.enable = true;
           eslint.enable = true;
           gopls.enable = true;
+          hls.enable = true;
           html = {
             enable = true;
             extraOptions.settings = {

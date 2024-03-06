@@ -20,15 +20,10 @@
       "/etc/mullvad-vpn"
     ];
     files = [
-      "/etc/machine-id"
+#      "/etc/machine-id"
+#      "/etc/passwd"
+#      "/etc/shadow"
     ];
-    users."${username}" = {
-      directories = [
-        { directory = ".gnupg"; mode = "0700"; }
-        { directory = ".ssh"; mode = "0700"; }
-        { directory = ".config/password-store"; mode = "0700"; }
-      ];
-    };
   };
 
   home-manager.users."${username}" = {
@@ -51,6 +46,9 @@
         ".config/Signal"
         ".config/gopass"
         ".local/share/direnv"
+        { directory = ".gnupg"; }
+        { directory = ".ssh"; }
+        { directory = ".config/password-store"; }
       ];
       files = [
         ".config/gh/hosts"

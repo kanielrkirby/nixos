@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ where-is-my-sddm-theme git ];
+  environment.systemPackages = with pkgs; [ git ];
 
   fonts.packages = with pkgs.unstable;
     [ (nerdfonts.override { fonts = [ "Monaspace" ]; }) ];
