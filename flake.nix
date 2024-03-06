@@ -2,22 +2,22 @@
   description = "My NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixos-pkgs";
     hyprland.url = "github:hyprwm/Hyprland/main";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.inputs.nixpkgs.follows = "nixos-pkgs";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    nixvim.url = "github:nix-community/nixvim/nixos-23.11";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixos-pkgs";
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, nixpkgs, impermanence, ... }@inputs:
+  outputs = { self, nixos-pkgs, impermanence, ... }@inputs:
     let
       system = "x86_64-linux";
       # kernel = "6_7"; # for ZFS
@@ -30,21 +30,13 @@
 #      wallpaperGit = "https://github.com/amtoine/wallpapers";
 #      wallpaperDir = "/home/${username}/.config/wallpapers";
 #      wallpaperSubDir = "/home/${username}/.config/wallpapers/wallpapers/other";
-      pkgs = import nixpkgs {
+      pkgs = import nixos-pkgs {
         inherit system;
         config = { allowUnfree = true; };
-        overlays = [
-          (final: _prev: {
-            unstable = import inputs.nixpkgs-unstable {
-              system = system;
-              config.allowUnfree = true;
-            };
-          })
-        ];
       };
     in {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        nixos = nixos-pkgs.lib.nixosSystem {
           specialArgs = {
             inherit self;
             inherit system;
@@ -70,7 +62,7 @@
             ./config/hardware.nix
             ./config/packages.nix
             ./config/home.nix
-            ./config/desktop-environment.nix
+            ./config/hyprland
             ./config/nixvim
             ./config/network.nix
             ./config/virt

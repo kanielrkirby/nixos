@@ -31,8 +31,6 @@
       netrw_localcopydircmd = "cp -r";
       netrw_banner = 0;
       user_emmet_leader_key = "<C-,>";
-      codeium_bin =
-        "/home/${username}/.nix-profile/bin/codeium_language_server";
     };
   };
 }

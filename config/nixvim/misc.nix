@@ -53,6 +53,13 @@
       lint.enable = true;
       
       lsp-format.enable = true;
+
+      codeium-vim = {
+        enable = true;
+        settings = {
+          bin = "${pkgs.codeium}/bin/codeium_language_server";
+        };
+      };
       
       nvim-cmp = {
         enable = true;
@@ -118,7 +125,7 @@
       };
     };
 
-    extraPlugins = [ pkgs.unstable.vimPlugins.codeium-vim ];
+    extraPlugins = [];
 
     extraConfigLua = "";
   };

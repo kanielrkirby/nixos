@@ -19,6 +19,10 @@
     style = "gtk2";
   };
 
+  programs.thunar = {
+    enable = true;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
 
@@ -94,10 +98,10 @@
         powertop
         localsend
         vagrant
-        catppuccin-papirus-folders
-        pkgs.libsForQt5.qtgraphicaleffects
-        pkgs.libsForQt5.qtsvg
-        pkgs.libsForQt5.qtquickcontrols
+        libsForQt5.qtgraphicaleffects
+        libsForQt5.qtsvg
+        libsForQt5.qtquickcontrols
+        foliate
       ];
 
       programs.less.enable = true;
@@ -793,6 +797,7 @@
           "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
           "naepdomgkenhinolocfifgehidddafch" # Browserpass
           "hipekcciheckooncpjeljhnekcoolahp" # Tabliss
+          "dabkegjlekdcmefifaolmdhnhdcplklo" # Modern for HN
         ];
       };
 

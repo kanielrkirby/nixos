@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [ git ];
 
-  fonts.packages = with pkgs.unstable;
+  fonts.packages = with pkgs;
     [ (nerdfonts.override { fonts = [ "Monaspace" ]; }) ];
 
   programs = {
