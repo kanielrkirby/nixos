@@ -56,9 +56,8 @@
           disable_hyprland_logo = true;
           background_color = "0x000000";
         };
-
-        extraConfig = builtins.readFile ./binds/hyprland.conf;
       };
+      extraConfig = builtins.readFile ./binds/hypr/hyprland.conf;
     };
   };
 }
