@@ -1,51 +1,14 @@
 { self, inputs, pkgs, ... }:
 
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-#    ./waybar.nix
-#    ./user.nix
-#    ./theme.nix
-#    ./cli.nix
-#    ./gui.nix
-  ];
-
-  users = {
-    defaultUserShell = pkgs.zsh;
-    users.mx = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "networkmanager" ];
-      initialPassword = "asdf";
-    };
-    mutableUsers = false;
-  };
-
   qt = {
     enable = true;
     platformTheme = "gtk2";
     style = "gtk2";
   };
 
-  programs.thunar = {
-    enable = true;
-  };
-
   home-manager = {
-    useGlobalPkgs = true;
-
     users.mx = { pkgs, config, ... }: {
-      home.stateVersion = "23.11";
-
-      services.easyeffects = {
-        enable = true;
-        preset = "lappy_mctopface";
-      };
-
-      xdg.configFile."easyeffects/output".source = builtins.fetchGit {
-        url = "https://github.com/ceiphr/ee-framework-presets";
-        rev = "27885fe00c97da7c441358c7ece7846722fd12fa";
-      };
-
       gtk = {
         enable = true;
         theme = {
@@ -75,45 +38,11 @@
         "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
       };
 
-      dconf.settings = {
-        "org/virt-manager/virt-manager/connections" = {
-          autoconnect = [ "qemu:///system" ];
-          uris = [ "qemu:///system" ];
-        };
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
-        };
-      };
-
       home.packages = with pkgs; [
-        git
-        httpie
-        nodejs_21
-        wl-clipboard
-        fw-ectool
-        grim
-        slurp
-        ripgrep
-        hyprshade
-        signal-desktop
-        brightnessctl
-        playerctl
-        libnotify
-        hyprpaper
-        codeium
-        pinentry
-        powertop
-        localsend
-        vagrant
         libsForQt5.qtgraphicaleffects
         libsForQt5.qtsvg
         libsForQt5.qtquickcontrols
-        foliate
-        gimp
-        gnome3.gnome-themes-extra
       ];
-
-      programs.less.enable = true;
 
       xdg.configFile."zsh/catppuccin_mocha.zsh".source =
         "${pkgs.fetchFromGitHub {

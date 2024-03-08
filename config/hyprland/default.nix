@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./binds.nix
     ./input.nix
     ./graphics.nix
     ./workspace.nix
@@ -27,7 +26,7 @@
       sddm = {
         enable = true;
         wayland.enable = true;
-        theme = "${import ./derivations/sddm-catppuccin.nix { inherit pkgs; }}/src/catppuccin-mocha";
+        theme = "${import ../derivations/sddm-catppuccin.nix { inherit pkgs; }}/src/catppuccin-mocha";
      #   autoLogin = {
      #     relogin = true;
      #   };
@@ -40,7 +39,7 @@
   };
 
   home-manager = {
-    users.${username}.wayland.windowManager.hyprland = {
+    users."${username}".wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
       systemd.enable = true;
@@ -57,6 +56,8 @@
           disable_hyprland_logo = true;
           background_color = "0x000000";
         };
+
+        extraConfig = builtins.readFile ./binds/hyprland.conf;
       };
     };
   };
