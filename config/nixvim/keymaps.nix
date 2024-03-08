@@ -1,11 +1,6 @@
 {
   programs.nixvim.keymaps = [
     {
-      mode = "n";
-      key = "<leader>pv";
-      action = "<cmd>Oil<CR>";
-    }
-    {
       mode = "v";
       key = "J";
       action = ":m '>+1<CR>gv=gv";
@@ -18,8 +13,7 @@
     {
       mode = "n";
       key = "J";
-      action = "mzJ`z";
-    }
+      action = "mzJ`z"; }
     {
       mode = "n";
       key = "<C-d>";
@@ -108,12 +102,12 @@
     {
       mode = "n";
       key = "<leader>s";
-      action = "[[:%s/<<C-r><C-w>>/<C-r><C-w>/gI<Left><Left><Left>]]";
+      action = "<cmd>%s/<<C-r><C-w>>/<C-r><C-w>/gI<Left><Left><Left>";
     }
     {
       mode = "n";
       key = "<leader>S";
-      action = "[[:%s/<<C-r><C-w>>//gI<Left><Left><Left>]]";
+      action = "<cmd>%s/<<C-r><C-w>>//gI<Left><Left><Left>";
     }
     {
       mode = "n";
@@ -184,41 +178,6 @@
       mode = "n";
       key = "<C-w>ev";
       action = "<cmd>vsplit term://zsh<CR>";
-    }
-    {
-      mode = "n";
-      key = "<leader>f";
-      lua = true;
-      action = ''
-        function (args)
-            require("conform").format()
-        end
-      '';
-    }
-    {
-      mode = "n";
-      key = "<leader>u";
-      action = "<cmd>UndotreeToggle<CR>";
-    }
-    {
-      mode = "n";
-      key = "<C-h>";
-      action = "require('harpoon-ui').nav_file(1)";
-    }
-    {
-      mode = "n";
-      key = "<C-t>";
-      action = "require('harpoon-ui').nav_file(2)";
-    }
-    {
-      mode = "n";
-      key = "<C-n>";
-      action = "require('harpoon-ui').nav_file(3)";
-    }
-    {
-      mode = "n";
-      key = "<C-s>";
-      action = "require('harpoon-ui').nav_file(4)";
     }
   ];
 }

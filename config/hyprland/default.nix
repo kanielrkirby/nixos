@@ -57,7 +57,7 @@
           background_color = "0x000000";
         };
       };
-      extraConfig = builtins.readFile ./binds/hypr/hyprland.conf;
+      extraConfig = builtins.readFile ./hypr/binds.conf;
     };
   };
 }

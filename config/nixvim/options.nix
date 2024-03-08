@@ -15,7 +15,7 @@
       swapfile = false;
       backup = false;
       undofile = true;
-      undodir = "/etc/nixos/extra/nvim/undodir";
+      undodir = "/home/${username}/.config/nvim/undodir";
       hlsearch = false;
       incsearch = true;
       termguicolors = true;
@@ -27,9 +27,9 @@
 
     globals = {
       mapleader = " ";
-      netrw_keepdir = 1;
-      netrw_localcopydircmd = "cp -r";
-      netrw_banner = 0;
+#      netrw_keepdir = 1;
+#      netrw_localcopydircmd = "cp -r";
+#      netrw_banner = 0;
       user_emmet_leader_key = "<C-,>";
     };
   };

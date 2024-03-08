@@ -20,16 +20,16 @@
   outputs = { self, nixos-pkgs, impermanence, ... }@inputs:
     let
       system = "x86_64-linux";
-      # kernel = "6_7"; # for ZFS
+      # kernel = "6_7"; # Commented out for ZFS to handle it
       version = "23.11";
       hostName = "nixos";
       username = "mx";
       locale = "en_US.UTF-8";
       kbLayout = "us";
       timeZone = "America/Chicago";
-#      wallpaperGit = "https://github.com/amtoine/wallpapers";
-#      wallpaperDir = "/home/${username}/.config/wallpapers";
-#      wallpaperSubDir = "/home/${username}/.config/wallpapers/wallpapers/other";
+      wallpaperGit = "https://github.com/Gingeh/wallpapers";
+      wallpaperDir = "/home/${username}/.config/wallpapers";
+      wallpaperSubDir = "/home/${username}/.config/wallpapers/wallpapers/other";
       pkgs = import nixos-pkgs {
         inherit system;
         config = { allowUnfree = true; };
@@ -48,9 +48,9 @@
             inherit timeZone;
             inherit locale;
             inherit kbLayout;
-#            inherit wallpaperDir;
-#            inherit wallpaperSubDir;
-#            inherit wallpaperGit;
+            inherit wallpaperDir;
+            inherit wallpaperSubDir;
+            inherit wallpaperGit;
             inherit pkgs;
             inherit impermanence;
           };
@@ -66,7 +66,7 @@
             ./config/nixvim
             ./config/network.nix
             ./config/virt
-#            ./config/hyprpaper.nix
+            ./config/hyprpaper.nix
           ];
         };
       };

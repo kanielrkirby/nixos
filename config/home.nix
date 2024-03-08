@@ -807,6 +807,7 @@
           "naepdomgkenhinolocfifgehidddafch" # Browserpass
           "hipekcciheckooncpjeljhnekcoolahp" # Tabliss
           "dabkegjlekdcmefifaolmdhnhdcplklo" # Modern for HN
+          "nffaoalbilbmmfgbnbgppjihopabppdk" # Video Speed Controller
         ];
       };
 
@@ -852,19 +853,13 @@
         maxIconSize = 64;
         defaultTimeout = 5000;
         ignoreTimeout = true;
-        font = "Noto Sans";
-        #        extraConfig = ''
-        #          [urgency=low];
-        #          border-color=#FFFFFF80;
-        #          [urgency=normal];
-        #          border-color=#FFFFFF80;
-        #          [urgency=high];
-        #          border-color=#FF0000FF;
-        #          default-timeout=0;
-        #          [category=mpd];
-        #          default-timeout=2000;
-        #          group-by=category;
-        #        '';
+        font = "Noto Sans 10";
+        extraConfig = builtins.readFile "${pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "mako";
+          rev = "master";
+          sha256 = "sha256-nUzWkQVsIH4rrCFSP87mXAka6P+Td2ifNbTuP7NM/SQ=";
+        }}/src/mocha";
       };
 
       programs.vscode = {

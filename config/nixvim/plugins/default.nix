@@ -1,0 +1,22 @@
+{
+  imports = [
+    ./cmp.nix
+    ./codeium-vim.nix
+    ./comment.nix
+    ./conform.nix
+    ./default.nix
+    ./fugitive.nix
+    ./gitsigns.nix
+    ./harpoon.nix
+    ./lspconfig.nix
+    ./lualine.nix
+    ./notify.nix
+    ./oil.nix
+    ./surround.nix
+    ./telescope.nix
+    ./theme.nix
+    ./treesitter.nix
+    ./undotree.nix
+    ./wl-clipboard.nix
+  ];
+}
