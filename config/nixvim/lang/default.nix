@@ -5,6 +5,7 @@
     ./cpp.nix
     ./docker.nix
     ./go.nix
+    ./hyprlang.nix
     ./js.nix
     ./lua.nix
     ./nix.nix
