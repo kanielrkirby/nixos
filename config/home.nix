@@ -111,6 +111,7 @@
         foliate
         gimp
         gnome3.gnome-themes-extra
+        haskellPackages.ghcWithPackages (pkgs: with pkgs; [ cabal-install ])
       ];
 
       programs.less.enable = true;

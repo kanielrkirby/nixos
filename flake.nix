@@ -18,10 +18,12 @@
   };
 
   outputs = { self, nixos-pkgs, impermanence, ... }@inputs:
+  {
+    nixosConfigurations = 
     let
       system = "x86_64-linux";
       # kernel = "6_7"; # Commented out for ZFS to handle it
-      version = "23.11";
+      version = "24.05";
       hostName = "nixos";
       username = "mx";
       locale = "en_US.UTF-8";
@@ -34,12 +36,12 @@
         inherit system;
         config = { allowUnfree = true; };
       };
-    in {
-      nixosConfigurations = {
-        nixos = nixos-pkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit self;
-            inherit system;
+    in
+    {
+      default = nixos-pkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit self;
+          inherit system;
             # inherit kernel; # for ZFS
             inherit version;
             inherit inputs;
@@ -67,6 +69,49 @@
             ./config/network.nix
             ./config/virt
             ./config/hyprpaper.nix
+          ];
+        };
+      };
+      darwinConfigurations = 
+    let
+      system = "x86_64-darwin";
+      # kernel = "6_7"; # Commented out for ZFS to handle it
+      version = "24.05";
+      hostName = "macos";
+      username = "mx";
+      locale = "en_US.UTF-8";
+      kbLayout = "us";
+      timeZone = "America/Chicago";
+      pkgs = import nixos-pkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+    in
+      {
+        default = nixos-pkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit self;
+            inherit system;
+            # inherit kernel; # for ZFS
+            inherit version;
+            inherit inputs;
+            inherit hostName;
+            inherit username;
+            inherit timeZone;
+            inherit locale;
+            inherit kbLayout;
+            inherit pkgs;
+          };
+          modules = [
+            ./config/nixos.nix
+            ./config/boot
+            ./config/hardware.nix
+            ./config/packages.nix
+            ./config/home.nix
+            ./config/hyprland
+            ./config/nixvim
+            ./config/network.nix
+            ./config/virt
           ];
         };
       };

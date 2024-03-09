@@ -13,22 +13,22 @@
       {
         mode = "n";
         key = "<C-h>";
-        action = "require('harpoon-ui').nav_file(1)";
+        action = "<cmd>lua require('harpoon-ui').nav_file(1)<CR>";
       }
       {
         mode = "n";
         key = "<C-t>";
-        action = "require('harpoon-ui').nav_file(2)";
+        action = "<cmd>lua require('harpoon-ui').nav_file(2)<CR>";
       }
       {
         mode = "n";
         key = "<C-n>";
-        action = "require('harpoon-ui').nav_file(3)";
+        action = "<cmd>lua require('harpoon-ui').nav_file(3)<CR>";
       }
       {
         mode = "n";
         key = "<C-s>";
-        action = "require('harpoon-ui').nav_file(4)";
+        action = "<cmd>lua require('harpoon-ui').nav_file(4)<CR>";
       }
     ];
   };

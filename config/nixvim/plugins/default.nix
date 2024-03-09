@@ -4,7 +4,6 @@
     ./codeium-vim.nix
     ./comment.nix
     ./conform.nix
-    ./default.nix
     ./fugitive.nix
     ./gitsigns.nix
     ./harpoon.nix
