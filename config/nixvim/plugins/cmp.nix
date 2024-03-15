@@ -1,6 +1,7 @@
 {
   programs.nixvim = {
     plugins = {
+      luasnip.enable = true;
       cmp = {
         enable = true;
         autoEnableSources = true;
@@ -12,12 +13,15 @@
             "<C-l>" =
               "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true, })";
           };
-          snippet.expand = "luasnip";
+          snippet.expand = ''
+            function(args)
+              require("luasnip").lsp_expand(args.body)
+            end
+          '';
           sources =
-            [ { name = "nvim_lsp"; } { name = "luasnip"; } { name = "path"; } ];
+            [ { name = "nvim_lsp"; } { name = "luasnip"; } { name = "path"; } { name = "buffer"; } ];
         };
       };
-      luasnip.enable = true;
     };
   };
 }

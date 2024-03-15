@@ -7,7 +7,7 @@
       {
         mode = "n";
         key = "<leader>f";
-        action = ''<cmd>require("conform").format()<CR>'';
+        action = ''<cmd>lua require("conform").format()<CR>'';
       }
     ];
   };
