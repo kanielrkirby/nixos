@@ -2,14 +2,21 @@
 
 {
   programs.nixvim = {
-    extraPackages = [pkgs.fetchFromGitHub {
-      owner = "chrisgrieser";
-      repo = "nvim-recorder";
-      rev = "f37f8e80b32c2a5dca2bd8f6d9dce278b3f5e434";
-      sha256 = "sha256-1DpK5LlN+gXpKS7CQWxGdP7fHn0sZ5nGxhW6v0XaZQ=";
-    }];
+    extraPackages = [
+      (
+        pkgs.vimUtils.buildVimPlugin {
+          name = "nvim-recorder";
+          src = pkgs.fetchFromGitHub {
+            owner = "chrisgrieser";
+            repo = "nvim-recorder";
+            rev = "f37f8e80b32c2a5dca2bd8f6d9dce278b3f5e434";
+            sha256 = "sha256-86DKN6UUSTfB/HMu4dFQrwpLIyuUs7yG0+q2ZAvo9YI=";
+          };
+        }
+      )
+    ];
 
-    extraConfig = ''
+    extraConfigLua = ''
       require("recorder").setup {
     	-- Named registers where macros are saved (single lowercase letters only).
     	-- The first register is the default register used as macro-slot after

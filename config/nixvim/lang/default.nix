@@ -3,7 +3,6 @@
     ./bash.nix
     ./c.nix
     ./cpp.nix
-    ./css.nix
     ./docker.nix
     ./go.nix
     ./hyprlang.nix
@@ -11,7 +10,6 @@
     ./lua.nix
     ./nix.nix
     ./python.nix
-    ./recorder.nix
     ./rust.nix
     ./toml.nix
     ./yaml.nix

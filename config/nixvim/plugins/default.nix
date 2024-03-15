@@ -11,6 +11,7 @@
     ./lualine.nix
     ./notify.nix
     ./oil.nix
+    ./recorder.nix
     ./surround.nix
     ./telescope.nix
     ./theme.nix
