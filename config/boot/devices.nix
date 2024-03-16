@@ -50,11 +50,6 @@
         fsType = "vfat";
         neededForBoot = true;
       };
-    "/home/mx/.local/share/atuin" =
-      {
-        device = "/dev/zvol/zpool/atuin";
-        fsType = "ext4";
-      };
   };
   swapDevices =
     [ 
