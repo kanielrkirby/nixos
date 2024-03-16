@@ -1,19 +1,20 @@
 { pkgs, ... }:
 
+let
+  recorder = pkgs.vimUtils.buildVimPlugin {
+    name = "recorder";
+    src = pkgs.fetchFromGitHub {
+      owner = "chrisgrieser";
+      repo = "nvim-recorder";
+      rev = "f37f8e80b32c2a5dca2bd8f6d9dce278b3f5e434";
+      sha256 = "sha256-86DKN6UUSTfB/HMu4dFQrwpLIyuUs7yG0+q2ZAvo9YI=";
+    };
+  };
+in
 {
   programs.nixvim = {
-    extraPackages = [
-      (
-        pkgs.vimUtils.buildVimPlugin {
-          name = "nvim-recorder";
-          src = pkgs.fetchFromGitHub {
-            owner = "chrisgrieser";
-            repo = "nvim-recorder";
-            rev = "f37f8e80b32c2a5dca2bd8f6d9dce278b3f5e434";
-            sha256 = "sha256-86DKN6UUSTfB/HMu4dFQrwpLIyuUs7yG0+q2ZAvo9YI=";
-          };
-        }
-      )
+    extraPackages = with pkgs.vimPlugins; [
+      recorder
     ];
 
     extraConfigLua = ''

@@ -8,10 +8,10 @@
 #    ./theme.nix
 #    ./cli.nix
 #    ./gui.nix
+     ./programs/zsh.nix
   ];
 
   users = {
-    defaultUserShell = pkgs.zsh;
     users.mx = {
       isNormalUser = true;
       extraGroups = [ "wheel" "libvirtd" "networkmanager" ];
@@ -123,78 +123,7 @@
           sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
         }}/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
 
-      programs.zsh = {
-        enable = true;
-        enableAutosuggestions = true;
-        syntaxHighlighting.enable = true;
-        enableCompletion = true;
-        initExtra = ''
-          source ${config.xdg.configHome}/zsh/catppuccin_mocha.zsh
-          export LANG="en_US.UTF-8"
-          export LC_ALL="$LANG"
-          export ANKI_WAYLAND="1"
-          alias svim="sudo -E -s nvim"
-          up() {
-              local name=""
-              local type="test"  # Default type
-
-              for arg in "$@"; do
-                  case $arg in
-                      --boot)
-                          type="boot"
-                          shift
-                          ;;
-                      --switch)
-                          type="switch"
-                          shift
-                          ;;
-                      --test)
-                          type="test"
-                          shift
-                          ;;
-                      *)
-                          # Assuming the first non-option argument is the name
-                          if [[ -z "$name" ]]; then
-                              name="$arg"
-                          else
-                              echo "Error: Unexpected argument: $arg"
-                              return 1
-                          fi
-                          ;;
-                  esac
-              done
-
-              if [[ -z "$name" ]]; then
-                  echo "Error: Name is required."
-                  return 1
-              fi
-
-              name="$(echo $name | sed "s/ /_/g")"
-
-              sudo NIXOS_LABEL="$name" nixos-rebuild "$type" --flake /etc/nixos#nixos
-
-              wd=$(pwd)
-              if [[ "$type" == "boot" || "$type" == "switch" ]]; then
-                cd /etc/nixos
-                sudo -E git add .
-                sudo -E git commit -m "$name"
-                cd "$wd"
-              fi
-          }
-
-          n() {
-            args="$@"
-            cmd="''${args%% *}"
-            args="''${args#* }"
-            nix shell "nixpkgs#$cmd" --command $cmd $args
-          }
-        '';
-      };
-
-      programs.atuin = {
-        enable = true;
-        enableZshIntegration = true;
-      };
+      programs.atuin = { enable = true; };
 
       programs.starship = 
       let
@@ -202,7 +131,6 @@
       in
       {
         enable = true;
-        enableZshIntegration = true;
         settings = builtins.fromTOML (builtins.readFile (pkgs.fetchFromGitHub
         {
             owner = "catppuccin";
@@ -412,22 +340,22 @@
         [display]
         compact = false
         use_pager = false
-        
+
         [style.description]
         foreground = { rgb = { r = 205, g = 214, b = 244 } }
-        
+
         [style.command_name]
         foreground = { rgb = { r = 180, g = 160, b = 220 } }
-        
+
         [style.example_code]
         foreground = { rgb = { r = 205, g = 214, b = 244 } }
-        
+
         [style.example_text]
         foreground = { rgb = { r = 205, g = 214, b = 244 } }
-        
+
         [style.example_variable]
         foreground = { rgb = { r = 205, g = 214, b = 244 } }
-        
+
         [updates]
         auto_update = true
         auto_update_interval_hours = 24
@@ -808,10 +736,11 @@
           "hipekcciheckooncpjeljhnekcoolahp" # Tabliss
           "dabkegjlekdcmefifaolmdhnhdcplklo" # Modern for HN
           "nffaoalbilbmmfgbnbgppjihopabppdk" # Video Speed Controller
+          "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         ];
       };
 
-#      home.file.".config/BraveSoftware/Brave-Browser/Default/Preferences".source = "${self}/../extra/brave-preferences.json";
+      # home.file.".config/BraveSoftware/Brave-Browser/Default/Preferences".source = "${self}/../extra/brave-preferences.json";
 
       programs.browserpass = {
         enable = true;
@@ -902,13 +831,12 @@
         };
       };
 
-      #       programs.thunderbird = {
-      #         enable = true;
-      #         profiles = [];
-      #       };
-      #
+      # programs.thunderbird = {
+      #   enable = true;
+      #   profiles = [];
+      # };
     };
   };
+
   security.pam.services.swaylock = { };
 }
-
