@@ -32,5 +32,13 @@
       "gtk-4.0/gtk-dark.css".source =
         "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
     };
+
+    programs.fuzzel = {
+      settings = {
+        main = {
+          icon-theme = "Fluent-dark";
+        };
+      };
+    };
   };
 }

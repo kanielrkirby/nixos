@@ -12,7 +12,7 @@
   };
 
   # Necessary
-  hyprland.enable = true;
+  programs.hyprland.enable = true;
 
   services.xserver = {
     enable = true;

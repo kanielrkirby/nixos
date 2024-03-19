@@ -25,7 +25,7 @@
     };
   };
 
-  users."${username}".extraGroups = [ "networkmanager" ];
+  users.users."${username}".extraGroups = [ "networkmanager" ];
 
   time.timeZone = timeZone;
 }

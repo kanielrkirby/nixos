@@ -2,6 +2,8 @@
 
 {
   home-manager.users."${username}" = {
+    home.packages = with pkgs; [ libnotify ];
+
     services.mako = {
       enable = true;
       sort = "-time";
@@ -17,15 +19,6 @@
       maxIconSize = 64;
       defaultTimeout = 5000;
       ignoreTimeout = true;
-      font = "Noto Sans 10";
-      extraConfig = builtins.readFile "${
-          pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "mako";
-            rev = "master";
-            sha256 = "sha256-nUzWkQVsIH4rrCFSP87mXAka6P+Td2ifNbTuP7NM/SQ=";
-          }
-        }/src/mocha";
     };
   };
 }
