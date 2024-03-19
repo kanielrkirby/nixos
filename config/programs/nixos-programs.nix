@@ -13,8 +13,9 @@
     ./git.nix
     ./gnupg.nix
     ./less.nix
-    ./notify.nix
+    ./localsend.nix
     ./mullvad.nix
+    ./notify.nix
     ./password-store.nix
     ./ssh.nix
     ./starship.nix
@@ -22,6 +23,7 @@
     ./tealdeer.nix
     ./thunar.nix
     ./thunderbird.nix
+    ./transmission.nix
     ./vscode.nix
     ./waybar.nix
     ./zoxide.nix

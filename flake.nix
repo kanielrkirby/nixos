@@ -54,16 +54,16 @@
           inherit impermanence;
         };
         modules = [
-#          ./config/impermanence.nix
-#          ./config/hardware/sound.nix
-#          ./config/hardware/opengl.nix
-#          ./config/hardware/power.nix
-#          ./hardware-configuration.nix
-#          ./config/nixos.nix
-#          ./config/boot
+          ./config/impermanence.nix
+          ./config/hardware/sound.nix
+          ./config/hardware/opengl.nix
+          ./config/hardware/power.nix
+          ./hardware-configuration.nix
+          ./config/nixos.nix
+          ./config/boot
           ./config/home.nix
-#          ./config/hyprland
-#          ./config/nixvim
+          ./config/hyprland
+          ./config/nixvim
           ./config/network.nix
           ./config/virt
           # ./config/hyprpaper.nix
@@ -71,47 +71,9 @@
           ./config/theme/color.nix
           ./config/theme/gtk.nix
           ./config/theme/qt.nix
+          ./config/theme/font.nix
           ./config/sddm.nix
-        ];
-      };
-    };
-    darwinConfigurations = let
-      system = "x86_64-darwin";
-      # kernel = "6_7"; # Commented out for ZFS to handle it
-      version = "24.05";
-      hostName = "macos";
-      username = "mx";
-      locale = "en_US.UTF-8";
-      kbLayout = "us";
-      timeZone = "America/Chicago";
-      pkgs = import nixos-pkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-      };
-    in {
-      default = nixos-pkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit self;
-          inherit system;
-          # inherit kernel; # for ZFS
-          inherit version;
-          inherit inputs;
-          inherit hostName;
-          inherit username;
-          inherit timeZone;
-          inherit locale;
-          inherit kbLayout;
-          inherit pkgs;
-        };
-        modules = [
-          ./config/nixos.nix
-          ./config/boot
-          ./config/hardware
-          ./config/home.nix
-          ./config/hyprland
-          ./config/nixvim
-          ./config/network.nix
-          ./config/virt
+          ./config/user.nix
         ];
       };
     };

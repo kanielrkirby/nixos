@@ -189,7 +189,7 @@
         owner = "catppuccin";
         repo = "waybar";
         rev = "master";
-        sha256 = "sha256-6W0Ji7H+q7QWQs0wV8xJcT6Q2+XrU7yq5w9kM+q8bHK=";
+        sha256 = "sha256-WLJMA2X20E5PCPg0ZPtSop0bfmu+pLImP9t8A8V4QK8=";
       }}/themes/mocha.css";
     };
   };

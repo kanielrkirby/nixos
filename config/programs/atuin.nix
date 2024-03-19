@@ -3,8 +3,8 @@
 {
   home-manager.users."${username}" = { programs.atuin = { enable = true; }; };
 
-  fileSystems."/home/${username}/.local/share/atuin" = if builtins.elem "zfs" config.boot.supportedFilesystems then {
+  fileSystems."/home/${username}/.local/share/atuin" = {
     device = "/dev/zvol/zpool/atuin";
     fsType = "ext4";
-  } else {};
+  };
 }

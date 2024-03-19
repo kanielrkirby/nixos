@@ -1,6 +1,9 @@
 { pkgs, username, ... }:
 
 {
+  fonts.packages = with pkgs;
+    [ (nerdfonts.override { fonts = [ "Monaspace" ]; }) ];
+
   home-manager = {
     users."${username}" = {
       gtk = {
@@ -9,11 +12,6 @@
           size = 14;
         };
       };
-    };
-
-    fonts.packages = with pkgs;
-      [ (nerdfonts.override { fonts = [ "Monaspace" ]; }) ];
-    home-manager.users."${username}" = {
       programs.alacritty = {
         settings = {
           font = {
@@ -28,14 +26,12 @@
           };
         };
       };
-    };
 
-    programs.fuzzel = {
-      settings = { main = { font = "Noto Sans:weight=medium:size=16"; }; };
-    };
+      programs.fuzzel = {
+        settings = { main = { font = "Noto Sans:weight=medium:size=16"; }; };
+      };
 
-    services.mako = {
-      font = "Noto Sans 10";
+      services.mako = { font = "Noto Sans 10"; };
     };
   };
 }

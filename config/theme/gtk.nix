@@ -1,7 +1,7 @@
-{ pkgs, username, config, ... }:
+{ pkgs, username, ... }:
 
 {
-  home-manager.users."${username}" = {
+  home-manager.users."${username}" = { config, ... }: {
     gtk = {
       enable = true;
 

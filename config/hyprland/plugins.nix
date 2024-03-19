@@ -5,11 +5,11 @@
     users."${username}".wayland.windowManager.hyprland = {
       settings = {
         exec-once = [
-          "hyprpm enable hyprbars"
+ #         "hyprpm enable hyprbars"
         ];
       };
       plugins = [
-        inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+ #       inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       ];
     };
   };

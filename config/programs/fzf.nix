@@ -4,7 +4,6 @@
   home-manager.users."${username}" = {
     programs.fzf = {
       enable = true;
-      enableZshIntegration = true;
     };
   };
 }
