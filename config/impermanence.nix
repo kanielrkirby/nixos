@@ -1,9 +1,13 @@
 { username, impermanence, ... }:
 
 {
-  imports = [
-    impermanence.nixosModules.impermanence
-  ];
+  imports = [ impermanence.nixosModules.impermanence ];
+
+  fileSystems."/persist" = {
+    device = "zpool/persist";
+    fsType = "zfs";
+    neededForBoot = true;
+  };
 
   programs.fuse.userAllowOther = true;
 
@@ -20,16 +24,14 @@
       "/etc/mullvad-vpn"
     ];
     files = [
-#      "/etc/machine-id"
-#      "/etc/passwd"
-#      "/etc/shadow"
+      #      "/etc/machine-id"
+      #      "/etc/passwd"
+      #      "/etc/shadow"
     ];
   };
 
   home-manager.users."${username}" = {
-    imports = [
-      impermanence.nixosModules.home-manager.impermanence
-    ];
+    imports = [ impermanence.nixosModules.home-manager.impermanence ];
 
     home.persistence."/persist/home/${username}" = {
       allowOther = true;
@@ -50,9 +52,7 @@
         { directory = ".ssh"; }
         { directory = ".config/password-store"; }
       ];
-      files = [
-        ".config/gh/hosts"
-      ];
+      files = [ ".config/gh/hosts" ];
     };
   };
 }

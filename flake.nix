@@ -58,7 +58,11 @@
           };
           modules = [
             ./config/impermanence.nix
+            ./config/hardware/sound.nix
+            ./config/hardware/opengl.nix
+            ./config/hardware/power.nix
             ./hardware-configuration.nix
+            ./config/programs/nixos-programs.nix
             ./config/nixos.nix
             ./config/boot
             ./config/hardware.nix

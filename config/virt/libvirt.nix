@@ -1,11 +1,22 @@
+{ username, ... }:
+
 {
-  virtualisation = {
-    libvirtd = { enable = true; };
+  virtualisation = { libvirtd = { enable = true; }; };
+
+  home-manager.users."${username}" = {
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
+      };
+    };
+  };
+
+  users = {
+    users."${username}" = {
+      extraGroups = [ "libvirtd" ];
+    };
   };
 
   programs.virt-manager.enable = true;
-
-  # mx.dconf settings are in ./home-manager.nix
-
-  # mx is added to "libvirtd" group in ./home-manager.nix
 }

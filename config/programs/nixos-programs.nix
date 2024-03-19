@@ -1,0 +1,25 @@
+{
+  imports = [
+    ./alacritty.nix
+    ./atuin.nix
+    ./bat.nix
+    ./btop.nix
+    ./chromium.nix
+    ./eza.nix
+    ./fuzzel.nix
+    ./fzf.nix
+    ./git.nix
+    ./less.nix
+    ./mako.nix
+    ./password-store.nix
+    ./starship.nix
+    ./swaylock.nix
+    ./tealdeer.nix
+    ./thunar.nix
+    ./thunderbird.nix
+    ./vscode.nix
+    ./waybar.nix
+    ./zoxide.nix
+    ./zsh.nix
+  ];
+}
