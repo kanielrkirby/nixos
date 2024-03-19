@@ -16,6 +16,14 @@
       };
     };
 
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 16;
+    };
+
     xdg.configFile = {
       "gtk-4.0/assets".source =
         "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";

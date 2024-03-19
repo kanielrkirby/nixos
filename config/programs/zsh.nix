@@ -1,6 +1,8 @@
 { pkgs, username, ... }:
 
 {
+  programs.zsh.enable = true;
+
   users = { defaultUserShell = pkgs.zsh; };
 
   home-manager.users."${username}" = {

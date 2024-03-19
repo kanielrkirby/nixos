@@ -1,12 +1,7 @@
 { username, pkgs, ... }:
 
 {
-  imports = [
-    ./input.nix
-    ./graphics.nix
-    ./workspace.nix
-    ./plugins.nix
-  ];
+  imports = [ ./input.nix ./graphics.nix ./workspace.nix ./plugins.nix ];
 
   xdg.portal = {
     wlr.enable = true;
@@ -16,26 +11,14 @@
     ];
   };
 
+  # Necessary
+  hyprland.enable = true;
+
   services.xserver = {
     enable = true;
     xkb.layout = "us";
     libinput.enable = true;
     videoDrivers = [ "modesetting" ];
-
-    displayManager = {
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-        theme = "${import ../derivations/sddm-catppuccin.nix { inherit pkgs; }}/src/catppuccin-mocha";
-     #   autoLogin = {
-     #     relogin = true;
-     #   };
-      };
-     # autoLogin = {
-     #   enable = true;
-     #   user = "mx";
-     # };
-    };
   };
 
   home-manager = {
@@ -47,9 +30,7 @@
       settings = {
         #debug.overlay = true;
 
-        exec-once = [
-          "waybar"
-        ];
+        exec-once = [ "waybar" ];
 
         misc = {
           force_default_wallpaper = false;

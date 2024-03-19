@@ -13,7 +13,29 @@
         };
       };
     };
-    #gnome3.gnome-themes-extra
+
+    programs.alacritty = {
+      settings.import = [
+        "${
+          pkgs.fetchFromGitHub {
+            owner = "alacritty";
+            repo = "alacritty-theme";
+            rev = "master";
+            sha256 = "sha256-+35S6eQkxLBuS/fDKD5bglQDIuz2xeEc5KSaK6k7IjI=";
+          }
+        }/themes/catppuccin_mocha.toml"
+      ];
+    };
+
+    services.xserver.displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "${
+            import ../derivations/sddm-catppuccin.nix { inherit pkgs; }
+          }/src/catppuccin-mocha";
+      };
+    };
 
     dconf.settings = {
       "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };

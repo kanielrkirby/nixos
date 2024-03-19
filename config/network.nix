@@ -1,18 +1,16 @@
-{ hostName, timeZone, ... }:
+{ hostName, timeZone, username, ... }:
 
 {
   networking = {
     hostName = hostName;
     hostId = "3759be58";
     networkmanager.enable = true;
-    # mx is added to the networkmanager group in ./home.nix
-    nameservers = [ "9.9.9.9" ];
+    nameservers = [ "9.9.9.9" "1.1.1.1" "8.8.8.8" ]; # Quad9, Cloudflare, Google
     firewall = {
       enable = true;
       allowedTCPPorts = [
         80 # HTTP
         443 # HTTPS
-        53317 # LocalSend
       ];
       allowedUDPPortRanges = [
         {
@@ -23,16 +21,12 @@
           from = 8000;
           to = 8010;
         }
-        {
-          from = 53315;
-          to = 53318;
-        } # LocalSend
       ];
     };
   };
 
+  users."${username}".extraGroups = [ "networkmanager" ];
+
   time.timeZone = timeZone;
-  services.openssh.enable = true;
-  services.mullvad-vpn.enable = true;
 }
 

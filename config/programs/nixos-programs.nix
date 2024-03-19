@@ -9,9 +9,12 @@
     ./fuzzel.nix
     ./fzf.nix
     ./git.nix
+    ./gnupg.nix
     ./less.nix
     ./mako.nix
+    ./mullvad.nix
     ./password-store.nix
+    ./ssh.nix
     ./starship.nix
     ./swaylock.nix
     ./tealdeer.nix

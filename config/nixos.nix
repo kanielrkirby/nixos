@@ -5,20 +5,9 @@
     system = system;
 
     config = { allowUnfree = true; };
-
-    overlays = [
-      (final: _prev: {
-        unstable = import inputs.nixpkgs-unstable {
-          system = system;
-          config.allowUnfree = true;
-        };
-      })
-    ];
   };
 
   i18n.defaultLocale = locale;
-
-  # system.copySystemConfiguration = true;
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];

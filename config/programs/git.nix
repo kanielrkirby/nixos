@@ -1,7 +1,9 @@
-{ config, ... }:
+{ pkgs, username, ... }:
 
 {
-  home-manager.users."${config.username}" = {
+  environment.systemPackages = with pkgs; [ git ];
+
+  home-manager.users."${username}" = {
     programs.gh = {
       enable = true;
       settings = {
