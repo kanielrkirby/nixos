@@ -184,24 +184,26 @@
       auto_update_interval_hours = 24
     '';
 
-    programs.waybar = {
-      style = builtins.readFile "${pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "waybar";
-        rev = "master";
-        sha256 = "sha256-WLJMA2X20E5PCPg0ZPtSop0bfmu+pLImP9t8A8V4QK8=";
-      }}/themes/mocha.css";
+    xdg.configFile."waybar".source = builtins.path {
+      name = "waybar-config";
+      path = "${
+          pkgs.fetchFromGitHub {
+            owner = "sephid86";
+            repo = "archas";
+            rev = "master";
+            sha256 = "sha256-7EtoMTBbdDh+78N21pQocMOp+hvBVuTB93Pr5OSG0Xw=";
+          }
+        }/skel/.config/waybar";
+        filter = path: type: builtins.elem (baseNameOf path) [
+          "config"
+          "style.css"
+        ];
     };
   };
 
   services.xserver.displayManager = {
-    sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "${
-          import ../derivations/sddm-catppuccin.nix { inherit pkgs; }
-        }/src/catppuccin-mocha";
-    };
+    sddm.theme = "${
+        import ../derivations/sddm-catppuccin.nix { inherit pkgs; }
+      }/src/catppuccin-mocha";
   };
-
 }

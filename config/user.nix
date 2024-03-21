@@ -4,7 +4,7 @@
   users = {
     users."${username}" = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "kvm" ];
       initialPassword = "asdf";
     };
     mutableUsers = false;

@@ -1,7 +1,12 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 
 {
-  virtualisation = { libvirtd = { enable = true; }; };
+  virtualisation = {
+    libvirtd = { enable = true; };
+    spiceUSBRedirection.enable = true;
+  };
+
+  services.spice-vdagentd.enable = true;
 
   home-manager.users."${username}" = {
     dconf.settings = {
@@ -14,9 +19,13 @@
 
   users = {
     users."${username}" = {
-      extraGroups = [ "libvirtd" ];
+      extraGroups = [ "libvirtd" "kvm" "qemu" "spice" ];
     };
   };
 
   programs.virt-manager.enable = true;
+
+  environment.systemPackages = with pkgs; [ spice-gtk ];
+
+  # set group ownership over the device /dev/bus/usb to "spice"
 }

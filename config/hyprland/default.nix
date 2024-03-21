@@ -34,8 +34,6 @@
       systemd.enable = true;
 
       settings = {
-        #debug.overlay = true;
-
         exec-once = [ "waybar" ];
 
         misc = {

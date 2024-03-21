@@ -1,11 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
-  services.transmission = {
-    enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    transmission-gtk
-  ];
+  environment.systemPackages = with pkgs; [ transmission_4-gtk ];
 }

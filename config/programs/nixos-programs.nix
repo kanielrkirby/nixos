@@ -44,5 +44,6 @@
     hyprpaper
     foliate
     gimp
+    libusb
   ];
 }
