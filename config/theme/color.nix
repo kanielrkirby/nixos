@@ -1,6 +1,32 @@
 { username, pkgs, ... }:
 
 {
+  nixpkgs.overlays = [
+    # Temporary fix until https://github.com/NixOS/nixpkgs/issues/298043 is resolved
+    (_: final: prev: {
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (python-final: python-prev: {
+          catppuccin = python-prev.catppuccin.overridePythonAttrs
+            (oldAttrs: rec {
+              version = "1.3.2";
+
+              src = prev.fetchFromGitHub {
+                owner = "catppuccin";
+                repo = "python";
+                rev = "refs/tags/v${version}";
+                hash = "sha256-spPZdQ+x3isyeBXZ/J2QE6zNhyHRfyRQGiHreuXzzik=";
+              };
+
+              # can be removed next version
+              disabledTestPaths = [
+                "tests/test_flavour.py" # would download a json to check correctness of flavours
+              ];
+            });
+        })
+      ];
+    })
+  ];
+
   home-manager.users."${username}" = {
     gtk = {
       theme = {
@@ -194,10 +220,8 @@
             sha256 = "sha256-7EtoMTBbdDh+78N21pQocMOp+hvBVuTB93Pr5OSG0Xw=";
           }
         }/skel/.config/waybar";
-        filter = path: type: builtins.elem (baseNameOf path) [
-          "config"
-          "style.css"
-        ];
+      filter = path: type:
+        builtins.elem (baseNameOf path) [ "config" "style.css" ];
     };
   };
 
