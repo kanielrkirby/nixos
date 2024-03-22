@@ -16,7 +16,9 @@
     ./telescope.nix
     ./theme.nix
     ./treesitter.nix
+    ./twilight.nix
     ./undotree.nix
     ./wl-clipboard.nix
+    ./zen-mode.nix
   ];
 }
