@@ -4,10 +4,10 @@
   imports = [
     inputs.nixvim.nixosModules.nixvim
     ./options.nix
+    ./autocmd.nix
     ./keymaps.nix
     ./plugins # default is all
     ./lang # default is all
-    ./autocmds.nix
   ];
 
   programs.nixvim.enable = true;

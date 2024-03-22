@@ -33,6 +33,32 @@
       pkgs = import nixos-pkgs {
         inherit system;
         config = { allowUnfree = true; };
+        overlays = [
+          # Temporary fix until https://github.com/NixOS/nixpkgs/issues/298043 is resolved
+          (self: prev: {
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+              (python-final: python-prev: {
+                catppuccin = python-prev.catppuccin.overridePythonAttrs
+                  (oldAttrs: rec {
+                    version = "1.3.2";
+
+                    src = prev.fetchFromGitHub {
+                      owner = "catppuccin";
+                      repo = "python";
+                      rev = "refs/tags/v${version}";
+                      hash =
+                        "sha256-spPZdQ+x3isyeBXZ/J2QE6zNhyHRfyRQGiHreuXzzik=";
+                    };
+
+                    # can be removed next version
+                    disabledTestPaths = [
+                      "tests/test_flavour.py" # would download a json to check correctness of flavours
+                    ];
+                  });
+              })
+            ];
+          })
+        ];
       };
     in {
       default = nixos-pkgs.lib.nixosSystem {
