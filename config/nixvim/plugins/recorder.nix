@@ -13,11 +13,11 @@ let
 in
 {
   programs.nixvim = {
-    extraPackages = with pkgs.vimPlugins; [
+    extraPlugins = [
       recorder
     ];
 
-    extraConfigLua = ''
+    extraConfigLuaPost = ''
       require("recorder").setup {
     	-- Named registers where macros are saved (single lowercase letters only).
     	-- The first register is the default register used as macro-slot after

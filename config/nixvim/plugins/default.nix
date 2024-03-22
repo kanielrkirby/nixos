@@ -9,6 +9,7 @@
     ./harpoon.nix
     ./lspconfig.nix
     ./lualine.nix
+    ./markdown-preview.nix
     ./notify.nix
     ./oil.nix
     ./recorder.nix
