@@ -4,17 +4,24 @@
   inputs = {
     nixos-pkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos-pkgs";
+
     hyprland.url = "github:hyprwm/Hyprland/main";
     hyprland.inputs.nixpkgs.follows = "nixos-pkgs";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixos-pkgs";
+
     impermanence.url = "github:nix-community/impermanence";
+
+    inputs.sops-nix.url = "github:Mic92/sops-nix";
+    inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixos-pkgs, impermanence, ... }@inputs: {

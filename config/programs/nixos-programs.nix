@@ -45,5 +45,9 @@
     foliate
     gimp
     libusb
+    yarn
+    age
+    sops
+    yq
   ];
 }
