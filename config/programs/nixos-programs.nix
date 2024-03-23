@@ -17,6 +17,7 @@
     ./mullvad.nix
     ./notify.nix
     ./password-store.nix
+    ./sops.nix
     ./ssh.nix
     ./starship.nix
     ./swaylock.nix
