@@ -5,8 +5,6 @@
     inputs.sops-nix.nixosModules.sops
   ];
 
-  # Login PW
-
   sops.secrets.nixos-password.neededForUsers = true;
 
   users.users."${username}" = {
