@@ -4,52 +4,83 @@
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
   sops.secrets."login/nixos/password".neededForUsers = true;
+  sops.secrets."gpg/primary/content" = { };
+  sops.secrets."gpg/primary/key" = { };
 
   users.users."${username}" = {
     hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
   };
 
   sops.age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-  sops.defaultSopsFile = ../secrets/secrets/primary.json;
-  sops.defaultSopsFormat = "json";
+  sops.defaultSopsFile = ../secrets/secrets/primary.yaml;
+  sops.defaultSopsFormat = "yaml";
 
   environment.systemPackages = with pkgs; [
+    jq
     yq
     sops
     age
     (pkgs.writeShellScriptBin "sops-to-pass" ''
-      yaml="$(sops -d "${config.sops.defaultSopsFile}")"
-      handle() {
-          local yaml_data="$1"
-          local prefix="$2"
+      force=""
+      args=("$@")
+      _args=("''${args[@]}")
+      args=()
+      for arg in "''${_args[@]}"; do
+          if [ "$arg" = "-f" ]; then
+              force="true"
+          else
+              args+=("$arg")
+          fi
+      done
+      global_path="/home/mx/temp"
+      g_yaml="$(sops -d "/etc/nixos/config/secrets/secrets/primary.yaml")"
       
-          # Read keys and their types
-          readarray -t keys_and_types < <(echo "$yaml_data" | yq '. as $in | paths(scalars) | join(".")')
+      # Process each scalar value
+      function process() {
+          local json="$1"
+          local path="$2"
       
-          for kt in "''${keys_and_types[@]}"; do
-              local key="''${kt%:*}"
-              local type="''${kt##*:}"
-              local formatted_key="''${key//\"/}" # Remove quotes from the key
-      
-              if [ "$type" == "string" ]; then
-                  # Extract the string value
-                  local value=$(echo "$yaml_data" | yq ".$formatted_key" -r)
-      
-                  # Replace . with / in key path for the filename
-                  local filepath="''${prefix}''${formatted_key//./\/}.temp"
-                  mkdir -p "$(dirname "$filepath")"
-                  echo "$value" > "$filepath"
+          for key in $(jq -r 'to_entries | .[] | .key' <<< "$json"); do
+              inner_key="$(echo "$json" | yq -r ".\"$key\" | keys | .[0]")"
+              inner_key_type="$(echo "$json" | yq -r ".\"$key\".\"$inner_key\" | type")"
+              if [ "$inner_key_type" = "object" ]; then
+                  process "$(echo "$json" | yq -r ".\"$key\"")" "$path.\"$key\""
               else
-                  # If it's not a string, handle recursively
-                  local new_prefix="$prefix$formatted_key/"
-                  local new_yaml_data=$(echo "$yaml_data" | yq ".$formatted_key")
-                  handle "$new_yaml_data" "$new_prefix"
+                  create_file "$path.\"$key\""
               fi
           done
       }
       
-      # Start processing
-      handle "$yaml"
+      function create_file() {
+          local accessor="$1"
+          local path
+          path="$global_path/$(echo "$accessor" | sed 's/"."/\//g' | sed 's/^\."//' | sed 's/"$//')"
+          local basic_path
+          basic_path="''${path//$global_path\//}"
+          local content
+          content="$(echo "$g_yaml" | yq -ry "$accessor")"
+          # Password fix
+          content="$( echo "$content" | sed 's/^password: //' )"
+      
+          mkdir -p "$(dirname "$path")"
+          if [ "$(gopass ls | rg "$basic_path")" != "" ]; then
+              echo "File at \"$path.gpg\" already exists"
+              if [ "$force" = "true" ]; then
+                  echo "Overwriting..."
+                  gopass rm -f "$basic_path"
+              else
+                  echo "Skipping... (delete or move file, or pass -f to overwrite ALL files)"
+                  return
+              fi
+          fi
+          echo "$content" | gopass insert -ma "$basic_path"
+      }
+      
+      if [ "$(gpg --list-secret-keys | rg "$(sudo -E cat "${config.sops.secrets."gpg/primary/key".path}")")" == "" ]; then
+          sudo -E gpg --import "$(cat "${config.sops.secrets."gpg/primary/content".path}")"
+      fi
+      
+      process "$(echo "$g_yaml" | yq -rj)"
     '')
   ];
 }

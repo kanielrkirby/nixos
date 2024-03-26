@@ -2,9 +2,12 @@
 
 {
   virtualisation = {
-    libvirtd = { enable = true; };
+    libvirtd = {
+      enable = true;
+    };
     spiceUSBRedirection.enable = true;
   };
+  programs.virt-manager.enable = true;
 
   services.spice-vdagentd.enable = true;
 
@@ -22,8 +25,6 @@
       extraGroups = [ "libvirtd" "kvm" "qemu" "spice" ];
     };
   };
-
-  programs.virt-manager.enable = true;
 
   environment.systemPackages = with pkgs; [ spice-gtk ];
 
