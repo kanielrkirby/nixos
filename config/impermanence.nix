@@ -22,6 +22,7 @@
       "/var/lib/containers"
       "/etc/NetworkManager/system-connections"
       "/etc/mullvad-vpn"
+      "/etc/ssh"
     ];
     files = [
       #      "/etc/machine-id"
@@ -48,9 +49,9 @@
         ".config/Signal"
         ".config/gopass"
         ".local/share/direnv"
-        { directory = ".gnupg"; }
-        { directory = ".ssh"; }
-        { directory = ".config/password-store"; }
+        ".gnupg"
+        ".ssh"
+        ".config/password-store"
       ];
       files = [ ".config/gh/hosts" ];
     };

@@ -11,7 +11,7 @@
     hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
   };
 
-  sops.age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/persist/var/lib/sops-nix/keys.txt";
   sops.defaultSopsFile = ../secrets/secrets/primary.yaml;
   sops.defaultSopsFormat = "yaml";
 

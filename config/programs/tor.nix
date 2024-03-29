@@ -1,7 +1,5 @@
-{ }:
-
 {
-  tor = {
+  services.tor = {
     openFirewall = true;
 
     relay = {

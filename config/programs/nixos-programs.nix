@@ -24,7 +24,6 @@
     ./tealdeer.nix
     ./thunar.nix
     ./thunderbird.nix
-    ./tor.nix
     ./transmission.nix
     ./vscode.nix
     ./waybar.nix
@@ -48,5 +47,6 @@
     gimp
     libusb
     yarn
+    tor-browser-bundle-bin
   ];
 }
