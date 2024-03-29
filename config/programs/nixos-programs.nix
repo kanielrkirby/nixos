@@ -14,6 +14,7 @@
     ./gnupg.nix
     ./less.nix
     ./localsend.nix
+    ./mods.nix
     ./mullvad.nix
     ./neomutt.nix
     ./notify.nix

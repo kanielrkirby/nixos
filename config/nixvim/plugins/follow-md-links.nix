@@ -9,13 +9,12 @@
           owner = "jghauser";
           repo = "follow-md-links.nvim";
           rev = "master";
-          sha256 = "sha256-9y8Z8wEgqKQ+YYtb7w0yYB2+KjBh5iW6Q5ZkQsQ7xY=";
+          sha256 = "sha256-ElgYrD+5FItPftpjDTdKAQR37XBkU8mZXs7EmAwEKJ4=";
         };
       });
     }];
 
     extraConfigLua = ''
-      require("follow-md-links").setup { }
     '';
   };
 }
