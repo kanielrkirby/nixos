@@ -34,12 +34,12 @@
       done
       global_path="/home/mx/temp"
       g_yaml="$(sops -d "/etc/nixos/config/secrets/secrets/primary.yaml")"
-      
+
       # Process each scalar value
       function process() {
           local json="$1"
           local path="$2"
-      
+
           for key in $(jq -r 'to_entries | .[] | .key' <<< "$json"); do
               inner_key="$(echo "$json" | yq -r ".\"$key\" | keys | .[0]")"
               inner_key_type="$(echo "$json" | yq -r ".\"$key\".\"$inner_key\" | type")"
@@ -50,7 +50,7 @@
               fi
           done
       }
-      
+
       function create_file() {
           local accessor="$1"
           local path
@@ -61,7 +61,7 @@
           content="$(echo "$g_yaml" | yq -ry "$accessor")"
           # Password fix
           content="$( echo "$content" | sed 's/^password: //' )"
-      
+
           mkdir -p "$(dirname "$path")"
           if [ "$(gopass ls | rg "$basic_path")" != "" ]; then
               echo "File at \"$path.gpg\" already exists"
@@ -75,11 +75,15 @@
           fi
           echo "$content" | gopass insert -ma "$basic_path"
       }
-      
-      if [ "$(gpg --list-secret-keys | rg "$(sudo -E cat "${config.sops.secrets."gpg/primary/key".path}")")" == "" ]; then
-          sudo -E gpg --import "$(cat "${config.sops.secrets."gpg/primary/content".path}")"
+
+      if [ "$(gpg --list-secret-keys | rg "$(sudo -E cat "${
+        config.sops.secrets."gpg/primary/key".path
+      }")")" == "" ]; then
+          sudo -E gpg --import "$(cat "${
+            config.sops.secrets."gpg/primary/content".path
+          }")"
       fi
-      
+
       process "$(echo "$g_yaml" | yq -rj)"
     '')
   ];

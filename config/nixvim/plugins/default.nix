@@ -4,6 +4,7 @@
     ./codeium-vim.nix
     ./comment.nix
     ./conform.nix
+    ./follow-md-links.nix
     ./fugitive.nix
     ./gitsigns.nix
     ./harpoon.nix

@@ -15,6 +15,7 @@
     ./less.nix
     ./localsend.nix
     ./mullvad.nix
+    ./neomutt.nix
     ./notify.nix
     ./password-store.nix
     ./sops.nix
