@@ -14,6 +14,7 @@
       initExtra = ''
         export LANG="en_US.UTF-8"
         export LC_ALL="$LANG"
+        export EDITOR="nvim"
 
         alias svim="sudo -E -s nvim"
 
