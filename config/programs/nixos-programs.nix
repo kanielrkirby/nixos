@@ -16,7 +16,6 @@
     ./localsend.nix
     ./mods.nix
     ./mullvad.nix
-    ./neomutt.nix
     ./notify.nix
     ./ollama.nix
     ./password-store.nix

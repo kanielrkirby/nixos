@@ -1,7 +1,7 @@
 { username, config, pkgs, ... }:
 
 {
-  programs.ollama = {
+  services.ollama = {
     enable = true;
   };
 }

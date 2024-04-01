@@ -14,6 +14,7 @@
         "dabkegjlekdcmefifaolmdhnhdcplklo" # Modern for HN
         "nffaoalbilbmmfgbnbgppjihopabppdk" # Video Speed Controller
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
+        "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       ];
     };
 
