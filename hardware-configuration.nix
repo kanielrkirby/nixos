@@ -16,17 +16,15 @@
   fileSystems."/" =
     { device = "zpool/root";
       fsType = "zfs";
-      neededForBoot = true;
-    };
-
-  fileSystems."/nix" =
-    { device = "zpool/nix";
-      fsType = "zfs";
-      neededForBoot = true;
     };
 
   fileSystems."/var" =
     { device = "zpool/var";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "zpool/nix";
       fsType = "zfs";
     };
 
@@ -38,18 +36,15 @@
   fileSystems."/persist" =
     { device = "zpool/persist";
       fsType = "zfs";
-      neededForBoot = true;
     };
 
   fileSystems."/boot" =
-    { device = "/dev/nvme0n1p3";
+    { device = "/dev/disk/by-uuid/8207-93D2";
       fsType = "vfat";
-      neededForBoot = true;
     };
 
   swapDevices =
-    [ 
-      { device = "/dev/nvme0n1p2"; }
+    [ { device = "/dev/disk/by-uuid/81c2908b-8fd6-493c-8092-e6541d5d72b7"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -57,7 +52,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s13f0u3u3.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp170s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

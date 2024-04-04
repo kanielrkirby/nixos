@@ -16,8 +16,9 @@
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       ];
+      initialPrefs = builtins.fromJSON builtins.readFile ../../extra/brave-preferences.json;
     };
 
-    # home.file.".config/BraveSoftware/Brave-Browser/Default/Preferences".source = "${self}/../extra/brave-preferences.json";
+    home.packages = with pkgs; [ tor-browser-bundle-bin ];
   };
 }

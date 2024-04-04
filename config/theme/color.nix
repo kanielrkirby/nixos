@@ -58,7 +58,7 @@
                 owner = "catppuccin";
                 repo = "bat";
                 rev = "master";
-                sha256 = "sha256-PLbTLj0qhsDj+xm+OML/AQsfRQVPXLYQNEPllgKcEx4=";
+                sha256 = "sha256-POoW2sEM6jiymbb+W/9DKIjDM1Buu1HAmrNP0yC2JPg=";
               }
             }/themes/Catppuccin Mocha.tmTheme";
         };

@@ -87,7 +87,7 @@
           inherit impermanence;
         };
         modules = [
-          ./config/impermanence.nix
+#          ./config/impermanence.nix
           ./config/hardware/sound.nix
           ./config/hardware/opengl.nix
           ./config/hardware/power.nix

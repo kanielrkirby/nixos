@@ -1,7 +1,7 @@
 { config, username, pkgs, ... }:
 
 {
-  sops.secrets."openai.com/sk" = { };
+#  sops.secrets."openai.com/sk" = { };
 
   system.activationScripts.setup-mods.text = ''
     mkdir -p /home/${username}/.config/mods
@@ -49,7 +49,7 @@
       apis:
         openai:
           base-url: https://api.openai.com/v1
-          api-key: '$(cat ${config.sops.secrets."openai.com/sk".path})'
+          api-key: '$(cat ''${config.sops.secrets."openai.com/sk".path})'
           api-key-env: OPENAI_API_KEY
           models:
             gpt-4:

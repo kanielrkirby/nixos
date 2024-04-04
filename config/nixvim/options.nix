@@ -2,7 +2,7 @@
 
 {
   programs.nixvim = {
-    options = {
+    opts = {
       foldenable = false;
       nu = true;
       relativenumber = true;

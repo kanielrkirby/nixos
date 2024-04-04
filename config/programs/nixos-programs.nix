@@ -6,7 +6,7 @@
     ./atuin.nix
     ./bat.nix
     ./btop.nix
-    ./chromium.nix
+    ./browser.nix
     ./eza.nix
     ./fuzzel.nix
     ./fzf.nix
@@ -41,7 +41,6 @@
     grim
     slurp
     ripgrep
-    signal-desktop
     brightnessctl
     playerctl
     hyprpaper
@@ -49,6 +48,5 @@
     gimp
     libusb
     yarn
-    tor-browser-bundle-bin
   ];
 }

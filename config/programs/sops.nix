@@ -3,15 +3,15 @@
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  sops.secrets."login/nixos/password".neededForUsers = true;
-  sops.secrets."gpg/primary/content" = { };
+#  sops.secrets."login/nixos/password".neededForUsers = true;
   sops.secrets."gpg/primary/key" = { };
+  sops.secrets."gpg/primary/content" = { };
 
-  users.users."${username}" = {
-    hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
-  };
+#  users.users."${username}" = {
+#    hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
+#  };
 
-  sops.age.keyFile = "/persist/var/lib/sops-nix/keys.txt";
+  sops.age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
   sops.defaultSopsFile = ../secrets/secrets/primary.yaml;
   sops.defaultSopsFormat = "yaml";
 
