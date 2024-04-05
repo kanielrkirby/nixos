@@ -19,6 +19,7 @@
     ./notify.nix
     ./ollama.nix
     ./password-store.nix
+    ./signal.nix
     ./sops.nix
     ./ssh.nix
     ./starship.nix

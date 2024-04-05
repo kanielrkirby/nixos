@@ -1,11 +1,5 @@
 {
   programs.nixvim = {
-    plugins = {
-      treesitter = {
-        ensureInstalled = [
-          "rust"
-        ];
-      };
-    };
+    plugins.rustaceanvim.enable = true;
   };
 }

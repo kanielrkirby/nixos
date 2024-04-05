@@ -14,8 +14,8 @@
       };
 
       conform-nvim = {
-        formattersByFt.nix = [ "nixfmt" ];
-        formatters.nixfmt.command = "${pkgs.nixfmt}/bin/nixfmt";
+        formattersByFt.nix = [ "nixfmt-rfc-style" ];
+        formatters.nixfmt-rfc-style.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt-rfc-style";
       };
      
       lint = {

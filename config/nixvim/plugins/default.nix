@@ -8,6 +8,7 @@
     ./fugitive.nix
     ./gitsigns.nix
     ./harpoon.nix
+    ./hover.nix
     ./lspconfig.nix
     ./lualine.nix
     ./markdown-preview.nix

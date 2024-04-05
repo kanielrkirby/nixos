@@ -32,7 +32,7 @@
               args+=("$arg")
           fi
       done
-      global_path="/home/mx/temp"
+      global_path="/home/mx/.config/password-store"
       g_yaml="$(sops -d "/etc/nixos/config/secrets/secrets/primary.yaml")"
 
       # Process each scalar value

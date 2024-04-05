@@ -1,9 +1,10 @@
 { config, username, pkgs, ... }:
 
 {
-#  sops.secrets."openai.com/sk" = { };
+  sops.secrets."openai.com/sk" = { };
 
   system.activationScripts.setup-mods.text = ''
+    source ${config.system.build.setEnvironment}
     mkdir -p /home/${username}/.config/mods
     content=$(cat <<EOF
       # Default model (gpt-3.5-turbo, gpt-4, ggml-gpt4all-j...).
@@ -49,7 +50,7 @@
       apis:
         openai:
           base-url: https://api.openai.com/v1
-          api-key: '$(cat ''${config.sops.secrets."openai.com/sk".path})'
+          api-key: '$(cat ${config.sops.secrets."openai.com/sk".path})'
           api-key-env: OPENAI_API_KEY
           models:
             gpt-4:
@@ -117,8 +118,8 @@
               aliases: ["az35"]
               max-input-chars: 12250
               fallback:
-
-    EOF)
+    EOF
+    )
     echo "$content" > "/home/${username}/.config/mods/mods.yml"
   '';
 
