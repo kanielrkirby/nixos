@@ -14,6 +14,10 @@
       };
     };
 
+    programs.chromium.extensions = [
+      "bkkmolkhemgaeaeggcmfbghljjjoofoh" # Catppuccin Theme
+    ];
+
     programs.alacritty = {
       settings.import = [
         "${
@@ -198,12 +202,14 @@
         builtins.elem (baseNameOf path) [ "config" "style.css" ];
     };
 
-    programs.neomutt.extraConfig = builtins.readFile "${pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "neomutt";
-      rev = "master";
-      sha256 = "sha256-7l+4vL+4wX9p+9HbqF4C8xhXjyjNzO1wBp9n9bWk8Xw=";
-    }}/neomuttrc";
+    programs.neomutt.extraConfig = builtins.readFile "${
+        pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "neomutt";
+          rev = "master";
+          sha256 = "sha256-7l+4vL+4wX9p+9HbqF4C8xhXjyjNzO1wBp9n9bWk8Xw=";
+        }
+      }/neomuttrc";
   };
 
   services.xserver.displayManager = {
