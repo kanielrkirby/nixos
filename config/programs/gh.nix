@@ -2,7 +2,7 @@
 
 {
   home-manager.users."${username}" = {
-    home.packages = with pkgs; [ gh-eco gh-f gh-s ];
+    home.packages = with pkgs; [ gh-eco gh-f ];
     programs.gh-dash = {
       enable = true;
       settings = {
