@@ -7,13 +7,13 @@
     ./bat.nix
     ./btop.nix
     ./browser.nix
-    ./discordo.nix
     ./eza.nix
     ./fuzzel.nix
     ./fzf.nix
     ./gh-dash.nix
     ./git.nix
     ./gnupg.nix
+    ./lazysql.nix
     ./less.nix
     ./localsend.nix
     ./mods.nix

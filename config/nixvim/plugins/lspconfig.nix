@@ -6,7 +6,7 @@
         silent = true;
         lspBuf = {
           "<leader>gd" = "definition";
-          "K" = "hover";
+#          "K" = "hover";
           "<leader>vws" = "workspace_symbol";
           "<leader>vca" = "code_action";
           "<leader>vrr" = "references";
