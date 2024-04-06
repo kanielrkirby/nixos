@@ -10,6 +10,7 @@
     ./eza.nix
     ./fuzzel.nix
     ./fzf.nix
+    ./gh-dash.nix
     ./git.nix
     ./gnupg.nix
     ./less.nix
