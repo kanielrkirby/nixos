@@ -1,7 +1,8 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 
 {
   home-manager.users."${username}" = {
+    home.packages = with pkgs; [ gh-eco gh-notify gh-grep gh-branch gh-f gh-s ];
     programs.gh-dash = {
       enable = true;
       settings = {
@@ -21,11 +22,6 @@
             title = "Needs My Review";
             filters = "is:open review-requested:@me";
           }
-          {
-            title = "Subscribed";
-            filters = "is:open -author:@me repo:cli/cli repo:dlvhdr/gh-dash";
-            limit = 50; # optional limit of rows fetched for this section
-          }
         ];
         issuesSections = [
           {
@@ -35,11 +31,6 @@
           {
             title = "Assigned";
             filters = "is:open assignee:@me";
-          }
-          {
-            title = "Subscribed";
-            filters =
-              "is:open -author:@me repo:microsoft/vscode repo:dlvhdr/gh-dash";
           }
         ];
         defaults = {
@@ -62,18 +53,10 @@
           refetchIntervalMinutes =
             30; # will refetch all sections every 30 minutes
         };
-        repoPaths = {
-          "owner/repo" =
-            "~/src/github.com/:owner/:repo"; # template if you always clone github repos in a consistent location
-          "dlvhdr/*" =
-            "~/code/repos/dlvhdr/*"; # will match dlvhdr/repo-name to ~/code/repos/dlvhdr/repo-name
-          "dlvhdr/gh-dash" =
-            "~/code/gh-dash"; # will not match wildcard and map to specified path
-        };
         # keybindings = {}; # optional, define custom keybindings - see more info below
         # theme = {}; # optional, see more info below
         pager = {
-          diff = "less"; # or delta for example
+          diff = "bat --pager less"; # or delta for example
         };
       };
     };

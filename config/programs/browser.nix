@@ -1,4 +1,4 @@
-{ username, pkgs, ... }:
+{ username, pkgs, config, ... }:
 
 {
   home-manager.users."${username}" = {
@@ -22,16 +22,16 @@
   };
 
   system.activationScripts.symlink-brave-preferences.text = ''
+    source "${config.system.build.setEnvironment}"
     _SOURCE="/etc/nixos/extra/brave-preferences.json"
     _DEST="/home/${username}/.config/BraveSoftware/Brave-Browser/Default/Preferences"
 
     if [[ ! -f "$_SOURCE" ]]; then
       echo "Failed to copy preferences file from Brave. No source file found at \"$_SOURCE\""
-    fi
-    if [[ -f "$_DEST" ]]; then
+    elif [[ -f "$_DEST" ]]; then
       echo "Failed to copy preferences file from Brave. Try deleting /home/${username}/.config/BraveSoftware/Brave-Browser/Default/Preferences."
+    else
+      cp "$_SOURCE" "$_DEST"
     fi
-
-    cp "$_SOURCE" "$_DEST"
   '';
 }
