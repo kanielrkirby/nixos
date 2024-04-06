@@ -19,6 +19,18 @@
         alias svim="sudo -E -s nvim"
 
         up() {
+          current_dir="$(pwd)"
+          cd /etc/nixos
+
+          sudo -E git add . 
+          sudo -E git commit -m "Update" 
+          sudo -E git push 
+          sudo nixos-rebuild switch --flake /etc/nixos#default
+
+          cd "$current_dir"
+        }
+
+        upp() {
             local name=""
             local type="test"  # Default type
 
