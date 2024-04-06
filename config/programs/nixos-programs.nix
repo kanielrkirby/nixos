@@ -53,6 +53,8 @@
     yarn
   ];
 
+  programs.feh.enable = true;
+
   programs.zsh.initExtra = ''
   n() {
     args="$@"
