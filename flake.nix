@@ -105,7 +105,8 @@
           ./config/theme/gtk.nix
           ./config/theme/qt.nix
           ./config/theme/font.nix
-          ./config/sddm.nix
+          # ./config/sddm.nix
+          ./config/greetd.nix
           ./config/user.nix
         ];
       };
