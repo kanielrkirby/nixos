@@ -2,7 +2,7 @@
 
 {
   home-manager.users."${username}" = {
-    home.packages = with pkgs; [ gh-eco gh-notify gh-grep gh-branch gh-f gh-s ];
+    home.packages = with pkgs; [ gh-eco gh-grep gh-branch gh-f gh-s ];
     programs.gh-dash = {
       enable = true;
       settings = {
