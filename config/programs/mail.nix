@@ -1,7 +1,7 @@
 { config, username, pkgs, ... }:
 
 {
-  sops.secrets."runbox.com" = { };
+  sops.secrets."runbox.com/app/pop/password" = { };
 
   home-manager.users."${username}" = {
     home.packages = with pkgs; [ pop ];
