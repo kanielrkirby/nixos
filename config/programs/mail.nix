@@ -34,8 +34,8 @@
 
     MaildirStore personal-local
     Subfolders Verbatim
-    Path ~/.local/state/mail/
-    Inbox ~/.local/state/mail/Inbox
+    Path ~/.local/share/mail/
+    Inbox ~/.local/share/mail/Inbox
 
     Channel sync-personal-inbox
     Far :personal-remote:"Inbox"
