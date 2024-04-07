@@ -38,30 +38,30 @@
     Inbox ~/.config/mail/Inbox
 
     Channel sync-personal-inbox
-    Master :personal-remote:"Inbox"
-    Slave :personal-local:Inbox
-    Create Slave
+    Near :personal-remote:"Inbox"
+    Far :personal-local:Inbox
+    Create Far
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-spam
-    Master :personal-remote:"Spam"
-    Slave :personal-local:Spam
-    Create Slave
+    Near :personal-remote:"Spam"
+    Far :personal-local:Spam
+    Create Far
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-sent
-    Master :personal-remote:"Sent"
-    Slave :personal-local:Sent
-    Create Slave
+    Near :personal-remote:"Sent"
+    Far :personal-local:Sent
+    Create Far
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-trash
-    Master :personal-remote:"Trash"
-    Slave :personal-local:Trash
-    Create Slave
+    Near :personal-remote:"Trash"
+    Far :personal-local:Trash
+    Create Far
     SyncState *
     CopyArrivalDate yes
 
