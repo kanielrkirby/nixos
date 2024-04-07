@@ -53,7 +53,6 @@
     libusb
     yarn
     youtube-tui
-    mpv
   ];
 
   programs.feh.enable = true;
