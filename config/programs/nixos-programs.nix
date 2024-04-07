@@ -17,6 +17,7 @@
     ./localsend.nix
     ./mail.nix
     ./mods.nix
+    ./mpv.nix
     ./mullvad.nix
     ./notify.nix
     # ./ollama.nix
