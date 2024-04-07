@@ -52,6 +52,9 @@
     gimp
     libusb
     yarn
+    youtube-tui
+    mpv
+    mvp-mpris
   ];
 
   programs.feh.enable = true;
