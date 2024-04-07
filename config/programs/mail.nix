@@ -9,7 +9,7 @@
     export POP_SMTP_HOST="mail.runbox.com"
     export POP_SMTP_PORT="587"
     export POP_SMTP_USERNAME="maxisacat@runbox.com"
-    export POP_SMTP_PASSWORD="$(cat ${config.sops.secrets."runbox.com/password".path})"
+    export POP_SMTP_PASSWORD="$(cat ${config.sops.secrets."runbox.com/app/pop/password".path})"
     '';
   };
 }
