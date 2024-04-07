@@ -15,10 +15,11 @@
     ./gnupg.nix
     ./less.nix
     ./localsend.nix
+    ./mail.nix
     ./mods.nix
     ./mullvad.nix
     ./notify.nix
-    ./ollama.nix
+    # ./ollama.nix
     ./password-store.nix
     ./signal.nix
     ./sops.nix
