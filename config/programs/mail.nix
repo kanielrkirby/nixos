@@ -6,7 +6,7 @@
   sops.secrets."runbox.com/app/mbsync/password" = { };
 
   home-manager.users."${username}" = {
-    home.packages = with pkgs; [ pop fetchmail_7 mbsync ];
+    home.packages = with pkgs; [ pop fetchmail_7 isync ];
     programs.zsh.initExtra = ''
     export POP_SMTP_HOST="mail.runbox.com"
     export POP_SMTP_PORT="587"
