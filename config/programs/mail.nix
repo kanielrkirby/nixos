@@ -1,8 +1,12 @@
 { config, username, pkgs, ... }:
 
 {
-  sops.secrets."runbox.com/username" = { };
-  sops.secrets."runbox.com/app/pop/password" = { };
+  sops.secrets."runbox.com/username" = {
+    owner = "${username}";
+  };
+  sops.secrets."runbox.com/app/pop/password" = {
+    owner = "${username}";
+  };
   sops.secrets."runbox.com/app/mbsync/password" = { };
 
   home-manager.users."${username}" = {
