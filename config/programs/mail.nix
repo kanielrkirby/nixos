@@ -19,44 +19,56 @@
 
     programs.mbsync = {
       enable = true;
-      accounts = {
-        personal = {
-          create = true;
-          enable = true;
-          user = "maxisacat@runbox.com";
-          passCmd = "cat ${config.sops.secrets."runbox.com/app/mbsync/password".path}";
-          host = "mail.runbox.com";
+      extraConfig = ''
+        IMAPAccount personal
+        Host mail.runbox.com
+        User "${config.sops.secrets."runbox.com/username".path}"
+        Pass "${config.sops.secrets."runbox.com/app/mbsync/password".path}"
+        SSLType IMAPS
+        CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-          Patterns = ["Inbox" "Spam" "Sent" "Trash"];
-          # subFolders = "Verbatim";
-          path = "~/.mail/";
-          inbox = "~/.mail/Inbox";
+        IMAPStore personal-remote
+        Account Personal
 
-          channels = {
-            sync-personal-inbox = {
-              slave = ":personal-local:Inbox";
-              master = ":personal-remote:'Inbox'";
-            };
-            sync-personal-archive = {
-              slave = ":personal-local:Spam";
-              master = ":personal-remote:'Spam'";
-            };
-            sync-personal-sent = {
-              slave = ":personal-local:Sent";
-              master = ":personal-remote:'Sent'";
-            };
-            sync-personal-trash = {
-              slave = ":personal-local:Trash";
-              master = ":personal-remote:'Trash'";
-            };
-          };
-          groups = {
-            Personal = {
-              channels = ["sync-personal-inbox" "sync-personal-spam" "sync-personal-sent" "sync-personal-trash"];
-            };
-          };
-        };
-      };
+        MaildirStore personal-local
+        Subfolders Verbatim
+        Path ~/.config/mail/
+        Inbox ~/.config/mail/Inbox
+
+        Channel sync-personal-inbox
+        Master :personal-remote:"Inbox"
+        Slave :personal-local:Inbox
+        Create Slave
+        SyncState *
+        CopyArrivalDate yes
+
+        Channel sync-personal-spam
+        Master :personal-remote:"Spam"
+        Slave :personal-local:Spam
+        Create Slave
+        SyncState *
+        CopyArrivalDate yes
+
+        Channel sync-personal-sent
+        Master :personal-remote:"Sent"
+        Slave :personal-local:Sent
+        Create Slave
+        SyncState *
+        CopyArrivalDate yes
+
+        Channel sync-personal-trash
+        Master :personal-remote:"Trash"
+        Slave :personal-local:Trash
+        Create Slave
+        SyncState *
+        CopyArrivalDate yes
+
+        Group Personal
+        Channel sync-personal-inbox
+        Channel sync-personal-spam
+        Channel sync-personal-sent
+        Channel sync-personal-trash
+      '';
     };
   };
 
