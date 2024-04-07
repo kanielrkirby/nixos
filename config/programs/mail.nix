@@ -17,7 +17,7 @@
 
   system.activationScripts.login-to-mbsync.text = ''
   source "${config.system.build.setEnvironment}"
-  cat << EOF > ~/.mbsyncrc
+  cat << EOF > /home/mx/.mbsyncrc
     IMAPAccount personal
     Host mail.runbox.com
     User "$(cat "${config.sops.secrets."runbox.com/username".path}")"
