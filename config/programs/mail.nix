@@ -22,7 +22,7 @@
   system.activationScripts.login-to-mbsync.text = ''
   source "${config.system.build.setEnvironment}"
   cat << EOF > /home/mx/.mbsyncrc
-    IMAPAccount Personal
+    IMAPAccount personal
     Host mail.runbox.com
     User "$(cat "${config.sops.secrets."runbox.com/username".path}")"
     Pass "$(cat "${config.sops.secrets."runbox.com/app/mbsync/password".path}")"
@@ -38,30 +38,30 @@
     Inbox ~/.config/mail/Inbox
 
     Channel sync-personal-inbox
-    Near :personal-remote:"Inbox"
-    Far :personal-local:Inbox
-    Create Far
+    Far :personal-remote:"Inbox"
+    Near :personal-local:Inbox
+    Create Near
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-spam
-    Near :personal-remote:"Spam"
-    Far :personal-local:Spam
-    Create Far
+    Far :personal-remote:"Spam"
+    Near :personal-local:Spam
+    Create Near
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-sent
-    Near :personal-remote:"Sent"
-    Far :personal-local:Sent
-    Create Far
+    Far :personal-remote:"Sent"
+    Near :personal-local:Sent
+    Create Near
     SyncState *
     CopyArrivalDate yes
 
     Channel sync-personal-trash
-    Near :personal-remote:"Trash"
-    Far :personal-local:Trash
-    Create Far
+    Far :personal-remote:"Trash"
+    Near :personal-local:Trash
+    Create Near
     SyncState *
     CopyArrivalDate yes
 
