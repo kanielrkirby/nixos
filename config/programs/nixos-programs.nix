@@ -54,7 +54,6 @@
     yarn
     youtube-tui
     mpv
-    mpv-mpris
   ];
 
   programs.feh.enable = true;
