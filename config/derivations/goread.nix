@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = [
-    pkgs.buildGoModule rec {
+    (pkgs.buildGoModule rec {
       pname = "goread";
       version = "1.6.4";
     
@@ -21,6 +21,6 @@
         license = pkgs.lib.licenses.mit;
         maintainers = with pkgs.lib.maintainers; [ ];
       };
-    }
+    })
   ];
 }
