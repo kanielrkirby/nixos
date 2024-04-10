@@ -10,7 +10,7 @@
         owner = "TypicalAM";
         repo = "goread";
         rev = "v${version}";
-        hash = "sha256-gJw1dRrgM8D3G7v6WIM2+50r4HmTXvx0Xxme2fH9TlQ=";
+        hash = "sha256-m6reRaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
       };
     
       vendorHash = "sha256-CIBIR+a1oaYH+H1PcC8cD8ncfJczk1IiJ8iYNM+R6aA=";
