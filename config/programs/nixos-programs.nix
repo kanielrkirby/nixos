@@ -128,7 +128,7 @@ environment.systemPackages = [
         hash = "sha256-m6refaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
       };
 
-      buildInputs = with pkgs; [ xorg.libx11 ];
+      buildInputs = with pkgs; [ xorg.libX11 ];
     
       vendorHash = "sha256-fkxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
     
