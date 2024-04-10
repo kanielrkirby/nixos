@@ -19,57 +19,57 @@
     '';
   };
 
-  system.activationScripts.login-to-mbsync.text = ''
-  source "${config.system.build.setEnvironment}"
-  cat << EOF > /home/mx/.mbsyncrc
-    IMAPAccount Personal
-    Host mail.runbox.com
-    User "$(cat "${config.sops.secrets."runbox.com/username".path}")"
-    Pass "$(cat "${config.sops.secrets."runbox.com/app/mbsync/password".path}")"
-    SSLType IMAPS
-    CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-    IMAPStore personal-remote
-    Account Personal
-
-    MaildirStore personal-local
-    Subfolders Verbatim
-    Path ~/.local/share/mail/
-    Inbox ~/.local/share/mail/Inbox
-
-    Channel sync-personal-inbox
-    Far :personal-remote:"Inbox"
-    Near :personal-local:Inbox
-    Create Near
-    SyncState *
-    CopyArrivalDate yes
-
-    Channel sync-personal-spam
-    Far :personal-remote:"Spam"
-    Near :personal-local:Spam
-    Create Near
-    SyncState *
-    CopyArrivalDate yes
-
-    Channel sync-personal-sent
-    Far :personal-remote:"Sent"
-    Near :personal-local:Sent
-    Create Near
-    SyncState *
-    CopyArrivalDate yes
-
-    Channel sync-personal-trash
-    Far :personal-remote:"Trash"
-    Near :personal-local:Trash
-    Create Near
-    SyncState *
-    CopyArrivalDate yes
-
-    Group Personal
-    Channel sync-personal-inbox
-    Channel sync-personal-spam
-    Channel sync-personal-sent
-    Channel sync-personal-trash
-  EOF
-  '';
+#  system.activationScripts.login-to-mbsync.text = ''
+#  source "${config.system.build.setEnvironment}"
+#  cat << EOF > /home/mx/.mbsyncrc
+#    IMAPAccount Personal
+#    Host mail.runbox.com
+#    User "$(cat "${config.sops.secrets."runbox.com/username".path}")"
+#    Pass "$(cat "${config.sops.secrets."runbox.com/app/mbsync/password".path}")"
+#    SSLType IMAPS
+#    CertificateFile /etc/ssl/certs/ca-certificates.crt
+#
+#    IMAPStore personal-remote
+#    Account Personal
+#
+#    MaildirStore personal-local
+#    Subfolders Verbatim
+#    Path ~/.local/share/mail/
+#    Inbox ~/.local/share/mail/Inbox
+#
+#    Channel sync-personal-inbox
+#    Far :personal-remote:"Inbox"
+#    Near :personal-local:Inbox
+#    Create Near
+#    SyncState *
+#    CopyArrivalDate yes
+#
+#    Channel sync-personal-spam
+#    Far :personal-remote:"Spam"
+#    Near :personal-local:Spam
+#    Create Near
+#    SyncState *
+#    CopyArrivalDate yes
+#
+#    Channel sync-personal-sent
+#    Far :personal-remote:"Sent"
+#    Near :personal-local:Sent
+#    Create Near
+#    SyncState *
+#    CopyArrivalDate yes
+#
+#    Channel sync-personal-trash
+#    Far :personal-remote:"Trash"
+#    Near :personal-local:Trash
+#    Create Near
+#    SyncState *
+#    CopyArrivalDate yes
+#
+#    Group Personal
+#    Channel sync-personal-inbox
+#    Channel sync-personal-spam
+#    Channel sync-personal-sent
+#    Channel sync-personal-trash
+#EOF
+#  '';
 }

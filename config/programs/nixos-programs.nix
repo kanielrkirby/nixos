@@ -21,6 +21,7 @@
     ./mullvad.nix
     ./notify.nix
     # ./ollama.nix
+    ../derivations/goread.nix
     ./password-store.nix
     ./signal.nix
     ./sops.nix
