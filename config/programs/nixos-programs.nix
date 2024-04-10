@@ -117,47 +117,47 @@ environment.systemPackages = [
 
     cd "$current_dir"
   '')
-  (pkgs.buildGoModule rec {
-      pname = "lazysql";
-      version = "0.1.8";
-    
-      src = pkgs.fetchFromGitHub {
-        owner = "jorgerojas26";
-        repo = "lazysql";
-        rev = "v${version}";
-        hash = "sha256-m6refaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
-      };
-
-      buildInputs = with pkgs; [ xorg.libX11 ];
-    
-      vendorHash = "sha256-fkxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
-    
-      meta = with pkgs.lib; {
-        description = "LazySQL is awesome.";
-        homepage = "https://github.com/jorgerojas26/lazysql";
-        license = pkgs.lib.licenses.mit;
-        maintainers = with pkgs.lib.maintainers; [ ];
-      };
-  })
-  (pkgs.buildGoModule rec {
-    pname = "goread";
-    version = "1.6.4";
-  
-    src = pkgs.fetchFromGitHub {
-      owner = "TypicalAM";
-      repo = "goread";
-      rev = "v${version}";
-      hash = "sha256-yPf9/SM4uET/I8FsDU1le9JgxELu0DR9k7mv8PnBwvQ=";
-    };
-  
-    vendorHash = "sha256-/kxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
-  
-    meta = with pkgs.lib; {
-      description = "RSS reader for the terminal in BubbleTea and Golang.";
-      homepage = "https://github.com/TypicalAM/goread";
-      license = pkgs.lib.licenses.mit;
-      maintainers = with pkgs.lib.maintainers; [ ];
-    };
-  })
+#  (pkgs.buildGoModule rec {
+#      pname = "lazysql";
+#      version = "0.1.8";
+#    
+#      src = pkgs.fetchFromGitHub {
+#        owner = "jorgerojas26";
+#        repo = "lazysql";
+#        rev = "v${version}";
+#        hash = "sha256-m6refaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
+#      };
+#
+#      buildInputs = with pkgs; [ xorg.libX11 ];
+#    
+#      vendorHash = "sha256-fkxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
+#    
+#      meta = with pkgs.lib; {
+#        description = "LazySQL is awesome.";
+#        homepage = "https://github.com/jorgerojas26/lazysql";
+#        license = pkgs.lib.licenses.mit;
+#        maintainers = with pkgs.lib.maintainers; [ ];
+#      };
+#  })
+#  (pkgs.buildGoModule rec {
+#    pname = "goread";
+#    version = "1.6.4";
+#  
+#    src = pkgs.fetchFromGitHub {
+#      owner = "TypicalAM";
+#      repo = "goread";
+#      rev = "v${version}";
+#      hash = "sha256-yPf9/SM4uET/I8FsDU1le9JgxELu0DR9k7mv8PnBwvQ=";
+#    };
+#  
+#    vendorHash = "sha256-/kxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
+#  
+#    meta = with pkgs.lib; {
+#      description = "RSS reader for the terminal in BubbleTea and Golang.";
+#      homepage = "https://github.com/TypicalAM/goread";
+#      license = pkgs.lib.licenses.mit;
+#      maintainers = with pkgs.lib.maintainers; [ ];
+#    };
+#  })
 ];
 }
