@@ -13,11 +13,11 @@
         hash = "sha256-m6reRaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
       };
     
-      vendorHash = "sha256-CIBIR+a1oaYH+H1PcC8cD8ncfJczk1IiJ8iYNM+R6aA=";
+      vendorHash = "sha256-/kxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
     
       meta = with pkgs.lib; {
-        description = "Simple command-line snippet manager, written in Go";
-        homepage = "https://github.com/knqyf263/pet";
+        description = "RSS reader for the terminal in BubbleTea and Golang.";
+        homepage = "https://github.com/TypicalAM/goread";
         license = pkgs.lib.licenses.mit;
         maintainers = with pkgs.lib.maintainers; [ ];
       };

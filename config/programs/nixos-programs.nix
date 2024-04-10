@@ -68,13 +68,49 @@
   }
 
   up() {
+    local message=""
+    local nopush=""
+    local nogit=""
+    local cmd="boot"
+
+    for arg in "$@"; do
+      case $arg in
+        -l) nogit="1" ;;
+        -p) nopush="1" ;;
+        -b) cmd="boot" ;;
+        -s) cmd="switch" ;;
+        -t) cmd="test" ;;
+        *) 
+          if [[ -z "$message" ]]; then
+            message="$arg"
+          else
+            echo "Error: Unexpected argument: $arg"
+          fi
+        ;;
+      esac
+    done
+
     current_dir="$(pwd)"
     cd /etc/nixos
 
-    sudo -E git add . 
-    sudo -E git commit -m "Update" 
-    sudo -E git push 
-    sudo nixos-rebuild switch --flake /etc/nixos#default
+    if [[ -z "$nogit" ]]; then
+      sudo -E git add . 
+      if [[ -z "$message" ]]; then
+        echo "Must specify commit message when using Git."
+        return 1
+      fi
+      sudo -E git commit -m "$message" 
+      if [[ -z "$nopush" ]]; then
+        sudo -E git push 
+      fi
+    fi
+
+    if [[ -z "$cmd" ]]; then
+      cmd="test"
+    fi
+
+    export NIXOS_LABEL="$message" sudo -E nixos-rebuild "$cmd" --flake /etc/nixos#default
+    unset NIXOS_LABEL
 
     cd "$current_dir"
   }
