@@ -19,7 +19,7 @@
         description = "Simple command-line snippet manager, written in Go";
         homepage = "https://github.com/knqyf263/pet";
         license = pkgs.lib.licenses.mit;
-        maintainers = with pkgs.lib.maintainers; [ TypicalAM ];
+        maintainers = with pkgs.lib.maintainers; [ ];
       };
     }
   ];
