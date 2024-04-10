@@ -18,8 +18,8 @@
       meta = with pkgs.lib; {
         description = "Simple command-line snippet manager, written in Go";
         homepage = "https://github.com/knqyf263/pet";
-        license = pkgs.licenses.mit;
-        maintainers = with maintainers; [ TypicalAM ];
+        license = pkgs.lib.licenses.mit;
+        maintainers = with pkgs.maintainers; [ TypicalAM ];
       };
     }
   ];
