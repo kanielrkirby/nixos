@@ -60,22 +60,25 @@
   programs.feh.enable = true;
 
   programs.zsh.initExtra = ''
-  n() {
-    args="$@"
-    cmd="''${args%% *}"
-    args="''${args#* }"
-    nix shell "nixpkgs#$cmd" --command $cmd $args
-  }
+  '';
+};
 
-  up() {
+environment.systemPackages = [
+  pkgs.git
+  (pkgs.writeShellScriptBin "n" ''
+    args="$@"
+    cmd="$1"
+    nix shell "nixpkgs#$cmd" --command $cmd ''${args#* }
+  '')
+  (pkgs.writeShellScriptBin "up" ''
     local message=""
     local nopush=""
-    local nogit=""
+    local git=""
     local cmd="boot"
 
     for arg in "$@"; do
       case $arg in
-        -l) nogit="1" ;;
+        -g) git="1" ;;
         -p) nopush="1" ;;
         -b) cmd="boot" ;;
         -s) cmd="switch" ;;
@@ -93,7 +96,7 @@
     current_dir="$(pwd)"
     cd /etc/nixos
 
-    if [[ -z "$nogit" ]]; then
+    if [[ "$git" ]]; then
       sudo -E git add . 
       if [[ -z "$message" ]]; then
         echo "Must specify commit message when using Git."
@@ -113,57 +116,28 @@
     unset NIXOS_LABEL
 
     cd "$current_dir"
-  }
+  '')
+  (pkgs.buildGoModule rec {
+      pname = "lazysql";
+      version = "0.1.8";
+    
+      src = pkgs.fetchFromGitHub {
+        owner = "jorgerojas26";
+        repo = "lazysql";
+        rev = "v${version}";
+        hash = "sha256-m6refaJNeFhJBUatfPNm66LwTXPdD/gioT8HTv52QOw=";
+      };
 
-  upp() {
-      local name=""
-      local type="test"  # Default type
-
-      for arg in "$@"; do
-          case $arg in
-              --boot)
-                  type="boot"
-                  shift
-                  ;;
-              --switch)
-                  type="switch"
-                  shift
-                  ;;
-              --test)
-                  type="test"
-                  shift
-                  ;;
-              *)
-                  # Assuming the first non-option argument is the name
-                  if [[ -z "$name" ]]; then
-                      name="$arg"
-                  else
-                      echo "Error: Unexpected argument: $arg"
-                      return 1
-                  fi
-                  ;;
-          esac
-      done
-
-      if [[ -z "$name" ]]; then
-          echo "Error: Name is required."
-          return 1
-      fi
-
-      name="$(echo $name | sed "s/ /_/g")"
-
-      sudo NIXOS_LABEL="$name" nixos-rebuild "$type" --flake /etc/nixos#nixos
-
-      wd=$(pwd)
-      if [[ "$type" == "boot" || "$type" == "switch" ]]; then
-        cd /etc/nixos
-        sudo -E git add .
-        sudo -E git commit -m "$name"
-        cd "$wd"
-      fi
-  }
-  '';
-};
-
-  environment.systemPackages = [ pkgs.git ];
+      buildInputs = with pkgs; [ libx11-dev ];
+    
+      vendorHash = "sha256-fkxEnw8l9S7WNMcPh1x7xqiQ3L61DSn6DCIvJlyrip0=";
+    
+      meta = with pkgs.lib; {
+        description = "LazySQL is awesome.";
+        homepage = "https://github.com/jorgerojas26/lazysql";
+        license = pkgs.lib.licenses.mit;
+        maintainers = with pkgs.lib.maintainers; [ ];
+      };
+  })
+];
 }
