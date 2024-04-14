@@ -7,7 +7,7 @@
 source ${config.system.build.setEnvironment}
 mkdir -p /home/${username}/.config/mods
 
-cat << EOF > /home/"${username}"/.config/mods/mods.yml
+cat << EOF > /home/${username}/.config/mods/mods.yml
 # Default model (gpt-3.5-turbo, gpt-4, ggml-gpt4all-j...).
 default-model: gpt-4
 # Text to append when using the -f flag.
@@ -127,6 +127,20 @@ EOF
     programs.zsh.initExtra = ''
     np() {
       __path="/tmp/__np_mods.txt"
+      __model="gpt-3.5-turbo"
+
+      for arg in "$@"; do
+        case $arg in
+          -m) 
+            if [ -z "$2" ]; then
+              echo "Error: No model passed to np, but flag `-m` present."
+              return 1
+            fi
+            __model="$2"
+            shift; shift;
+          ;;
+        esac
+      done
 
       nvim "$__path"
       if [ ! -f "$__path" ]; then
@@ -142,7 +156,7 @@ EOF
         return 1
       fi
 
-      echo "$__content" | mods
+      mods -m "$__model" "$__content"
     }
     '';
 

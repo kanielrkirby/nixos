@@ -5,6 +5,7 @@
     users."${username}".wayland.windowManager.hyprland = {
       settings = {
         input = {
+          kb_options = ["caps:escape"];
           kb_layout = "us";
           repeat_rate = 100;
           repeat_delay = 200;
@@ -15,7 +16,6 @@
             disable_while_typing = true;
           };
           sensitivity = 0.3;
-          kb_options = [ ];
         };
   
         device = {
