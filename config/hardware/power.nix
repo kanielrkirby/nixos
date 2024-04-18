@@ -25,7 +25,7 @@
 
   powerManagement.enable = false;
 
-  udev.extraRules = ''
+  services.udev.extraRules = ''
   ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0a2a", ATTR{power/autosuspend}="-1"
   '';
 
