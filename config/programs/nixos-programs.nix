@@ -100,6 +100,21 @@
       nix shell "nixpkgs#$__cmd" --command $__cmd ''${__args#* }
     '')
     (writeShellScriptBin "up" ''
+    __current_dir="$(pwd)"
+    __cleanup() {
+      __v="$1"
+      if [[ -z "$__v" ]]; then
+        __v=0
+      fi
+      unset __current_dir
+      unset __cmd
+      unset __message
+      unset __git
+      unset __nopush
+      unset NIXOS_LABEL
+      cd "$__current_dir"
+      exit "$__v"
+    }
     __message=""
     __nopush=""
     __git=""
@@ -117,18 +132,18 @@
             __message="$__arg"
           else
             echo "Error: Unexpected argument: $__arg"
-            exit 1
+            __cleanup 1
           fi
         ;;
       esac
     done
 
-    __current_dir="$(pwd)"
     cd /etc/nixos
 
     if [[ "$__git" ]]; then
       if [[ -z "$__message" ]]; then
         echo "Must specify commit message when using Git."
+        __cleanup
         exit 1
       fi
       sudo -E git add . 
@@ -141,15 +156,7 @@
     export NIXOS_LABEL="$__message"
 
     sudo -E nixos-rebuild "$__cmd" --flake /etc/nixos#default
-
-    cd "$__current_dir"
-
-    unset __current_dir
-    unset __cmd
-    unset __message
-    unset __git
-    unset __nopush
-    unset NIXOS_LABEL
+    __cleanup
     '')
     (callPackage ../derivations/goread.nix {})
     (callPackage ../derivations/lazysql.nix {})

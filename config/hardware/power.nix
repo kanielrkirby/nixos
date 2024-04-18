@@ -19,10 +19,15 @@
 
       START_CHARGE_THRESH_BAT1 = 40;
       STOP_CHARGE_THRESH_BAT1 = 80;
+      USB_AUTOSUSPEND = 0;
     };
   };
 
   powerManagement.enable = false;
+
+  udev.extraRules = ''
+  ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0a2a", ATTR{power/autosuspend}="-1"
+  '';
 
   home-manager.users."${username}".home.packages = with pkgs; [ powertop ];
 }

@@ -1,5 +1,6 @@
 {
   programs.nixvim.keymaps = [
+    # Move lines
     {
       mode = "v";
       key = "J";
@@ -10,10 +11,15 @@
       key = "K";
       action = ":m '<-2<CR>gv=gv";
     }
+
+    # Flatten
     {
       mode = "n";
       key = "J";
-      action = "mzJ`z"; }
+      action = "mzJ`z";
+    }
+
+    # Scrolling
     {
       mode = "n";
       key = "<C-d>";
@@ -24,6 +30,8 @@
       key = "<C-u>";
       action = "<C-u>zz";
     }
+
+    # Next / Prev
     {
       mode = "n";
       key = "n";
@@ -34,11 +42,15 @@
       key = "N";
       action = "Nzzzv";
     }
+
+    # I don't know
     {
       mode = "x";
       key = "<leader>p";
       action = ''"_dP'';
     }
+
+    # Clipboard
     {
       mode = "n";
       key = "<leader>y";
@@ -69,16 +81,22 @@
       key = "<leader>D";
       action = ''"+D'';
     }
+    
+    # Escape
     {
       mode = "i";
       key = "<C-c>";
       action = "<Esc>";
     }
+
+    # Unbind Q
     {
       mode = "n";
       key = "Q";
       action = "<nop>";
     }
+
+    # LSP Diagnostics
     {
       mode = "n";
       key = "<C-k>";
@@ -99,16 +117,20 @@
       key = "<leader>j";
       action = "<cmd>cnext<CR>zz";
     }
+
+    # Find / Replace
     {
       mode = "n";
       key = "<leader>s";
-      action = "<cmd>%s/<<C-r><C-w>>/<C-r><C-w>/gI<Left><Left><Left>";
+      action = ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>";
     }
     {
       mode = "n";
       key = "<leader>S";
-      action = "<cmd>%s/<<C-r><C-w>>//gI<Left><Left><Left>";
+      action = ":%s/\\<<C-r><C-w>>\\//gI<Left><Left><Left>";
     }
+
+    # Vim Window Bindings
     {
       mode = "n";
       key = "<A-h>";

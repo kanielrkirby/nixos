@@ -44,6 +44,36 @@
             -- lualine = true -- hide nvim-lualine (ataraxis)
         },
       }
+
+      vim.api.nvim_create_user_command(
+        'ToggleZen',
+        function(args)
+          if not require("true-zen.ataraxis").running then
+            require("true-zen.ataraxis").on()
+            vim.g.__temp_colorcolumn = vim.o.colorcolumn
+            vim.g.__temp_wrap = vim.o.wrap
+            vim.g.__temp_linebreak = vim.o.linebreak
+            vim.o.colorcolumn = ""
+            vim.o.wrap = true
+            vim.o.linebreak = true
+            require("cmp").setup.buffer({ enabled = false })
+          else
+            require("true-zen.ataraxis").off()
+            vim.o.colorcolumn = vim.g.__temp_colorcolumn
+            vim.o.wrap = vim.g.__temp_wrap
+            vim.o.linebreak = vim.g.__temp_linebreak
+            require("cmp").setup.buffer({ enabled = true })
+          end
+        end,
+        {}
+      )
     '';
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>z";
+        action = "<cmd>ToggleZen<CR>";
+      }
+    ];
   };
 }
