@@ -11,7 +11,7 @@ let
   };
 
   importHosts = rootPath: let
-    entries = builtins.trace "entries: ${lib.generators.toPretty {} (builtins.readDir rootPath)}" (builtins.readDir rootPath);
+    entries = builtins.readDir rootPath;
   in lib.foldl' (acc: sys: let
     system = getArchAndOS sys;
     archPath = "${rootPath}/${sys}";
@@ -26,7 +26,7 @@ let
 
     hostConfigs = builtins.readDir archPath;
     accumulateHosts = lib.foldl' (hostAcc: hostName: let
-      configPath = builtins.trace "configPath: ${archPath}/${hostName}/default.nix" ("${archPath}/${hostName}/default.nix");
+      configPath = "${archPath}/${hostName}/default.nix";
       configuration = systemFunction {
         inherit pkgs lib;
         system = sys;
