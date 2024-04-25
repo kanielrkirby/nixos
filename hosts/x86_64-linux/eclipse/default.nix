@@ -25,10 +25,16 @@
       wayland.enable = true;
     };
 
-    dm.greetd.enable = true;
+    wm.i3.enable = true;
+
+    # dm.greetd.enable = true;
+
+    dm.sddm.enable = true;
 
     lock.hyprlock.enable = true;
 
     zfs.enable = true;
+
+    rust.enable = true;
   };
 }

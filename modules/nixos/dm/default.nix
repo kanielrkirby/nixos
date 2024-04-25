@@ -7,20 +7,12 @@ with lib;
       sddm.enable = mkEnableOption "SDDM";
       greetd.enable = mkEnableOption "GreetD";
       gdm.enable = mkEnableOption "GDM";
-      sessions = mkOption {
-        type = types.str;
-        default = "";
-      };
     };
   };
 
   config = mkMerge [
     ({
       assertions = [
-        {
-          assertion = (!config.gearshift.dm.greetd.enable || config.gearshift.dm.sessions != "");
-          message = "You must definee a sessions command for tuigreet";
-        }
         {
           assertion = (lib.length (lib.filter (x: x) [
             config.gearshift.dm.sddm.enable
@@ -62,7 +54,7 @@ with lib;
         settings = {
           default_session = {
             command =
-              "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-session --session ${config.gearshift.dm.sessions}";
+              "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
             user = "greeter";
           };
         };

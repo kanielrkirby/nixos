@@ -16,25 +16,40 @@ with lib;
   };
 
   config = mkMerge [
-    ({
-      assertions = [
-        {
-          assertion = (lib.length (lib.filter (x: x) [
-            config.gearshift.wm.hypr.enable
-            config.gearshift.wm.i3.enable
-          ]) <= 1);
-          message = "You can only have one Window Manager enabled";
-        }
-      ];
-    })
+    # ({
+    #   assertions = [
+    #     {
+    #       assertion = (lib.length (lib.filter (x: x) [
+    #         config.gearshift.wm.hypr.enable
+    #         config.gearshift.wm.i3.enable
+    #       ]) <= 1);
+    #       message = "You can only have one Window Manager enabled";
+    #     }
+    #   ];
+    # })
 
-    (mkIf (config.gearshift.wm.hypr.enable) {
+    (mkIf (config.gearshift.wm.hypr.enable && !config.gearshift.wm.hypr.wayland.enable) {
       gearshift.xserver.enable = true;
-      home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ hypr ];
+      home-manager.users."${config.gearshift.username}" = {
+        home.packages = with pkgs; [ hypr ];
+        xdg.configFile."hypr/hypr.conf".text = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./hypr.conf]);
+      };
+      services.xserver.displayManager = {
+        session = [
+          {
+            manage = "desktop";
+            name = "Hypr";
+            start = ''
+              ${pkgs.hypr}/bin/hypr &amp;
+              waitPID=$!
+            '';
+          }
+        ];
+      };
     })
 
     (mkIf (config.gearshift.wm.hypr.enable && config.gearshift.wm.hypr.wayland.enable) {
-      gearshift.dm.sessions = "${pkgs.hyprland}/share/wayland-sessions";
+      gearshift.xserver.enable = true;
       nix.settings = {
         substituters = [ "https://hyprland.cachix.org" ];
         trusted-public-keys =
@@ -49,7 +64,6 @@ with lib;
             systemd.enable = true;
             extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./hypr.conf]);
           };
-          xdg.configFile."hypr/hypr.conf".text = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./hypr.conf]);
         };
       };
 
@@ -62,9 +76,47 @@ with lib;
       };
 
       programs.hyprland.enable = true;
+
+      services.xserver.displayManager = {
+        session = [
+          {
+            manage = "desktop";
+            name = "Hyprland";
+            start = ''
+              ${pkgs.hyprland}/bin/Hyprland &amp;
+              waitPID=$!
+            '';
+          }
+        ];
+      };
     })
 
     (mkIf config.gearshift.wm.i3.enable {
+      gearshift.xserver.enable = true;
+      services = {
+        xserver = {
+          desktopManager.xterm.enable = false;
+          windowManager.i3 = {
+            enable = true;
+            extraPackages = with pkgs; [
+              i3status
+              i3lock
+            ];
+          };
+          displayManager = {
+            session = [
+              {
+                manage = "window";
+                name = "i3";
+                start = ''
+                  ${pkgs.i3}/bin/i3 &amp;
+                  waitPID=$!
+                '';
+              }
+            ];
+          };
+        };
+      };
     })
   ];
 }

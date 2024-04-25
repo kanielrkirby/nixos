@@ -223,7 +223,7 @@ with lib;
   
     services.displayManager = {
       sddm.theme = "${
-          import ../derivations/sddm-catppuccin.nix { inherit pkgs; }
+          import ../../derivations/sddm-catppuccin.nix { inherit pkgs; }
         }/src/catppuccin-mocha";
     };
   };
