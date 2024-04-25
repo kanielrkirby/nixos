@@ -170,7 +170,7 @@ with lib;
 
       export NIXOS_LABEL="$__message"
 
-      sudo -E nixos-rebuild "$__cmd" --flake /etc/nixos#default
+      sudo -E nixos-rebuild "$__cmd" --flake /etc/nixos#eclipse
       __cleanup
       '')
       (callPackage ../../derivations/goread.nix {})
