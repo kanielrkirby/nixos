@@ -12,7 +12,6 @@ with lib;
         enable = true;
         config = {
           paging = "always";
-          pager = "less -RF";
         };
       };
     };

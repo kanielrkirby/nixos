@@ -10,7 +10,7 @@ with lib;
   };
 
   config = mkMerge [
-    (mkIf config.gearshift.theme.catppuccin.enable {
+    (mkIf config.gearshift.theme.gtk.enable {
       home-manager.users."${config.gearshift.username}" = { config, ... }: {
         gtk = {
           enable = true;

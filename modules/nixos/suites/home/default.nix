@@ -11,11 +11,14 @@ with lib;
 
   config = mkMerge [
     (mkIf config.gearshift.suite.home.enable {
-      gearshift.browser.brave.enable = true;
-      gearshift.localsend.enable = true;
-      gearshift.mail.enable = true;
-      gearshift.signal.enable = true;
-      gearshift.transmission.enable = true;
+      gearshift = {
+        browser.brave.enable = true;
+        localsend.enable = true;
+        mail.enable = true;
+        signal.enable = true;
+        transmission.enable = true;
+        fuzzel.enable = true;
+      };
     })
   ];
 }
