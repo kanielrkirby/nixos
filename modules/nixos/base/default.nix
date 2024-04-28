@@ -60,30 +60,15 @@ with lib;
               name: NixOS Reddit
             - url: https://github.com/nix-community/awesome-nix/commits.atom
               name: NixOS Awesome GitHub
-            - url: https://hnrss.org/newest?q=Nix+OR+NixOS
-              name: NixOS HN Threads
-            - url: https://hnrss.org/newcomments?q=Nix+OR+NixOS
-              name: NixOS HN Comments
-            - url: https://hackernoon.com/tagged/nixos/feed
-              name: NixOS Hackernoon
-            - url: https://hackernoon.com/tagged/react/feed
-              name: React Hackernoon
-            - url: https://hackernoon.com/tagged/javascript/feed
-              name: JavaScript Hackernoon
-            - url: https://hackernoon.com/tagged/frontend/feed
-              name: Frontend Hackernoon
-            - url: https://hnrss.org/newest?q=Web+Development+OR+webdev+OR+react+OR+javascript+OR+html+OR+css+OR+typescript
-              name: Web Dev Hacker News
-            - url: https://old.reddit.com/r/webdev/.rss
-              name: Web Dev Reddit
-            - url: https://github.com/gorhill/uBlock/wiki.atom
-              name: uBlock GitHub
         '';
   
         programs.feh.enable = true;
   
         programs.zsh.initExtra = ''
         '';
+
+        services.dunst.enable = true;
+
         home = {
           stateVersion = config.gearshift.version.home;
           packages = with pkgs; [
@@ -91,7 +76,6 @@ with lib;
             hyprshade
             fw-ectool
             httpie
-            wl-clipboard
             grim
             slurp
             ripgrep
@@ -102,6 +86,8 @@ with lib;
             youtube-tui
             nom
             wf-recorder
+            wl-clipboard
+            waybar
           ];
         };
       };
