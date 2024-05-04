@@ -49,7 +49,10 @@ with lib;
     })
 
     (mkIf (config.gearshift.wm.hypr.enable && config.gearshift.wm.hypr.wayland.enable) {
-      gearshift.xserver.enable = true;
+      gearshift = {
+        hyprshade.enable = true;
+        xserver.enable = true;
+      };
       nix.settings = {
         substituters = [ "https://hyprland.cachix.org" ];
         trusted-public-keys =

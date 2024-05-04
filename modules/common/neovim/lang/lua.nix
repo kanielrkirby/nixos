@@ -3,12 +3,6 @@
 {
   programs.nixvim = {
     plugins = {
-      treesitter = {
-        ensureInstalled = [
-          "lua"
-        ];
-      };
-      
       lsp = {
         servers = {
           lua-ls.enable = true;

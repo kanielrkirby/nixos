@@ -2,9 +2,6 @@
 
 {
   programs.nixvim = {
-    plugins = {
-      treesitter.ensureInstalled = [ "hyprlang" ];
-    };
     #vim.filetype.add({
     #  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
     #})

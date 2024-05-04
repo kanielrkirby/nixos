@@ -10,20 +10,15 @@ with lib;
     users = { defaultUserShell = pkgs.zsh; };
 
     home-manager.users."${config.gearshift.username}" = {
-      programs.zsh = {
-        enable = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-        enableCompletion = true;
+      programs = {
+        zsh = {
+          enable = true;
+          autosuggestion.enable = true;
+          syntaxHighlighting.enable = true;
+          enableCompletion = true;
+          initExtra = config.gearshift.shell.scripts;
+        };
       };
-
-      programs.atuin = { enableZshIntegration = true; };
-
-      programs.starship = { enableZshIntegration = true; };
-
-      programs.fzf = { enableZshIntegration = true; };
-
-      programs.zoxide = { enableZshIntegration = true; };
     };
   };
 }

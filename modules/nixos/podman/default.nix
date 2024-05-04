@@ -18,6 +18,10 @@ with lib;
           defaultNetwork.settings.dns_enabled = true;
         };
       };
+
+      home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [
+        podman-compose
+      ];
     })
   ];
 }

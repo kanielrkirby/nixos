@@ -8,6 +8,7 @@ with lib;
     home-manager.users."${config.gearshift.username}" = {
       programs.zoxide = {
         enable = true;
+        enableZshIntegration = config.home-manager.users."${config.gearshift.username}".programs.zsh.enable;
       };
     };
   };
