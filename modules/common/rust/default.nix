@@ -7,7 +7,6 @@ with lib;
   config = mkIf config.gearshift.rust.enable {
     home-manager.users."${config.gearshift.username}" = {
       home.packages = with pkgs; [
-        rustup
       ];
     };
   };

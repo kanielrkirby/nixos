@@ -1,6 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
-with lib;
 {
   programs.nixvim = {
     extraPlugins = [
@@ -32,7 +31,11 @@ with lib;
           };
         };
       };
-      rustaceanvim.enable = true;
+      rustaceanvim = {
+        enable = true;
+        rustAnalyzerPackage = null;
+        tools.hoverActions.replaceBuiltinHover = false;
+      };
       conform-nvim = {
         formattersByFt.rust = [ "rustfmt" ];
         formatters.rustfmt.command = "${pkgs.rustfmt}/bin/rustfmt";

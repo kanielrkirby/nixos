@@ -34,7 +34,5 @@
     lock.hyprlock.enable = true;
 
     zfs.enable = true;
-
-    rust.enable = true;
   };
 }
