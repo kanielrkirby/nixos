@@ -1,18 +1,17 @@
-{ config, lib, inputs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-with lib;
 {
   options.gearshift = {
-    scripts.ns.enable = mkOption {
-      type = types.bool;
+    scripts.ns.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf config.gearshift.scripts.ns.enable {
-      home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [
-        (writeShellScriptBin "ns" ''
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.scripts.ns.enable {
+      home-manager.users."${config.gearshift.username}".home.packages = [
+        (pkgs.writeShellScriptBin "ns" ''
           nix shell $(printf "nixpkgs#%s " "$@")
         '')
       ];

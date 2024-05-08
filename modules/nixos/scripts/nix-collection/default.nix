@@ -14,6 +14,7 @@
         ns.enable = true;
         nd.enable = true;
         up.enable = true;
+        bp.enable = true;
       };
     })
   ];
