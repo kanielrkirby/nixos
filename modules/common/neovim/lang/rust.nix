@@ -34,7 +34,8 @@
       rustaceanvim = {
         enable = true;
         rustAnalyzerPackage = null;
-        tools.hoverActions.replaceBuiltinHover = false;
+        tools.hoverActions.replaceBuiltinHover = true;
+        extraOptions.server.default_settings.rust-analyzer.cargo.features = "all";
       };
       conform-nvim = {
         formattersByFt.rust = [ "rustfmt" ];

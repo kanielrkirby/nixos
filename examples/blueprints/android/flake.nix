@@ -19,6 +19,7 @@
         allowUnfree = true;
       };
     };
+    lib = pkgs.lib;
     android-sdk = android-nixpkgs.sdk.${system} (sdkPkgs: with sdkPkgs; [
       build-tools-34-0-0
       platform-tools
