@@ -4,6 +4,8 @@
     ./codeium-vim.nix
     ./comment.nix
     ./conform.nix
+    ./dropbar.nix
+    ./eagle.nix
     ./follow-md-links.nix
     ./fugitive.nix
     ./gitsigns.nix
@@ -11,6 +13,7 @@
     ./lspconfig.nix
     ./lualine.nix
     ./markdown-preview.nix
+    ./noice.nix
     ./notify.nix
     ./oil.nix
     ./recorder.nix
