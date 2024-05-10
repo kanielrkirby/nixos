@@ -3,9 +3,7 @@
 {
   programs.nixvim = {
     extraPlugins = [
-      pkgs.vimPlugins.dropbar-nvim
+      pkgs.vimPlugins.nui-nvim
     ];
-    extraConfigLua = ''
-    '';
   };
 }
