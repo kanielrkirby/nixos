@@ -13,8 +13,8 @@
     ./lspconfig.nix
     ./lualine.nix
     ./markdown-preview.nix
-    ./noice.nix
-    ./notify.nix
+#    ./noice.nix
+#    ./notify.nix
     ./oil.nix
     ./recorder.nix
     ./surround.nix

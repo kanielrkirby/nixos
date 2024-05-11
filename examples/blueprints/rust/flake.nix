@@ -33,10 +33,11 @@
         openssl
         glib
         trunk
+        evcxr
+        clippy
+        bacon
         (with fenix.packages.${system}; combine [
-          latest.rustc
-          latest.cargo
-          latest.rust-analyzer
+          latest.toolchain
         ])
       ];
 

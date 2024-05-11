@@ -201,6 +201,11 @@
       key = "<C-w>ev";
       action = "<cmd>vsplit term://zsh<CR>";
     }
+    {
+      mode = "";
+      key = "<C-S-V>";
+      action = ''"+p'';
+    }
   ];
 }
 

@@ -2,17 +2,16 @@
   programs.nixvim = {
     plugins = {
       notify = {
-        enable = true;
+        enable = false;
         backgroundColour = "#000000";
         fps = 20;
-        timeout = 2000;
+        timeout = 0;
       };
     };
 
     extraConfigLuaPost = ''
-      local banned_messages = { "No information available" }
       vim.notify = function(msg, ...)
-        for _, banned in ipairs(banned_messages) do
+        for _, banned in ipairs({ "No information available" }) do
           if msg == banned then
             return
           end

@@ -10,12 +10,12 @@
     ./options.nix
     ./autocmd.nix
     ./keymaps.nix
-    ./plugins
-    ./lang
   ];
 
   config = lib.mkMerge [
     (lib.mkIf config.gearshift.neovim.enable {
+      environment.systemPackages = with pkgs; [ neovide ];
+
       programs.nixvim = {
         enable = true;
         package = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: {
@@ -29,9 +29,15 @@
         });
       };
       home-manager.users."${config.gearshift.username}" = {
+        xdg.configFile."neovide/config.toml".text = ''
+          [font]
+          normal = "MonaspiceNe NF"
+          italic = "MonaspiceRn NF"
+          size = 14
+        '';
         programs.zsh.initExtra = ''
-        export EDITOR="nvim"
-        alias svim="sudo -E -s nvim"
+        export EDITOR="neovide --no-fork"
+        alias svim="sudo -E neovide"
         '';
       };
     })
