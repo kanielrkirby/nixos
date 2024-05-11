@@ -12,7 +12,7 @@
     (lib.mkIf config.gearshift.scripts.nd.enable {
       home-manager.users."${config.gearshift.username}".home.packages = [
         (pkgs.writeShellScriptBin "nd" ''
-        sudo -E nix develop -c "${pkgs.zsh}/bin/zsh" $@;
+        nix develop -c "${pkgs.zsh}/bin/zsh" $@;
         '')
       ];
     })

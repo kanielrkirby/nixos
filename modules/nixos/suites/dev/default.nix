@@ -1,16 +1,15 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
-with lib;
 {
   options.gearshift.suite.dev = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf config.gearshift.suite.dev.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.suite.dev.enable {
       gearshift = {
         ripgrep.enable = true;
         yarn.enable = true;
@@ -27,6 +26,7 @@ with lib;
         lazysql.enable = true;
         mods.enable = true;
         neovim.enable = true;
+        rust.enable = true;
         starship.enable = true;
         tealdeer.enable = true;
         vscode.enable = true;
