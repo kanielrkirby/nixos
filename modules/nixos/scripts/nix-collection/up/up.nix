@@ -1,16 +1,15 @@
-{ config, lib, inputs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-with lib;
 {
   options.gearshift = {
-    scripts.up.enable = mkOption {
-      type = types.bool;
+    scripts.up.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf config.gearshift.scripts.up.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.scripts.up.enable {
       home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [
         (writeShellScriptBin "up" ''
         __current_dir="$(pwd)"

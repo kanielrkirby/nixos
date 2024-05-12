@@ -34,6 +34,7 @@
         transmission.enable = true;
         fuzzel.enable = true;
         warpd.enable = true;
+        wallpaper.enable = true;
         ydotool.enable = true;
       };
     })
