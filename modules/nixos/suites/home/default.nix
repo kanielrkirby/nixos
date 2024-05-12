@@ -1,16 +1,15 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
-with lib;
 {
   options.gearshift.suite.home = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf config.gearshift.suite.home.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.suite.home.enable {
       gearshift = {
         brightnessctl.enable = true;
         foliate.enable = true;
@@ -30,6 +29,7 @@ with lib;
         mail.enable = true;
         signal.enable = true;
         smassh.enable = true;
+        thunar.enable = true;
         transmission.enable = true;
         fuzzel.enable = true;
         warpd.enable = true;

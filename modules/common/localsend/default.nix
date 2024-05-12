@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
-  options.gearshift.localsend.enable = mkEnableOption "LocalSend";
+  options.gearshift.localsend.enable = lib.mkEnableOption "LocalSend";
 
-  config = mkIf config.gearshift.localsend.enable {
+  config = lib.mkIf config.gearshift.localsend.enable {
     home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ localsend ];
 
     networking.firewall = {
