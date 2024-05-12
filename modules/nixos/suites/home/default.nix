@@ -27,6 +27,7 @@
         browser.brave.enable = true;
         localsend.enable = true;
         mail.enable = true;
+        mpv.enable = true;
         signal.enable = true;
         smassh.enable = true;
         thunar.enable = true;
