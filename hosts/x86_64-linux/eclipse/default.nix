@@ -25,7 +25,7 @@
       wayland.enable = true;
     };
 
-    wm.i3.enable = true;
+    # wm.i3.enable = true;
 
     # dm.greetd.enable = true;
 
