@@ -1,21 +1,20 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
   options.gearshift = {
     wm = {
       hypr = {
-        enable = mkEnableOption "Hypr";
-        wayland.enable = mkEnableOption "Wayland / Hyprland";
-        hy3.enable = mkEnableOption "Hy3";
+        enable = lib.mkEnableOption "Hypr";
+        wayland.enable = lib.mkEnableOption "Wayland / Hyprland";
+        hy3.enable = lib.mkEnableOption "Hy3";
       };
       i3 = {
-        enable = mkEnableOption "i3";
+        enable = lib.mkEnableOption "i3";
       };
     };
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
     # ({
     #   assertions = [
     #     {
@@ -28,7 +27,7 @@ with lib;
     #   ];
     # })
 
-    (mkIf (config.gearshift.wm.hypr.enable && !config.gearshift.wm.hypr.wayland.enable) {
+    (lib.mkIf (config.gearshift.wm.hypr.enable && !config.gearshift.wm.hypr.wayland.enable) {
       gearshift.xserver.enable = true;
       home-manager.users."${config.gearshift.username}" = {
         home.packages = with pkgs; [ hypr ];
@@ -48,7 +47,7 @@ with lib;
       };
     })
 
-    (mkIf (config.gearshift.wm.hypr.enable && config.gearshift.wm.hypr.wayland.enable) {
+    (lib.mkIf (config.gearshift.wm.hypr.enable && config.gearshift.wm.hypr.wayland.enable) {
       gearshift = {
         hyprshade.enable = true;
         xserver.enable = true;
@@ -65,7 +64,7 @@ with lib;
             enable = true;
             xwayland.enable = true;
             systemd.enable = true;
-            extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./hypr.conf]);
+            extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./hypr/binds.conf ./hypr/main.conf]);
           };
         };
       };
@@ -95,7 +94,7 @@ with lib;
       };
     })
 
-    (mkIf config.gearshift.wm.i3.enable {
+    (lib.mkIf config.gearshift.wm.i3.enable {
       gearshift.xserver.enable = true;
       services = {
         xserver = {
