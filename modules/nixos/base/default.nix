@@ -63,6 +63,7 @@ with lib;
 
     gearshift.scripts = {
       nix-collection.enable = true;
+      other.enable = true;
     };
 
     system.stateVersion = config.gearshift.version.main;
