@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
-  options.gearshift.password-store.enable = mkEnableOption "Password Store";
+  options.gearshift.password-store.enable = lib.mkEnableOption "Password Store";
 
-  config = mkIf config.gearshift.password-store.enable {
+  config = lib.mkIf config.gearshift.password-store.enable {
     home-manager.users."${config.gearshift.username}" = {
       programs.password-store = {
         enable = true;
@@ -16,7 +15,7 @@ with lib;
 
       programs.browserpass = {
         enable = true;
-        browsers = [ "brave" ];
+        browsers = [ "chromium" ];
       };
     };
   };
