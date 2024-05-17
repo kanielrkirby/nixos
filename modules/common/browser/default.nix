@@ -9,12 +9,16 @@
   };
 
   config = lib.mkMerge [
-    lib.mkIf (config.gearshift.browser.chrome.enable || config.gearshift.browser.have-all.enable) {
+    (lib.mkIf (config.gearshift.browser.chrome.enable || config.gearshift.browser.have-all) {
       home-manager.users."${config.gearshift.username}" = {
         programs.chromium = {
           enable = true;
-          package = pkgs.ungoogled-chromium;
-          commandLineArgs = [ "--ozone-platform-hint=wayland" ];
+          package = pkgs.chromium;
+          commandLineArgs = [
+            "--ozone-platform-hint=auto"
+            "--enable-features=CanvasOopRasterization,DefaultANGLEVulkan,EnableDrDc,Vulkan,WebMachineLearningNeuralNetwork"
+            "--enable-gpu-rasterization"
+          ];
           extensions = [
             "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
             "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
@@ -41,12 +45,12 @@
         #    fi
         #  '';
       };
-    }
-    (lib.mkIf (config.gearshift.browser.tor.enable || config.gearshift.browser.have-all.enable) {
+    })
+    (lib.mkIf (config.gearshift.browser.tor.enable || config.gearshift.browser.have-all) {
       home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ tor-browser ];
     })
 
-    (lib.mkIf (config.gearshift.browser.firefox.enable || config.gearshift.browser.have-all.enable) {
+    (lib.mkIf (config.gearshift.browser.firefox.enable || config.gearshift.browser.have-all) {
       home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ firefox ];
     })
   ];
