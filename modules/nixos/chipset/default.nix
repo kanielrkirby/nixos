@@ -1,31 +1,30 @@
 { pkgs, config, lib, ... }:
 
-with lib;
 {
   options.gearshift.hardware = {
-    intel.enable = mkOption {
-      type = types.bool;
+    intel.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
-    amd.enable = mkOption {
-      type = types.bool;
+    amd.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
-    nvidia.enable = mkOption {
-      type = types.bool;
+    nvidia.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    ({
+  config = lib.mkMerge [
+    {
       assertions = [
         {
-          assertion = (lib.length (lib.filter (x: x) [
+          assertion = lib.length (lib.filter (x: x) [
             config.gearshift.hardware.intel.enable
             config.gearshift.hardware.amd.enable
             config.gearshift.hardware.nvidia.enable
-          ]) <= 1);
+          ]) <= 1;
           message = "You can only enable one chipset type for gearshift.hardware.";
         }
         {
@@ -33,8 +32,8 @@ with lib;
           message = "AMD and NVidia don't work, as I don't have them, so I've never tried it :)";
         }
       ];
-    })
-    (mkIf config.gearshift.hardware.intel.enable {
+    }
+    (lib.mkIf config.gearshift.hardware.intel.enable {
       hardware = {
         opengl = {
           enable = true;
@@ -42,8 +41,12 @@ with lib;
           driSupport32Bit = true;
           extraPackages = with pkgs; [
             intel-media-driver
-            vaapiVdpau
+            intel-ocl
             libvdpau-va-gl
+            vulkan-tools
+            vaapiIntel
+            vaapiVdpau
+            mesa.drivers
           ];
         };
       };
