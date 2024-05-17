@@ -1,21 +1,19 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
   options.gearshift.browser = {
-    brave.enable = mkEnableOption "Brave";
-    chrome.enable = mkEnableOption "Chrome";
-    tor.enable = mkEnableOption "Tor";
-    firefox.enable = mkEnableOption "Firefox";
-    have-all = mkEnableOption "All Browsers";
+    chrome.enable = lib.mkEnableOption "Chrome";
+    tor.enable = lib.mkEnableOption "Tor";
+    firefox.enable = lib.mkEnableOption "Firefox";
+    have-all = lib.mkEnableOption "All Browsers";
   };
 
-  config = mkMerge [
-    (mkIf (config.gearshift.browser.chrome.enable || config.gearshift.browser.brave.enable) {
+  config = lib.mkMerge [
+    lib.mkIf (config.gearshift.browser.chrome.enable || config.gearshift.browser.have-all.enable) {
       home-manager.users."${config.gearshift.username}" = {
         programs.chromium = {
           enable = true;
-          package = if config.gearshift.browser.brave.enable then pkgs.brave else pkgs.chrome;
+          package = pkgs.ungoogled-chromium;
           commandLineArgs = [ "--ozone-platform-hint=wayland" ];
           extensions = [
             "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
@@ -28,8 +26,6 @@ with lib;
             "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
           ];
         };
-        home.packages =
-          (if config.gearshift.browser.brave.enable && config.gearshift.browser.chrome.enable then [ pkgs.chrome ] else []);
 
         #  system.activationScripts.symlink-brave-preferences.text = ''
         #    source "${config.system.build.setEnvironment}"
@@ -45,12 +41,12 @@ with lib;
         #    fi
         #  '';
       };
-    })
-    (mkIf config.gearshift.browser.tor.enable {
+    }
+    (lib.mkIf (config.gearshift.browser.tor.enable || config.gearshift.browser.have-all.enable) {
       home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ tor-browser ];
     })
 
-    (mkIf config.gearshift.browser.firefox.enable {
+    (lib.mkIf (config.gearshift.browser.firefox.enable || config.gearshift.browser.have-all.enable) {
       home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [ firefox ];
     })
   ];

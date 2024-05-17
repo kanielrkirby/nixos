@@ -27,7 +27,6 @@
         mods.enable = true;
         neovim.enable = true;
         rust.enable = true;
-        starship.enable = true;
         tealdeer.enable = true;
         vscode.enable = true;
         zoxide.enable = true;

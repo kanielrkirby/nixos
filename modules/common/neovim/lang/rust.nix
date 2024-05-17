@@ -35,7 +35,10 @@
         enable = true;
         rustAnalyzerPackage = null;
         tools.hoverActions.replaceBuiltinHover = true;
-        extraOptions.server.default_settings.rust-analyzer.cargo.features = "all";
+        extraOptions.server.default_settings.rust-analyzer = {
+          cargo.features = "all";
+          procMacro.enable = true;
+        };
       };
       conform-nvim = {
         formattersByFt.rust = [ "rustfmt" ];

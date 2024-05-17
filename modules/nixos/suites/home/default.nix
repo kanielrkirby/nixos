@@ -24,7 +24,7 @@
         wf-recorder.enable = true;
         wl-clipboard.enable = true;
         youtube-tui.enable = true;
-        browser.brave.enable = true;
+        browser.chrome.enable = true;
         localsend.enable = true;
         mail.enable = true;
         mpv.enable = true;
