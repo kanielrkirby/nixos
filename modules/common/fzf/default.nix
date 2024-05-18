@@ -1,10 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
-with lib;
 {
-  options.gearshift.fzf.enable = mkEnableOption "FZF";
+  options.gearshift.fzf.enable = lib.mkEnableOption "FZF";
 
-  config = mkIf config.gearshift.fzf.enable {
+  config = lib.mkIf config.gearshift.fzf.enable {
     home-manager.users."${config.gearshift.username}" = {
       programs.fzf = {
         enable = true;
