@@ -23,8 +23,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "neovim";
             repo = "neovim";
-            rev = "nightly";
-            hash = "sha256-Ml5HzPmVx/fnLedNpBYQs3YG2zhSKsPga89yaCDVYlM=";
+            rev = "v0.10.0";
+            hash = "sha256-FCOipXHkAbkuFw9JjEpOIJ8BkyMkjkI0Dp+SzZ4yZlw=";
           };
         });
       };

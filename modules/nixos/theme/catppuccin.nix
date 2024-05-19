@@ -27,6 +27,24 @@
       };
   
       xdg.configFile = {
+        "hypr/mocha.conf".source = "${
+            pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "hyprland";
+              rev = "b57375545f5da1f7790341905d1049b1873a8bb3";
+              sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
+            }
+          }/themes/mocha.conf";
+
+        "hypr/hyprlock.conf".source = lib.mkForce "${
+            pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "hyprlock";
+              rev = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
+              sha256 = "sha256-pjMFPaonq3h3e9fvifCneZ8oxxb1sufFQd7hsFe6/i4=";
+            }
+          }/hyprlock.conf";
+
         "zsh/catppuccin_mocha.zsh".source = "${
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
