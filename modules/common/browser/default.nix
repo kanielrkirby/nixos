@@ -76,8 +76,6 @@
           ];
         };
 
-        xdg.configFile."chromium/Default/History".source = ./blank-history.sqlite;
-
         #  system.activationScripts.symlink-brave-preferences.text = ''
         #    source "${config.system.build.setEnvironment}"
         #    _SOURCE="/etc/nixos/extra/brave-preferences.json"
