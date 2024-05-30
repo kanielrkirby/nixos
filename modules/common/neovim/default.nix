@@ -14,7 +14,15 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.gearshift.neovim.enable {
-      environment.systemPackages = with pkgs; [ neovide ];
+      environment.systemPackages = with pkgs; [ neovide.overrideAttrs (oldAttrs: finalAttrs: rec {
+        version = "0.13.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "neovide";
+          repo = "neovide";
+          rev = finalAttrs.version;
+          hash = lib.fakeSha256;
+        };
+      })];
 
       programs.nixvim = {
         enable = true;
