@@ -18,15 +18,15 @@
 
       programs.nixvim = {
         enable = true;
-        package = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: {
-          version = "0.10.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "neovim";
-            repo = "neovim";
-            rev = "v0.10.0";
-            hash = "sha256-FCOipXHkAbkuFw9JjEpOIJ8BkyMkjkI0Dp+SzZ4yZlw=";
-          };
-        });
+        # package = pkgs.neovim-unwrapped.overrideAttrs (oldAttrs: {
+        #   version = "0.10.0";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "neovim";
+        #     repo = "neovim";
+        #     rev = "v0.10.0";
+        #     hash = "sha256-FCOipXHkAbkuFw9JjEpOIJ8BkyMkjkI0Dp+SzZ4yZlw=";
+        #   };
+        # });
       };
       home-manager.users."${config.gearshift.username}" = {
         xdg.configFile."neovide/config.toml".text = ''
