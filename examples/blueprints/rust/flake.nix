@@ -19,6 +19,10 @@
         allowUnfree = true;
       };
     };
+    rust-mixed = (with fenix.packages.${system}; combine [
+      latest.toolchain
+      targets.wasm32-unknown-unknown.latest.toolchain
+    ]);
   in
   {
     devShell = pkgs.mkShell {
@@ -27,7 +31,6 @@
           pkg-config
           cacert
           cargo-make
-          cargo-leptos
           cargo-whatfeatures
           sass
           tailwindcss
@@ -36,45 +39,46 @@
           evcxr
           bacon
           trunk
-          (with fenix.packages.${system}; combine [
-            latest.toolchain
-            targets.wasm32-unknown-unknown.latest.toolchain
-          ])
+          rust-mixed
         ];
 
         shellHook = ''
+          function heading() {
+            echo;
+            echo "$@";
+            echo;
+          }
+
+          function indent() {
+            echo "$@" | sed 's/^.*/  \0/';
+          }
+
           echo "$(
-            echo
-            echo "Installed Targets:"
-            echo
-            echo "$(${pkgs.rustup}/bin/rustup target list --installed | sed 's/^.*/  \0/')"
-          )"
+            heading "Installed Targets:";
+            indent "$(
+              ls ${rust-mixed}/lib/rustlib | grep -v "src\|etc"
+            )"
+          )";
+
           echo "$(
-            cmds=(
-              "cargo --version | sed 's/ (.*$//'"
-              "trunk --version"
-              "evcxr --version"
-              "bacon --version"
-              "sccache --version"
-              "cargo leptos --version"
-              "cargo make --version"
-              "cargo whatfeatures --version"
-              'echo "pkg-config $(pkg-config --version)"'
-              "mold --version | sed 's/ (.*$//'"
-              "sass --version"
-              "tailwindcss --help | head -n 2 | tail -n 1"
-              "openssl version | sed 's/\([^ ]* [^ ]*\).*/\1/';"
-            );
-            echo
-            echo "Environment Packages:"
-            echo
-            for cmd in $cmds; do
-              eval "$cmd";
-            done
-            echo "$(
-            )" | sed 's/^.*/  \0/'
-          )"
-          echo
+            heading "Environment Packages:";
+            indent "$(
+              cargo --version | sed 's/ (.*$//';
+              trunk --version;
+              evcxr --version;
+              bacon --version;
+              sccache --version;
+              cargo make --version;
+              cargo whatfeatures --version;
+              echo "pkg-config $(pkg-config --version)";
+              mold --version | sed 's/ (.*$//';
+              sass --version;
+              tailwindcss --help | head -n 2 | tail -n 1;
+              openssl version | sed 's/\([^ ]* [^ ]*\).*/\1/';
+            )";
+          )";
+
+          echo;
         '';
       };
     });

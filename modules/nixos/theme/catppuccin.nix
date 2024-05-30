@@ -31,7 +31,7 @@
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "hyprland";
-              rev = "b57375545f5da1f7790341905d1049b1873a8bb3";
+              rev = "b573755";
               sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
             }
           }/themes/mocha.conf";
@@ -40,16 +40,16 @@
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "hyprlock";
-              rev = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
-              sha256 = "sha256-pjMFPaonq3h3e9fvifCneZ8oxxb1sufFQd7hsFe6/i4=";
+              rev = "d5a6767";
+              sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
             }
-          }/hyprlock.conf";
+          }/themes/mocha.conf";
 
         "zsh/catppuccin_mocha.zsh".source = "${
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "zsh-syntax-highlighting";
-              rev = "master";
+              rev = "06d519c";
               sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
             }
           }/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
@@ -58,7 +58,7 @@
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "btop";
-              rev = "master";
+              rev = "21b8d59";
               sha256 = "sha256-jodJl4f2T9ViNqsY9fk8IV62CrpC5hy7WK3aRpu70Cs=";
             }
           }/themes/catppuccin_mocha.theme";
@@ -94,7 +94,7 @@
               pkgs.fetchFromGitHub {
                 owner = "sephid86";
                 repo = "archas";
-                rev = "master";
+                rev = "ccd29f6";
                 sha256 = "sha256-7EtoMTBbdDh+78N21pQocMOp+hvBVuTB93Pr5OSG0Xw=";
               }
             }/skel/.config/waybar";
@@ -108,7 +108,7 @@
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "mako";
-              rev = "master";
+              rev = "9dd088a";
               sha256 = "sha256-nUzWkQVsIH4rrCFSP87mXAka6P+Td2ifNbTuP7NM/SQ=";
             }
           }/src/mocha";
@@ -125,7 +125,7 @@
               pkgs.fetchFromGitHub {
                 owner = "alacritty";
                 repo = "alacritty-theme";
-                rev = "master";
+                rev = "94e1dc0";
                 sha256 = "sha256-+35S6eQkxLBuS/fDKD5bglQDIuz2xeEc5KSaK6k7IjI=";
               }
             }/themes/catppuccin_mocha.toml"
@@ -140,7 +140,7 @@
                   pkgs.fetchFromGitHub {
                     owner = "catppuccin";
                     repo = "bat";
-                    rev = "master";
+                    rev = "d714cc1";
                     sha256 = "sha256-POoW2sEM6jiymbb+W/9DKIjDM1Buu1HAmrNP0yC2JPg=";
                   }
                 }/themes/Catppuccin Mocha.tmTheme";
@@ -156,7 +156,7 @@
         fuzzel = {
           settings = {
             colors = {
-              background = "1e1e2edd";
+              background = "1e1e2ed d";
               text = "cdd6f4ff";
               match = "f38ba8ff";
               selection = "585b70ff";
@@ -192,8 +192,8 @@
           settings = builtins.fromTOML (builtins.readFile (pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "starship";
-            rev = "master";
-            sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
+            rev = "ca2fb06";
+            sha256 = "sha256-KzXO4dqpufxTew064ZLp3zKIXBwbF8Bi+I0Xa63j/lI=";
           } + /palettes/${flavour}.toml)) // {
             palette = "catppuccin_${flavour}";
           };
@@ -237,7 +237,7 @@
           pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "neomutt";
-            rev = "master";
+            rev = "f6ce83d";
             sha256 = "sha256-7l+4vL+4wX9p+9HbqF4C8xhXjyjNzO1wBp9n9bWk8Xw=";
           }
         }/neomuttrc";
