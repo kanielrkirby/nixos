@@ -1,4 +1,4 @@
-{ inputs, lib, config, ... }:
+{ lib, config, ... }@inputs:
 
 {
   options.gearshift.swhkd.enable = lib.mkOption {
