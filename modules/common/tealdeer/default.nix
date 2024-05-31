@@ -1,10 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
-with lib;
 {
-  options.gearshift.tealdeer.enable = mkEnableOption "TealDeer";
+  options.gearshift.tealdeer.enable = lib.mkEnableOption "TealDeer";
 
-  config = mkIf config.gearshift.tealdeer.enable {
+  config = lib.mkIf config.gearshift.tealdeer.enable {
     home-manager.users."${config.gearshift.username}" = {
       programs.tealdeer.enable = true;
     };

@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let
   socket = "/home/${config.gearshift.username}/.ydotool_socket";
 in
 {
   options.gearshift = {
-    ydotool.enable = mkEnableOption "ydotool";
+    ydotool.enable = lib.mkEnableOption "ydotool";
   };
 
-  config = mkIf config.gearshift.ydotool.enable {
+  config = lib.mkIf config.gearshift.ydotool.enable {
     environment.systemPackages = with pkgs; [
       ydotool
     ];
