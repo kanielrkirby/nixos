@@ -9,9 +9,9 @@
     home-manager.users."${config.gearshift.username}" = {
       programs.kitty = {
         enable = true;
-        theme = "Catppuccin-Mocha";
         extraConfig = ''
           background_opacity 0.7
+          background         #000000
           font_family        MonaspiceNe NF
           italic_font        MonaspiceRn NF
           font_size          12

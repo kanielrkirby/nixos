@@ -150,13 +150,16 @@
     
         btop = {
           enable = true;
-          settings = { color_theme = "catppuccin_mocha"; };
+          settings = {
+            color_theme = "catppuccin_mocha";
+            extraConfig = ''theme[main_bg]=""'';
+          };
         };
     
         fuzzel = {
           settings = {
             colors = {
-              background = "1e1e2ed d";
+              background = "1e1e2edd";
               text = "cdd6f4ff";
               match = "f38ba8ff";
               selection = "585b70ff";
@@ -181,6 +184,10 @@
             "hl+" = "#f38ba8";
             gutter = "";
           };
+        };
+
+        kitty = {
+          theme = "Catppuccin-Mocha";
         };
     
         starship = 

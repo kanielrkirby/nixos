@@ -20,6 +20,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    swhkd = {
+      url = "github:waycrate/swhkd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = { nixpkgs, nixvim, home-manager, ... }@inputs: (import ./utils/host-import.nix) (inputs // { inherit nixpkgs; inherit nixvim; inherit home-manager; }) ./hosts;

@@ -37,6 +37,7 @@
       neovide_padding_right = p;
       transparency = t;
       neovide_transparency = t;
+      neovide_scale_factor = 0.75;
 #      netrw_keepdir = 1;
 #      netrw_localcopydircmd = "cp -r";
 #      netrw_banner = 0;
