@@ -1,4 +1,4 @@
-{ lib, config, ... }@inputs:
+{ config, lib, inputs, ... }:
 
 {
   options.gearshift.swhkd.enable = lib.mkOption {
@@ -7,8 +7,8 @@
   };
 
   config = lib.mkMerge [
-    lib.mkIf config.gearshift.swhkd.enable {
+    (lib.mkIf config.gearshift.swhkd.enable {
       environment.systemPackage = [ inputs.swhkd ];
-    }
+    })
   ];
 }
