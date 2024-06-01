@@ -37,7 +37,8 @@
           }/themes/mocha.conf";
 
           "hypr/hyprlock.conf".source = 
-            lib.mkForce pkgs.runCommand "hyprlock-conf-mod" {
+          lib.mkForce (
+            pkgs.runCommand "hyprlock-conf-mod" {
               buildInputs = [ pkgs.coreutils ];
             } ''
               cp "${pkgs.fetchFromGitHub {
@@ -47,7 +48,8 @@
                 sha256 = "sha256-Yh9eSbjY0fmSzqP4+8qJlQ/Lqvpcq7JoVvRSGLnx5P4=";
               }}/hyprlock.conf" $out
               substituteInPlace $out --replace "path = ~/.config/background" ""
-            '';
+            ''
+          );
 
           "zsh/catppuccin_mocha.zsh".source = "${
             pkgs.fetchFromGitHub {
