@@ -36,16 +36,20 @@
             }
           }/themes/mocha.conf";
 
-        "hypr/hyprlock.conf".source = lib.mkForce "${
-            pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "hyprlock";
-              rev = "d5a6767";
-              sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
-            }
-          }/themes/mocha.conf";
+          "hypr/hyprlock.conf".source = 
+            lib.mkForce pkgs.runCommand "hyprlock-conf-mod" {
+              buildInputs = [ pkgs.coreutils ];
+            } ''
+              cp "${pkgs.fetchFromGitHub {
+                owner = "catppuccin";
+                repo = "hyprlock";
+                rev = "d4a1a2e";
+                sha256 = "sha256-Yh9eSbjY0fmSzqP4+8qJlQ/Lqvpcq7JoVvRSGLnx5P4=";
+              }}/hyprlock.conf" $out
+              substituteInPlace $out --replace "path = ~/.config/background" ""
+            '';
 
-        "zsh/catppuccin_mocha.zsh".source = "${
+          "zsh/catppuccin_mocha.zsh".source = "${
             pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "zsh-syntax-highlighting";

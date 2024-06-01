@@ -36,6 +36,7 @@
         warpd.enable = true;
         wallpaper.enable = true;
         ydotool.enable = true;
+        # swhkd.enable = true;
       };
     })
   ];

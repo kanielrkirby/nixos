@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.gearshift.suite.dev = {
@@ -31,7 +31,13 @@
         vscode.enable = true;
         zoxide.enable = true;
         zsh.enable = true;
+        nh.enable = true;
       };
+      environment.systemPackages = with pkgs; [
+        fd
+        sd
+        ripgrep
+      ];
     })
   ];
 }

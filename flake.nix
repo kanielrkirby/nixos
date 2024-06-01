@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
 
     nixvim = {
@@ -27,5 +29,5 @@
     };
   };
   
-  outputs = { nixpkgs, nixvim, home-manager, ... }@inputs: (import ./utils/host-import.nix) (inputs // { inherit nixpkgs; inherit nixvim; inherit home-manager; }) ./hosts;
+  outputs = { nixpkgs, nixvim, home-manager, ... }@inputs: (import ./utils/host-import.nix) (inputs // { inherit nixpkgs; inherit nixvim; inherit home-manager; inherit inputs; }) ./hosts;
 }
