@@ -1,11 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
-  options.gearshift.mullvad-vpn.enable = mkEnableOption "FZF";
+  options.gearshift.mullvad-vpn.enable = lib.mkEnableOption "Mullvad";
 
-  config = mkIf config.gearshift.mullvad-vpn.enable {
+  config = lib.mkIf config.gearshift.mullvad-vpn.enable {
     services.mullvad-vpn.enable = true;
+
+    home-manager.users."${config.gearshift.username}".wayland.windowManager.hyprland.extraConfig = ''
+      exec-once = mullvad connect
+    '';
 
     sops.secrets."mullvad.net/username" = { };
 

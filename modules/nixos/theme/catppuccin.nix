@@ -109,6 +109,17 @@
         };
       };
   
+      services.dunst = {
+        configFile = "${
+            pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "dunst";
+              rev = "bfec91a5d0ab02a73a4615243feb5499d376831c";
+              sha256 = "sha256-xy99DpBrOKlP7DgKyPgbl4QGC+dnXnvkGlkIG0cmd2A=";
+            }
+          }/themes/mocha.conf";
+      };
+
       services.mako = {
         extraConfig = builtins.readFile "${
             pkgs.fetchFromGitHub {
