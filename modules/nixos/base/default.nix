@@ -59,6 +59,10 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       git
+      uutils-coreutils-noprefix
+      findutils
+      diffutils
+      (pkgs.callPackage ../../derivations/uutils-util-linux.nix {})
     ];
 
     gearshift.scripts = {

@@ -1,16 +1,9 @@
 { lib
-, stdenv
-, fetchFromGitHub
 , rustPlatform
-, cargo
-, sphinx
-, Security
-, libiconv
-, prefix ? "uutils-"
-, buildMulticallBinary ? true
+, fetchFromGitHub
 }:
 
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage rec {
   pname = "uutils-util-linux";
   version = "0.0.1";
 
@@ -18,29 +11,12 @@ stdenv.mkDerivation rec {
     owner = "uutils";
     repo = "util-linux";
     rev = version;
-    hash = "sha256-25jmlG3MWzAaJEmMHruA6H+nqx2QHnYX9c9SKqrQRE4=";
+    hash = "sha256-FZ6JgRPkDr7gyDhpVo8xE1QZZoI1iH0/2D4Tgr7XyA8=";
   };
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    name = "${pname}-${version}";
-    hash = "sha256-lQoOkiRga2aS8GNgLcHdid1/1u3johYEcGi9oOVsdJs=";
-  };
-
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook sphinx ];
-
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
-
-  makeFlags = [
-    "CARGO=${cargo}/bin/cargo"
-    "PREFIX=${placeholder "out"}"
-    "PROFILE=release"
-    "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
-  ] ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
-  ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ];
-
-  # too many impure/platform-dependent tests
   doCheck = false;
+
+  cargoSha256 = "sha256-5b4aeFS95xsYUDAxj7gzCqdFxUYMOc1zFN/EEBWXlrE=";
 
   meta = with lib; {
     description = "Cross-platform Rust rewrite of the GNU util-linux";

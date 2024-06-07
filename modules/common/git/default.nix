@@ -1,77 +1,79 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
-  options.gearshift.git.enable = mkEnableOption "Git";
+  options.gearshift.git.enable = lib.mkEnableOption "Git";
 
-  config = mkIf config.gearshift.git.enable {
+  config = lib.mkIf config.gearshift.git.enable {
     environment.systemPackages = with pkgs; [ git ];
 
     home-manager.users."${config.gearshift.username}" = {
-      programs.gh = {
-        enable = true;
-        settings = {
-          version = "1";
-          git_protocol = "ssh";
+      programs = {
+        gh = {
+          enable = true;
+          settings = {
+            version = "1";
+            git_protocol = "ssh";
+          };
         };
-      };
 
-      programs.git = {
-        enable = true;
-        userName = "Kaniel Kirby";
-        userEmail = "piratey7007@runbox.com";
-      };
+        git = {
+          enable = true;
+          delta.enable = true;
+          userName = "Kaniel Kirby";
+          userEmail = "piratey7007@runbox.com";
+        };
 
-      programs.zsh.initExtra = ''
-      ga() {
-        if [[ -z "$@" ]]; then
+        zsh.initExtra = ''
+        ga() {
+          if [[ -z "$@" ]]; then
           git add .
-        else
+          else
           git add "$@"
-        fi
-      }
+          fi
+        }
 
-      gc() {
-        if [[ -z "$@" ]]; then
+        gc() {
+          if [[ -z "$@" ]]; then
           git commit
-        else
+          else
           git commit -m "$@"
-        fi
-      }
+          fi
+        }
 
-      gp() {
-        git push
-      }
+        gp() {
+          git push
+        }
 
-      gac() {
-        git add .
-        if [[ -z "$@" ]]; then
+        gac() {
+          git add .
+          if [[ -z "$@" ]]; then
           git commit
-        else
+          else
           git commit -m "$@"
-        fi
-        git push
-      }
+          fi
+          git push
+        }
 
-      gcp() {
-        if [[ -z "$@" ]]; then
+        gcp() {
+          if [[ -z "$@" ]]; then
           git commit
-        else
+          else
           git commit -m "$@"
-        fi
-        git push
-      }
+          fi
+          git push
+        }
 
-      gacp() {
-        git add .
-        if [[ -z "$@" ]]; then
+        gacp() {
+          git add .
+          if [[ -z "$@" ]]; then
           git commit
-        else
+          else
           git commit -m "$@"
-        fi
-        git push
-      }
-      '';
+          fi
+          git push
+        }
+        '';
+      };
     };
   };
 }
