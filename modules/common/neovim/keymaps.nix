@@ -202,7 +202,17 @@
       action = "<cmd>vsplit term://zsh<CR>";
     }
     {
-      mode = "";
+      mode = "c";
+      key = "<C-S-V>";
+      action = ''<C-r>+'';
+    }
+    {
+      mode = [
+        "v"
+        "n"
+        "t"
+        "i"
+      ];
       key = "<C-S-V>";
       action = ''"+p'';
     }
