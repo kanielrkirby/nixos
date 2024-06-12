@@ -1,30 +1,32 @@
 { config, inputs, lib, pkgs, ... }:
 
-with lib;
 {
-  options.gearshift.sops.enable = mkEnableOption "SOPS";
+  options.gearshift.sops.enable = lib.mkEnableOption "SOPS";
 
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  config = mkMerge [
-    (mkIf config.gearshift.sops.enable {
-  #  sops.secrets."login/nixos/password".neededForUsers = true;
-      sops.secrets."gpg/primary/key" = { };
-      sops.secrets."gpg/primary/content" = { };
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.sops.enable {
+      sops = {
+        age.keyFile = "/etc/sops-age.txt";
+        defaultSopsFile = ../../extra/secrets/secrets/primary.yaml;
+        defaultSopsFormat = "yaml";
+        secrets = {
+          # "login/nixos/password".neededForUsers = true;
+          "gpg/primary/key" = { };
+          "gpg/primary/content" = { };
+        };
+      };
   
-  #  users.users."${config.gearshift.username}" = {
-  #    hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
-  #  };
+      # users.users."${config.gearshift.username}" = {
+      #   hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
+      # };
   
-      sops.age.keyFile = "/home/${config.gearshift.username}/.config/sops/age/keys.txt";
-      sops.defaultSopsFile = ../../extra/secrets/secrets/primary.yaml;
-      sops.defaultSopsFormat = "yaml";
-  
-      environment.systemPackages = with pkgs; [
-        jq
-        yq
-        sops
-        age
+      environment.systemPackages = [
+        pkgs.jq
+        pkgs.yq
+        pkgs.sops
+        pkgs.age
         (pkgs.writeShellScriptBin "sops-to-pass" ''
           force=""
           args=("$@")

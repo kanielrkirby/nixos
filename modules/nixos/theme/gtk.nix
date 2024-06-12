@@ -1,16 +1,15 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 {
   options = {
-    gearshift.theme.gtk.enable = mkOption {
-      type = types.bool;
+    gearshift.theme.gtk.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf config.gearshift.theme.gtk.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.gearshift.theme.gtk.enable {
       home-manager.users."${config.gearshift.username}" = { config, ... }: {
         gtk = {
           enable = true;
@@ -35,6 +34,22 @@ with lib;
         };
     
         xdg.configFile = {
+          "gtk-2.0/assets".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-2.0/assets";
+          "gtk-2.0/gtkrc".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-2.0/gtkrc";
+          "gtk-2.0/main.rc".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-2.0/main.rc";
+          "gtk-2.0/hacks.rc".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-2.0/hacks.rc";
+          "gtk-2.0/apps.rc".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-2.0/apps.rc";
+          "gtk-3.0/assets".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-3.0/assets";
+          "gtk-3.0/gtk.css".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-3.0/gtk.css";
+          "gtk-3.0/gtk-dark.css".source =
+            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-3.0/gtk-dark.css";
           "gtk-4.0/assets".source =
             "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
           "gtk-4.0/gtk.css".source =
