@@ -12,15 +12,13 @@
     (lib.mkIf config.gearshift.scripts.ns.enable {
       home-manager.users."${config.gearshift.username}".home.packages = [
         (pkgs.writeShellScriptBin "ns" ''
-        function ns() {
-          pkgs=();
-          while [[ "$1" != "--" && -n "$1" ]]; do
-            pkgs+=("nixpkgs#$1");
-            shift;
-          done;
+        pkgs=();
+        while [[ "$1" != "--" && -n "$1" ]]; do
+          pkgs+=("nixpkgs#$1");
           shift;
-          nix shell "''${pkgs[@]}" --command "''${@:-''${pkgs[0]#nixpkgs#}}";
-        }
+        done;
+        shift;
+        nix shell "''${pkgs[@]}" --command "''${@:-''${pkgs[0]#nixpkgs#}}";
         '')
       ];
     })
