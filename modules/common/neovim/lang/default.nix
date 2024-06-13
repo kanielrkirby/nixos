@@ -9,6 +9,7 @@
     ./js.nix
     ./lua.nix
     ./nix.nix
+    ./powershell.nix
     ./python.nix
     ./rust.nix
     ./toml.nix
