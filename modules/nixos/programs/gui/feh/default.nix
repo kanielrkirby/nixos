@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt username;
 
   cfg = config.${namespace}.programs.gui.feh;
 in {
@@ -14,6 +14,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.feh.enable = true;
+    home-manager.users.${username}.programs.feh.enable = true;
   };
 }

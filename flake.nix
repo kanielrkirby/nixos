@@ -183,7 +183,6 @@
       homes.modules = with inputs; [
         anyrun.homeManagerModules.default
         catppuccin.homeManagerModules.catppuccin
-        hypr-socket-watch.homeManagerModules.default
         nix-index-database.hmModules.nix-index
         nixvim.homeManagerModules.nixvim
         sops-nix.homeManagerModules.sops

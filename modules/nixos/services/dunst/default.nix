@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt username;
 
   cfg = config.${namespace}.services.dunst;
 in {
@@ -14,6 +14,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.dunst.enable = true;
+    home-manager.users."${username}" = {
+      services.dunst.enable = true;
+    };
   };
 }

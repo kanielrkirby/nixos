@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt enabled;
+  inherit (lib.${namespace}) mkBoolOpt enabled username;
 
   cfg = config.${namespace}.programs.gui.fuzzel;
 in {
@@ -14,6 +14,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.fuzzel = enabled;
+    home-manager.users.${username}.programs.fuzzel = enabled;
   };
 }
