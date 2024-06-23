@@ -1,11 +1,12 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.programs.gui.feh;
 in {
@@ -13,7 +14,7 @@ in {
     enable = mkBoolOpt false "Whether or not to enable feh.";
   };
 
-  config = mkIf cfg.enable {
-    programs.feh.enable = true;
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.programs.feh = enabled;
   };
 }

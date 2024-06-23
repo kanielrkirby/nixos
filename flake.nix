@@ -30,10 +30,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # system deployment
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # gpg default configuration
     gpg-base-conf = {
       url = "github:drduh/config";
       flake = false;
+    };
+
+    # helix editor
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # home manager (master)
@@ -180,29 +192,16 @@
         nur.overlay
       ];
 
-      homes.modules = with inputs; [
-        anyrun.homeManagerModules.default
-        catppuccin.homeManagerModules.catppuccin
-        hypr-socket-watch.homeManagerModules.default
-        nix-index-database.hmModules.nix-index
-        nixvim.homeManagerModules.nixvim
-        sops-nix.homeManagerModules.sops
-      ];
-
       systems = {
         modules = {
           nixos = with inputs; [
-            lanzaboote.nixosModules.lanzaboote
+            # lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
+            disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
           ];
         };
       };
-
-      templates = {
-      };
-
-      deploy = lib.mkDeploy {inherit (inputs) self;};
-
-      outputs-builder = channels: {formatter = channels.nixpkgs.nixfmt-rfc-style;};
     };
 }

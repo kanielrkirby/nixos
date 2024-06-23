@@ -77,14 +77,11 @@ in {
     '';
   in
     mkIf cfg.enable {
-      environment.sessionVariables = {
-        WALLPAPER_DIR = wallpaper-git;
-      };
-      home-manager.users."${config.gearshift.username}" = {
-        wayland.windowManager.hyprland.extraConfig = ''
-          exec-once = ${wallpaper-bin}/bin/wallpaper
-        '';
-        home.packages = [wallpaper-bin pkgs.swww];
+      environment = {
+        sessionVariables = {
+          WALLPAPER_DIR = wallpaper-git;
+        };
+        systemPackages = [wallpaper-bin pkgs.swww];
       };
     };
 }

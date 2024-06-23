@@ -1,13 +1,13 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
   namespace,
-  inputs,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username enabled;
+  inherit (lib) mkIf mkMerge;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.wms.hyprland;
 in {
@@ -15,49 +15,41 @@ in {
     enable = mkBoolOpt false "Whether or not to enable hyprland.";
   };
 
-  config = mkIf cfg.enable {
-    ${namespace} = {
-      wms.xserver = enabled;
-    };
-    nix.settings = {
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-    };
-
-    home-manager = {
-      users.${username} = {
-        wayland.windowManager.hyprland = {
-          enable = true;
-          package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-          xwayland = enabled;
-          systemd = enabled;
-          extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./hypr/binds.conf ./hypr/main.conf]);
-        };
+  config = mkMerge [
+    (mkIf (cfg.enable && config.${namespace}.user.enable) {
+      home-manager.users.${config.${namespace}.user.name}.wayland.windowManager.hyprland = {
+        enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        xwayland = enabled;
+        systemd = enabled;
+        extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./main.conf]);
       };
-    };
+    })
+    (mkIf cfg.enable {
+      ${namespace}.services.xserver = enabled;
+      xdg.portal = {
+        wlr = enabled;
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-hyprland
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-gnome
+        ];
+      };
 
-    xdg.portal = {
-      wlr = enabled;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-gnome
-      ];
-    };
+      programs.hyprland = enabled;
 
-    programs.hyprland = enabled;
-
-    services.xserver.displayManager = {
-      session = [
-        {
-          manage = "desktop";
-          name = "Hyprland";
-          start = ''
-            ${pkgs.hyprland}/bin/Hyprland &amp;
-            waitPID=$!
-          '';
-        }
-      ];
-    };
-  };
+      services.xserver.displayManager = {
+        session = [
+          {
+            manage = "desktop";
+            name = "Hyprland";
+            start = ''
+              ${pkgs.hyprland}/bin/Hyprland &amp;
+              waitPID=$!
+            '';
+          }
+        ];
+      };
+    })
+  ];
 }

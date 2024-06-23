@@ -1,7 +1,5 @@
 {lib, ...}:
 with lib; rec {
-  username = config.snowfallorg.user.name;
-
   mkOpt = type: default: description:
     mkOption {inherit type default description;};
 
