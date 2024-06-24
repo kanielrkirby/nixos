@@ -23,7 +23,7 @@ in {
       };
     };
 
-    home-manager.users."${config.gearshift.username}".home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       podman-compose
     ];
   };

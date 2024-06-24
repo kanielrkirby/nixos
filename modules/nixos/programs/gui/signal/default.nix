@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.gui.signal;
 in {
@@ -15,6 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}".home.packages = with pkgs; [signal-desktop];
+    environment.systemPackages = with pkgs; [signal-desktop];
   };
 }

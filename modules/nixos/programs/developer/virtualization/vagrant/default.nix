@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.developer.virtualization.vagrant;
 in {
@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    gearshift.libvirt.enable = true;
+    ${namespace}.programs.developer.virtualization.libvirt.enable = true;
 
     services.nfs = { server.enable = true; };
     # Add firewall exception for VirtualBox provider 
@@ -23,7 +23,7 @@ in {
       iptables -I INPUT 1 -i virbr0 -p tcp -m tcp --dport 2049 -j ACCEPT
     '';
   
-    home-manager.users."${username}".home.packages = with pkgs; [ vagrant ];
+    environment.systemPackages = with pkgs; [ vagrant ];
   
     # Add firewall exception for libvirt provider when using NFSv4 
     networking.firewall.interfaces."virbr1" = {

@@ -13,7 +13,7 @@
       swapfile = false;
       backup = false;
       undofile = true;
-      undodir = "/home/${config.gearshift.username}/.config/nvim/undodir";
+      undodir = "$HOME/.config/nvim/undodir";
       hlsearch = false;
       incsearch = true;
       termguicolors = true;

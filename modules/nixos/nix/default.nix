@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (lib) filterAttrs isType mapAttrs mapAttrsToList mkDefault mkIf pipe;
-  inherit (lib.${namespace}) mkBoolOpt username disabled;
+  inherit (lib.${namespace}) mkBoolOpt disabled;
 
   cfg = config.${namespace}.nix.defaultSettings;
 in {
@@ -53,11 +53,9 @@ in {
         "root"
         "@wheel"
         "nix-builder"
-        username
+        config.snowfallorg.user.name
       ];
     in {
-      inherit (cfg) package;
-
       gc = {
         automatic = true;
         options = "--delete-older-than 7d";

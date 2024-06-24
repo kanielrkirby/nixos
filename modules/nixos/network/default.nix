@@ -12,7 +12,7 @@
 in {
   options.${namespace}.network = {
     enable = mkBoolOpt false "Whether or not to set the default network settings.";
-    firewall = mkBoolOpt false "Whether or not to enable firewall.";
+    firewall.enable = mkBoolOpt false "Whether or not to enable firewall.";
     dns = {
       mullvad-default.enable = mkBoolOpt true "Whether or not to add the 'default' mullvad DNS.";
       mullvad-adblock.enable = mkBoolOpt false "Whether or not to add the 'adblock' mullvad DNS.";
@@ -35,7 +35,7 @@ in {
         (lib.optionals cfg.dns.mullvad-extended "194.242.2.6")
         (lib.optionals cfg.dns.mullvad-all "194.242.2.9")
       ];
-      firewall = lib.optionals config.gearshift.network.firewall.enable {
+      firewall = lib.optionals config.${namespace}.network.firewall.enable {
         enable = true;
         allowedTCPPorts = [
           80 # HTTP

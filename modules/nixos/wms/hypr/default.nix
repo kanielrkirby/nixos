@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.wms.hypr;
 in {
@@ -16,10 +16,6 @@ in {
 
   config = mkIf cfg.enable {
     ${namespace}.wms.xserver.enable = true;
-    home-manager.users."${config.gearshift.username}" = {
-      home.packages = with pkgs; [hypr];
-      xdg.configFile."hypr/hypr.conf".text = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./hypr.conf]);
-    };
     services.xserver.displayManager = {
       session = [
         {

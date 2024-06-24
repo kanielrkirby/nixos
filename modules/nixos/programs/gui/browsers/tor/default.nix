@@ -8,9 +8,9 @@
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt;
 
-  cfg = config.${namespace}.programs.gui.terminal.tools.tor;
+  cfg = config.${namespace}.programs.gui.browsers.tor;
 in {
-  options.${namespace}.programs.gui.terminal.tools.tor = {
+  options.${namespace}.programs.gui.browsers.tor = {
     enable = mkBoolOpt false "Whether or not to enable tor.";
   };
 

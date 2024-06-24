@@ -1,12 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   namespace,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.terminal.tools.pop;
 in {
@@ -17,21 +16,11 @@ in {
   config = mkIf cfg.enable {
     sops.secrets = {
       "runbox.com/username" = {
-        owner = "${username}";
+        owner = "${config.snowfallorg.user.name}";
       };
       "runbox.com/app/pop/password" = {
-        owner = "${username}";
+        owner = "${config.snowfallorg.user.name}";
       };
-    };
-
-    home-manager.users."${username}" = {
-      home.packages = with pkgs; [pop];
-      programs.zsh.initExtra = ''
-        export POP_SMTP_HOST="mail.runbox.com"
-        export POP_SMTP_PORT="587"
-        export POP_SMTP_USERNAME="$(cat "${config.sops.secrets."runbox.com/username".path}")"
-        export POP_SMTP_PASSWORD="$(cat "${config.sops.secrets."runbox.com/app/pop/password".path}")"
-      '';
     };
   };
 }

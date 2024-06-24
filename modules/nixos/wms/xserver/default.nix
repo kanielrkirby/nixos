@@ -16,7 +16,6 @@ in {
   config = mkIf cfg.enable {
     services.xserver = {
       enable = true;
-      xkb.layout = config.gearshift.kb-layout;
       libinput.enable = true;
       videoDrivers = ["modesetting"];
     };

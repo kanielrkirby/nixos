@@ -41,7 +41,7 @@ in {
       '';
     };
 
-    etc = {
+    environment.etc = {
       "mullvad-vpn/device.json".source = config.sops.templates."mullvad-vpn/device.json".path;
       "mullvad-vpn/settings.json".source = ''
         {

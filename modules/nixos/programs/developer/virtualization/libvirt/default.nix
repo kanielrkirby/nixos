@@ -25,17 +25,8 @@ in {
 
     services.spice-vdagentd.enable = true;
 
-    home-manager.users."${config.gearshift.username}" = {
-      dconf.settings = {
-        "org/virt-manager/virt-manager/connections" = {
-          autoconnect = ["qemu:///system"];
-          uris = ["qemu:///system"];
-        };
-      };
-    };
-
     users = {
-      users."${config.gearshift.username}" = {
+      users."${config.snowfallorg.user.name}" = {
         extraGroups = ["libvirtd" "kvm" "qemu" "spice"];
       };
     };

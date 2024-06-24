@@ -5,8 +5,6 @@
   inherit (lib.gearshift) enabled;
 in {
   gearshift = {
-    themes.catppuccin = enabled;
-
     dms.sddm = enabled;
 
     hardware = {
@@ -18,7 +16,6 @@ in {
     };
 
     services = {
-      dunst = enabled;
       tlp = enabled;
       mullvad-vpn = enabled;
     };
@@ -36,16 +33,12 @@ in {
       gui = {
         feh = enabled;
         foliate = enabled;
-        hyprlock = enabled;
         hyprshade = enabled;
         libnotify = enabled;
         mpv = enabled;
         playerctl = enabled;
         thunar = enabled;
         wallpaper = enabled;
-        launchers = {
-          fuzzel = enabled;
-        };
         browsers = {
           chromium = enabled;
           firefox = enabled;
@@ -53,63 +46,49 @@ in {
         };
         localsend = enabled;
         signal = enabled;
-        nix = {
-          comma = enabled;
-          up = enabled;
-          nd = enabled;
-          ns = enabled;
-          nh = enabled;
+      };
+      nix = {
+        comma = enabled;
+        up = enabled;
+        nd = enabled;
+        ns = enabled;
+        nh = enabled;
+      };
+      security = {
+        gnupg = enabled;
+        sops = enabled;
+        ssh = enabled;
+      };
+      terminal = {
+        shells = {
+          bash = enabled;
+          zsh = enabled;
         };
-        security = {
+        tools = {
+          age = enabled;
+          curl = enabled;
+          diffutils = enabled;
+          fd = enabled;
+          findutils = enabled;
           gnupg = enabled;
-          pass = enabled;
-          sops = enabled;
-          ssh = enabled;
+          httpie = enabled;
+          mods = enabled;
+          pop = enabled;
+          rg = enabled;
+          rip = enabled;
+          sd = enabled;
+          util-linux = enabled;
+          coreutils = enabled;
+          wget = enabled;
         };
-        terminal = {
-          emulators = {
-            kitty = enabled;
-            neovide = enabled;
-          };
-          rice.oh-my-posh = enabled;
-          shells = {
-            bash = enabled;
-            zsh = enabled;
-          };
-          tools = {
-            age = enabled;
-            bat = enabled;
-            btop = enabled;
-            curl = enabled;
-            diffutils = enabled;
-            eza = enabled;
-            fd = enabled;
-            findutils = enabled;
-            fzf = enabled;
-            gh = enabled;
-            git = enabled;
-            gnupg = enabled;
-            httpie = enabled;
-            mods = enabled;
-            pop = enabled;
-            rg = enabled;
-            rip = enabled;
-            sd = enabled;
-            tealdeer = enabled;
-            util-linux = enabled;
-            uutils-coreutils = enabled;
-            wget = enabled;
-            zoxide = enabled;
-          };
-        };
-        wayland = {
-          grim = enabled;
-          slurp = enabled;
-          swappy = enabled;
-          wf-screenrec = enabled;
-          wl-clipboard = enabled;
-          ydotool = enabled;
-        };
+      };
+      wayland = {
+        grim = enabled;
+        slurp = enabled;
+        swappy = enabled;
+        wf-screenrec = enabled;
+        wl-clipboard = enabled;
+        ydotool = enabled;
       };
     };
   };

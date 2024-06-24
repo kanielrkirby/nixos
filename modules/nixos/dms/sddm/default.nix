@@ -1,12 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   namespace,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.dms.sddm;
 in {
@@ -15,12 +14,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}".home.packages = with pkgs.libsForQt5; [
-      qtgraphicaleffects
-      qtsvg
-      qtquickcontrols
-    ];
-
     services.xserver.displayManager = {
       sddm = {
         enable = true;

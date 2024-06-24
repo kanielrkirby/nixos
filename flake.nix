@@ -193,6 +193,7 @@
           nixos = with inputs; [
             lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
           ];
         };
       };

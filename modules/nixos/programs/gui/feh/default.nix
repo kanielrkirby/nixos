@@ -1,11 +1,12 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.gui.feh;
 in {
@@ -14,6 +15,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users.${username}.programs.feh.enable = true;
+    environment.systemPackages = with pkgs; [feh];
   };
 }
