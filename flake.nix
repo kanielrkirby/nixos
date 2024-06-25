@@ -204,9 +204,8 @@
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             disko.nixosModules.disko
-            {
-              programs.home-manager.enable = true;
-            }
+            home-manager.nixosModules.default
+            home-manager.nixosModules.home-manager
           ];
         };
       };
