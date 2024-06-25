@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.wms.hypr;
 in {
@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    ${namespace}.wms.xserver.enable = true;
+    ${namespace}.services.xserver = enabled;
     services.xserver.displayManager = {
       session = [
         {

@@ -192,6 +192,9 @@
         nix-index-database.hmModules.nix-index
         nixvim.homeManagerModules.nixvim
         sops-nix.homeManagerModules.sops
+        {
+          programs.home-manager.enable = true;
+        }
       ];
 
       systems = {
@@ -201,6 +204,9 @@
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             disko.nixosModules.disko
+            {
+              programs.home-manager.enable = true;
+            }
           ];
         };
       };

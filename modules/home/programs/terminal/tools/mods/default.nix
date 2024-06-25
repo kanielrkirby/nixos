@@ -16,7 +16,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [mods];
-    xdg.configFile."mods.yml" = config.sops.templates."mods.yml".path;
+    # xdg.configFile."mods.yml" = config.sops.templates."mods.yml".path;
     programs.zsh.initExtra = ''
       np() {
         __path="/tmp/__np_mods.txt"

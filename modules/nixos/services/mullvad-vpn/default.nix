@@ -17,28 +17,33 @@ in {
     services.mullvad-vpn = {
       enable = true;
     };
-    sops.templates = {
-      "mullvad-vpn/device.json".content = ''
-        {
-          "logged_in": {
-            "account_token": "${config.sops.placeholder."mullvad.net/username"}",
-            "device": {
-              "id": "52116461-1264-4666-a60e-f7c08a246b52",
-              "name": "proper cobra",
-              "wg_data": {
-                "private_key": "OM1DpL5eKViuCXmyU+83/hxbBlpUidM13/rabpVgJOk=",
-                "addresses": {
-                  "ipv4_address": "10.139.184.54/32",
-                  "ipv6_address": "fc00:bbbb:bbbb:bb01:d:0:b:b836/128"
+    sops = {
+      secrets = {
+        "mullvad.net/username" = { };
+      };
+      templates = {
+        "mullvad-vpn/device.json".content = ''
+          {
+            "logged_in": {
+              "account_token": "${config.sops.placeholder."mullvad.net/username"}",
+              "device": {
+                "id": "52116461-1264-4666-a60e-f7c08a246b52",
+                "name": "proper cobra",
+                "wg_data": {
+                  "private_key": "OM1DpL5eKViuCXmyU+83/hxbBlpUidM13/rabpVgJOk=",
+                  "addresses": {
+                    "ipv4_address": "10.139.184.54/32",
+                    "ipv6_address": "fc00:bbbb:bbbb:bb01:d:0:b:b836/128"
+                  },
+                  "created": "2024-06-14T09:31:18.892979352Z"
                 },
-                "created": "2024-06-14T09:31:18.892979352Z"
-              },
-              "hijack_dns": false,
-              "created": "2024-04-04T21:50:46Z"
+                "hijack_dns": false,
+                "created": "2024-04-04T21:50:46Z"
+              }
             }
           }
-        }
-      '';
+        '';
+      };
     };
 
     environment.etc = {

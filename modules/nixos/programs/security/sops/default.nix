@@ -21,7 +21,7 @@ in {
       defaultSopsFile = "${inputs.self}/secrets/.sops.yaml";
       defaultSopsFormat = "yaml";
       secrets = {
-        "login/nixos/password".neededForUsers = true;
+        # "login/nixos/password".neededForUsers = true;
         "gpg/primary/key" = {};
         "gpg/primary/content" = {};
       };

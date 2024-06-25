@@ -14,7 +14,7 @@ in {
     enable = mkBoolOpt false "Whether or not to enable all framework fixes.";
     soundfix.enable = mkBoolOpt false "Whether or not to enable framework soundfix.";
     mousefix.enable = mkBoolOpt false "Whether or not to enable framework mousefix.";
-    ectool.enable = mkBoolOpt false "Whether or not to enable framework mousefix.";
+    ectool.enable = mkBoolOpt false "Whether or not to enable framework ectool.";
   };
 
   config = mkMerge [
@@ -31,6 +31,19 @@ in {
       environment.systemPackages = with pkgs; [
         fw-ectool
       ];
+    })
+    (mkIf (cfg.soundfix.enable || cfg.enable) {
+      snowfallorg.users.${config.user.name} = {
+        services.easyeffects = {
+          enable = true;
+          preset = "lappy_mctopface";
+        };
+
+        xdg.configFile."easyeffects/output".source = builtins.fetchGit {
+          url = "https://github.com/ceiphr/ee-framework-presets";
+          rev = "27885fe00c97da7c441358c7ece7846722fd12fa";
+        };
+      };
     })
   ];
 }

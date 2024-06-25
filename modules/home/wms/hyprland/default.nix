@@ -21,7 +21,7 @@ in {
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       xwayland = enabled;
       systemd = enabled;
-      extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./hypr/binds.conf ./hypr/main.conf]);
+      extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./main.conf]);
     };
   };
 }

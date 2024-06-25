@@ -1,11 +1,12 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.dms.sddm;
 in {
@@ -14,10 +15,16 @@ in {
   };
 
   config = mkIf cfg.enable {
+    ${namespace}.services.xserver = enabled;
     services.xserver.displayManager = {
       sddm = {
         enable = true;
         wayland.enable = true;
+        extraPackages = with pkgs.libsForQt5; [
+          qtgraphicaleffects
+          qtsvg
+          qtquickcontrols
+        ];
       };
     };
   };

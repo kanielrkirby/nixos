@@ -7,9 +7,9 @@
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt;
 
-  cfg = config.${namespace}.wms.xserver;
+  cfg = config.${namespace}.services.xserver;
 in {
-  options.${namespace}.wms.xserver = {
+  options.${namespace}.services.xserver = {
     enable = mkBoolOpt false "Whether or not to enable i3.";
   };
 

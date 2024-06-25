@@ -17,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = lib.optionals cfg.primary pkgs.chromium;
+      package = pkgs.chromium;
       commandLineArgs = [
         # Performance
         "--ozone-platform-hint=auto"

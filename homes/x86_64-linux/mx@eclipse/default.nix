@@ -5,18 +5,25 @@
   inherit (lib.gearshift) enabled;
 in {
   gearshift = {
-    themes.catppuccin = enabled;
-
+    dms = {
+      sddm = enabled;
+    };
+    hardware = {
+      framework = enabled;
+    };
     programs = {
+      developer.virtualization.libvirt = enabled;
       editors = {
         helix = enabled;
+        vscode = enabled;
       };
       gui = {
+        browsers.chromium = enabled;
+        feh = enabled;
         hyprlock = enabled;
-        launchers = {
-          fuzzel = enabled;
-        };
+        launchers.fuzzel = enabled;
       };
+      security.pass = enabled;
       terminal = {
         emulators = {
           kitty = enabled;
@@ -30,18 +37,17 @@ in {
           fzf = enabled;
           gh = enabled;
           git = enabled;
+          mods = enabled;
+          pop = enabled;
           tealdeer = enabled;
           zoxide = enabled;
         };
       };
-      security.pass = enabled;
     };
-    services = {
-      dunst = enabled;
-    };
-    hardware = {
-      framework = enabled;
-    };
+    services.dunst = enabled;
+    themes.catppuccin = enabled;
+    wms.hyprland = enabled;
   };
+
   home.stateVersion = "24.11";
 }
