@@ -36,6 +36,7 @@ in {
         neovim = enabled;
       };
       gui = {
+        thunar = enabled;
         feh = enabled;
         foliate = enabled;
         hyprshade = enabled;
