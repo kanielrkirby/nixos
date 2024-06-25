@@ -34,7 +34,6 @@ in {
     programs = {
       editors = {
         neovim = enabled;
-        helix = enabled;
       };
       gui = {
         feh = enabled;

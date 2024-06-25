@@ -8,6 +8,9 @@ in {
     themes.catppuccin = enabled;
 
     programs = {
+      editors = {
+        helix = enabled;
+      };
       gui = {
         hyprlock = enabled;
         launchers = {
