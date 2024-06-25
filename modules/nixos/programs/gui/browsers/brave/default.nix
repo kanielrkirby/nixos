@@ -10,7 +10,7 @@
 
   cfg = config.${namespace}.programs.gui.browsers.brave;
 in {
-  options.${namespace}.programs.gui.browsers.chromium = {
+  options.${namespace}.programs.gui.browsers.brave = {
     enable = mkBoolOpt false "Whether or not to enable brave.";
   };
 

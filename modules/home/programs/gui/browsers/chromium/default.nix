@@ -6,11 +6,16 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.gui.browsers.chromium;
 in {
+  options.${namespace}.programs.gui.browsers.chromium = {
+    enable = mkBoolOpt false "Whether or not to enable Chromium.";
+  };
+
   config = mkIf cfg.enable {
-    programs.gui.chromium = {
+    programs.chromium = {
       enable = true;
       package = lib.optionals cfg.primary pkgs.chromium;
       commandLineArgs = [

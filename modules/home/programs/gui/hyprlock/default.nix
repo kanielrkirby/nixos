@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     programs.hyprlock = {
       enable = true;
-      extraConfig = ./hyprlock.conf;
+      extraConfig = builtins.readFile ./hyprlock.conf;
     };
   };
 }

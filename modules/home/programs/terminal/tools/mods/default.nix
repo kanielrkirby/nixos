@@ -6,9 +6,14 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.terminal.tools.mods;
 in {
+  options.${namespace}.programs.terminal.tools.mods = {
+    enable = mkBoolOpt false "Whether or not to enable mods.";
+  };
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [mods];
     xdg.configFile."mods.yml" = config.sops.templates."mods.yml".path;

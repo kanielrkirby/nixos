@@ -10,7 +10,7 @@
 
   cfg = config.${namespace}.programs.gui.browsers.chrome;
 in {
-  options.${namespace}.programs.gui.browsers.chromium = {
+  options.${namespace}.programs.gui.browsers.chrome = {
     enable = mkBoolOpt false "Whether or not to enable chrome.";
   };
 

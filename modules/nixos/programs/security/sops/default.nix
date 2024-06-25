@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -6,7 +7,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.security.sops;
 in {
@@ -17,7 +18,7 @@ in {
   config = mkIf cfg.enable {
     sops = {
       age.keyFile = "/etc/sops-age.txt";
-      defaultSopsFile = /.sops.yaml;
+      defaultSopsFile = "${inputs.self}/secrets/.sops.yaml";
       defaultSopsFormat = "yaml";
       secrets = {
         "login/nixos/password".neededForUsers = true;
@@ -26,8 +27,9 @@ in {
       };
     };
 
-    users.users."${username}" = {
-      hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
+    users.users."${config.${namespace}.user.name}" = {
+      # hashedPasswordFile = config.sops.secrets."login/nixos/password".path;
+      initialPassword = "asdf";
     };
 
     environment.systemPackages = [

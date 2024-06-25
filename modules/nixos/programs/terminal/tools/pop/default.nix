@@ -16,10 +16,10 @@ in {
   config = mkIf cfg.enable {
     sops.secrets = {
       "runbox.com/username" = {
-        owner = "${config.snowfallorg.user.name}";
+        owner = "${config.${namespace}.user.name}";
       };
       "runbox.com/app/pop/password" = {
-        owner = "${config.snowfallorg.user.name}";
+        owner = "${config.${namespace}.user.name}";
       };
     };
   };

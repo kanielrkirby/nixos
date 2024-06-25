@@ -6,19 +6,14 @@
   namespace,
   ...
 }: let
-  inherit (inputs) catppuccin;
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt enabled;
 
-  cfg = config.${namespace}.themes.catppuccin;
+  cfg = config.${namespace}.wms.hyprland;
 in {
-  options.${namespace}.themes.catppuccin = {
-    enable = mkBoolOpt false "Whether or not to enable catppuccin.";
+  options.${namespace}.wms.hyprland = {
+    enable = mkBoolOpt false "Whether or not to enable hyprland.";
   };
-
-  imports = [
-    catppuccin.nixosModules.catppuccin
-  ];
 
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {

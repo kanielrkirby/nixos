@@ -7,12 +7,16 @@
   ...
 }: let
   inherit (lib) filterAttrs isType mapAttrs mapAttrsToList mkDefault mkIf pipe;
-  inherit (lib.${namespace}) mkBoolOpt disabled;
+  inherit (lib.types) str;
+  inherit (lib.${namespace}) mkBoolOpt mkOpt disabled;
 
   cfg = config.${namespace}.nix.defaultSettings;
 in {
-  options.${namespace}.nix.defaultSettings = {
-    enable = mkBoolOpt false "Whether or not to set the default settings.";
+  options.${namespace} = {
+    user.name = mkOpt str "mx" "The default username used on this system.";
+    nix.defaultSettings = {
+      enable = mkBoolOpt false "Whether or not to set the default settings.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -53,7 +57,7 @@ in {
         "root"
         "@wheel"
         "nix-builder"
-        config.snowfallorg.user.name
+        config.${namespace}.user.name
       ];
     in {
       gc = {

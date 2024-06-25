@@ -26,7 +26,7 @@ in {
     services.spice-vdagentd.enable = true;
 
     users = {
-      users."${config.snowfallorg.user.name}" = {
+      users."${config.${namespace}.user.name}" = {
         extraGroups = ["libvirtd" "kvm" "qemu" "spice"];
       };
     };

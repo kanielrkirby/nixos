@@ -1,13 +1,11 @@
 {
-  inputs,
   config,
   lib,
   namespace,
   ...
 }: let
-  inherit (inputs) catppuccin;
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.themes.catppuccin;
 in {
@@ -15,12 +13,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable catppuccin.";
   };
 
-  imports = [
-    catppuccin.nixosModules.catppuccin
-  ];
-
   config = mkIf cfg.enable {
-    programs.catppuccin = {
+    catppuccin = {
       enable = true;
       flavor = "mocha";
     };

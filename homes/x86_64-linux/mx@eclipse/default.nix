@@ -36,5 +36,9 @@ in {
     services = {
       dunst = enabled;
     };
+    hardware = {
+      framework = enabled;
+    };
   };
+  home.stateVersion = "24.11";
 }

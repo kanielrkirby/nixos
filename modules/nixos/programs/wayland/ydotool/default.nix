@@ -6,9 +6,9 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username;
+  inherit (lib.${namespace}) mkBoolOpt;
 
-  socket = "/home/${username}/.ydotool_socket";
+  socket = "/home//.ydotool_socket";
 
   cfg = config.${namespace}.programs.wayland.ydotool;
 in {

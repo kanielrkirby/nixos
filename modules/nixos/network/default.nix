@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt username enabled;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.network;
 in {
@@ -54,7 +54,7 @@ in {
       };
     };
 
-    users.users."${username}".extraGroups = ["networkmanager"];
+    users.users."${config.gearshift.user.name}".extraGroups = ["networkmanager"];
 
     time.timeZone = "America/Chicago";
   };

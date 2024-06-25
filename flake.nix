@@ -30,6 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # system deployment
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # gpg default configuration
     gpg-base-conf = {
       url = "github:drduh/config";
@@ -194,6 +200,7 @@
             lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
+            disko.nixosModules.disko
           ];
         };
       };

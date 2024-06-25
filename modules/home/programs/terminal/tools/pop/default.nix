@@ -10,6 +10,10 @@
 
   cfg = config.${namespace}.programs.terminal.tools.pop;
 in {
+  options.${namespace}.programs.terminal.tools.pop = {
+    enable = mkBoolOpt false "Whether or not to enable SDDM.";
+  };
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [pop];
     programs.zsh.initExtra = ''
