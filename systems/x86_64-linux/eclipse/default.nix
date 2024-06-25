@@ -66,7 +66,6 @@ in {
       };
       terminal = {
         shells = {
-          bash = enabled;
           zsh = enabled;
         };
         tools = {

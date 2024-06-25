@@ -17,7 +17,7 @@ in {
     sops = {
       secrets."openai.com/sk" = {};
 
-      templates."mods.yml" = ''
+      templates."mods.yml".content = ''
         # Default model (gpt-3.5-turbo, gpt-4, ggml-gpt4all-j...).
         default-model: gpt-4
         # Text to append when using the -f flag.
@@ -61,7 +61,7 @@ in {
         apis:
           openai:
             base-url: https://api.openai.com/v1
-            api-key: ${config.sops.placeholder."openai.com/sk".path}
+            api-key: ${config.sops.placeholder."openai.com/sk"}
             api-key-env: OPENAI_API_KEY
             models:
               gpt-4:

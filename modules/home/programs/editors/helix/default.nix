@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (inputs) nixvim;
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkForce;
   inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.programs.editors.helix;
@@ -19,6 +19,6 @@ in {
     programs.helix = {
       enable = true;
     };
-    xdg.configFile."helix/config.toml".source = ./config.toml;
+    xdg.configFile."helix/config.toml".source = mkForce ./config.toml;
   };
 }

@@ -27,14 +27,13 @@ in {
     networking = {
       hostName = host;
       networkmanager = enabled;
-      nameservers = [
-        (lib.optionals cfg.dns.mullvad-default "194.242.2.2")
-        (lib.optionals cfg.dns.mullvad-adblock "194.242.2.3")
-        (lib.optionals cfg.dns.mullvad-base "194.242.2.4")
-        (lib.optionals cfg.dns.mullvad-family "194.242.2.5")
-        (lib.optionals cfg.dns.mullvad-extended "194.242.2.6")
-        (lib.optionals cfg.dns.mullvad-all "194.242.2.9")
-      ];
+      nameservers = [] ++
+        lib.optionals cfg.dns.mullvad-default.enable ["194.242.2.2"] ++
+        lib.optionals cfg.dns.mullvad-adblock.enable ["194.242.2.3"] ++
+        lib.optionals cfg.dns.mullvad-base.enable ["194.242.2.4"] ++
+        lib.optionals cfg.dns.mullvad-family.enable ["194.242.2.5"] ++
+        lib.optionals cfg.dns.mullvad-extended.enable ["194.242.2.6"] ++
+        lib.optionals cfg.dns.mullvad-all.enable ["194.242.2.9"];
       firewall = lib.optionals config.${namespace}.network.firewall.enable {
         enable = true;
         allowedTCPPorts = [

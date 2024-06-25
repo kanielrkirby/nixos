@@ -8,15 +8,15 @@
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt;
 
-  cfg = config.${namespace}.programs.wayland.wf-screenrec;
+  cfg = config.${namespace}.programs.wayland.wl-screenrec;
 in {
-  options.${namespace}.programs.wayland.wf-screenrec = {
-    enable = mkBoolOpt false "Whether or not to enable wf-screenrec.";
+  options.${namespace}.programs.wayland.wl-screenrec = {
+    enable = mkBoolOpt false "Whether or not to enable wl-screenrec.";
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      wf-screenrec
+      wl-screenrec
     ];
   };
 }
