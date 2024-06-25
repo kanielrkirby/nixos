@@ -43,7 +43,7 @@ in {
 
     environment.etc = {
       "mullvad-vpn/device.json".source = config.sops.templates."mullvad-vpn/device.json".path;
-      "mullvad-vpn/settings.json".source = ''
+      "mullvad-vpn/settings.json".content = ''
         {
           "allow_lan": false,
           "api_access_methods": {
