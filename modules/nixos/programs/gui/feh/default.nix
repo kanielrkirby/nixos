@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (lib.${namespace}) mkBoolOpt enabled;
 
   cfg = config.${namespace}.programs.gui.feh;
 in {
@@ -14,7 +14,7 @@ in {
     enable = mkBoolOpt false "Whether or not to enable feh.";
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [feh];
+  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
+    snowfallorg.users.${config.${namespace}.user.name}.programs.feh = enabled;
   };
 }

@@ -5,7 +5,7 @@
   namespace,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
   inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.developer.virtualization.libvirt;
@@ -14,23 +14,35 @@ in {
     enable = mkBoolOpt false "Whether or not to enable libvirt.";
   };
 
-  config = mkIf cfg.enable {
-    virtualisation = {
-      libvirtd = {
-        enable = true;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      virtualisation = {
+        libvirtd = {
+          enable = true;
+        };
+        spiceUSBRedirection.enable = true;
       };
-      spiceUSBRedirection.enable = true;
-    };
-    programs.virt-manager.enable = true;
+      programs.virt-manager.enable = true;
 
-    services.spice-vdagentd.enable = true;
+      services.spice-vdagentd.enable = true;
 
-    users = {
-      users."${config.${namespace}.user.name}" = {
-        extraGroups = ["libvirtd" "kvm" "qemu" "spice"];
+      users = {
+        users."${config.${namespace}.user.name}" = {
+          extraGroups = ["libvirtd" "kvm" "qemu" "spice"];
+        };
       };
-    };
 
-    environment.systemPackages = with pkgs; [spice-gtk];
-  };
+      environment.systemPackages = with pkgs; [spice-gtk];
+    })    
+    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
+      snowfallorg.users.${config.${namespace}.user.name} = {
+        dconf.settings = {
+          "org/virt-manager/virt-manager/connections" = {
+            autoconnect = ["qemu:///system"];
+            uris = ["qemu:///system"];
+          };
+        };
+      };
+    })
+  ];
 }

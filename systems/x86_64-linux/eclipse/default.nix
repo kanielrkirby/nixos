@@ -7,6 +7,7 @@
 in {
   gearshift = {
     user.name = "mx";
+
     dms.sddm = enabled;
 
     hardware = {
@@ -17,40 +18,48 @@ in {
       opengl = enabled;
     };
 
-    services = {
-      tlp = enabled;
-      mullvad-vpn = enabled;
-    };
-
-    wms.hyprland = enabled;
+    nix.defaultSettings = enabled;
 
     network = {
       enable = true;
       firewall = enabled;
     };
 
-    nix.defaultSettings = enabled;
-
     programs = {
+      developer = {
+        lazysql = enabled;
+        virtualization = {
+          kubernetes = enabled;
+          libvirt = enabled;
+          vagrant = enabled;
+          podman = enabled;
+        };
+      };
       editors = {
         neovim = enabled;
+        helix = enabled;
+        vscode = enabled;
       };
       gui = {
-        thunar = enabled;
-        feh = enabled;
-        foliate = enabled;
-        hyprshade = enabled;
-        libnotify = enabled;
-        mpv = enabled;
-        playerctl = enabled;
-        wallpaper = enabled;
         browsers = {
           chromium = enabled;
           firefox = enabled;
           tor = enabled;
         };
+        feh = enabled;
+        foliate = enabled;
+        hyprlock = enabled;
+        hyprshade = enabled;
+        launchers = {
+          fuzzel = enabled;
+        };
+        libnotify = enabled;
         localsend = enabled;
+        mpv = enabled;
+        playerctl = enabled;
         signal = enabled;
+        thunar = enabled;
+        wallpaper = enabled;
       };
       nix = {
         comma = enabled;
@@ -61,19 +70,30 @@ in {
       };
       security = {
         gnupg = enabled;
+        pass = enabled;
         sops = enabled;
         ssh = enabled;
       };
       terminal = {
+        emulators = {
+          kitty = enabled;
+          neovide = enabled;
+        };
+        rice = {
+          oh-my-posh = enabled;
+        };
         shells = {
           zsh = enabled;
         };
         tools = {
           age = enabled;
-          curl = enabled;
-          diffutils = enabled;
-          fd = enabled;
+          bat = enabled;
+          btop = enabled;
+          eza = enabled;
           findutils = enabled;
+          fzf = enabled;
+          gh = enabled;
+          git = enabled;
           gnupg = enabled;
           httpie = enabled;
           mods = enabled;
@@ -81,9 +101,11 @@ in {
           rg = enabled;
           rip = enabled;
           sd = enabled;
+          tealdeer = enabled;
           util-linux = enabled;
-          coreutils = enabled;
+          uutils-coreutils = enabled;
           wget = enabled;
+          zoxide = enabled;
         };
       };
       wayland = {
@@ -95,6 +117,14 @@ in {
         ydotool = enabled;
       };
     };
+    services = {
+      dunst = enabled;
+      mullvad-vpn = enabled;
+      tlp = enabled;
+      xserver = enabled;
+    };
+    theme.catppuccin = enabled;
+    wms.hyprland = enabled;
   };
 
   sound.enable = true;
