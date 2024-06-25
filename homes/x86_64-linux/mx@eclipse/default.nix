@@ -12,6 +12,7 @@ in {
         helix = enabled;
       };
       gui = {
+        thunar = enabled;
         hyprlock = enabled;
         launchers = {
           fuzzel = enabled;

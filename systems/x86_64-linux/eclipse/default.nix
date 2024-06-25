@@ -42,7 +42,6 @@ in {
         libnotify = enabled;
         mpv = enabled;
         playerctl = enabled;
-        thunar = enabled;
         wallpaper = enabled;
         browsers = {
           chromium = enabled;
