@@ -90,7 +90,7 @@ in {
         grim = enabled;
         slurp = enabled;
         swappy = enabled;
-        wf-screenrec = enabled;
+        wl-screenrec = enabled;
         wl-clipboard = enabled;
         ydotool = enabled;
       };
