@@ -32,6 +32,63 @@ in {
     programs = {
       developer = {
         lazysql = enabled;
+        lsps = {
+          bash = {
+            bash_language_server = enabled;            
+          };
+          csharp = {
+            netcoredbg = enabled;
+            omnisharp = enabled;
+          };
+          css = {
+            vscode_css_language_server = enabled;
+          };
+          docker = {
+            docker_compose_language_service = enabled;
+            docker_langserver = enabled;
+          };
+          go = {
+            dlv = enabled;
+            golangci_lint_langserver = enabled;
+            gopls = enabled;
+          };
+          haskell = {
+            haskell_language_server = enabled;
+          };
+          html = {
+            vscode_html_languageserver = enabled;
+          };
+          json = {
+            vscode_json_languageserver = enabled;
+          };
+          lldb_support = enabled;
+          lua = {
+            lua_language_server = enabled;
+          };
+          nix = {
+            nil = enabled;
+            alejandra = enabled;
+          };
+          protobuf = {
+            bufls = enabled;
+          };
+          python = {
+            python_language_server = enabled;
+          };
+          svelte = {
+            svelte_language_server = enabled;
+          };
+          typescript = {
+            prettier = enabled;
+            typescript_language_server = enabled;
+          };
+          vue = {
+            vue_language_server = enabled;
+          };
+          yaml = {
+            yaml_language_server = enabled;
+          };
+        };
         virtualization = {
           kubernetes = enabled;
           libvirt = enabled;
