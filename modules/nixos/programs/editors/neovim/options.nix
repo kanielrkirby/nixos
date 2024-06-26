@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, namespace, ...}: {
   programs.nixvim = {
     opts = {
       foldenable = false;
@@ -13,7 +13,7 @@
       swapfile = false;
       backup = false;
       undofile = true;
-      undodir = "$HOME/.config/nvim/undodir";
+      undodir = "/home/${config.${namespace}.user.name}/.config/nvim/undodir";
       hlsearch = false;
       incsearch = true;
       termguicolors = true;

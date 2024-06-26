@@ -18,5 +18,9 @@ in {
       enable = true;
       flavor = "mocha";
     };
+    home-manager.users.${config.${namespace}.user.name}.catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
   };
 }

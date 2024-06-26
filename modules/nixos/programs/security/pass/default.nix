@@ -20,7 +20,7 @@ in {
         enable = true;
         package = pkgs.gopass;
         settings = {
-          PASSWORD_STORE_DIR = "$HOME/.config/password-store";
+          PASSWORD_STORE_DIR = "/home/${config.${namespace}.user.name}/.config/password-store";
         };
       };
 

@@ -189,7 +189,7 @@
       systems = {
         modules = {
           nixos = with inputs; [
-            lanzaboote.nixosModules.lanzaboote
+            # lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             disko.nixosModules.disko
@@ -197,12 +197,5 @@
           ];
         };
       };
-
-      templates = {
-      };
-
-      deploy = lib.mkDeploy {inherit (inputs) self;};
-
-      outputs-builder = channels: {formatter = channels.nixpkgs.nixfmt-rfc-style;};
     };
 }

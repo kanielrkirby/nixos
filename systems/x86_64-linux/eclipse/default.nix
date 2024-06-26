@@ -41,7 +41,7 @@ in {
       editors = {
         neovim = enabled;
         helix = enabled;
-        vscode = enabled;
+        # vscode = enabled;
       };
       gui = {
         browsers = {
@@ -72,10 +72,10 @@ in {
         nh = enabled;
       };
       security = {
-        gnupg = enabled;
-        pass = enabled;
-        sops = enabled;
-        ssh = enabled;
+        # gnupg = enabled;
+        # pass = enabled;
+        # sops = enabled;
+        # ssh = enabled;
       };
       terminal = {
         emulators = {
@@ -93,14 +93,15 @@ in {
           bat = enabled;
           btop = enabled;
           eza = enabled;
+          fd = enabled;
           findutils = enabled;
           fzf = enabled;
           gh = enabled;
           git = enabled;
           gnupg = enabled;
           httpie = enabled;
-          mods = enabled;
-          pop = enabled;
+          # mods = enabled;
+          # pop = enabled;
           rg = enabled;
           rip = enabled;
           sd = enabled;
@@ -108,6 +109,7 @@ in {
           util-linux = enabled;
           coreutils = enabled;
           wget = enabled;
+          yazi = enabled;
           zoxide = enabled;
         };
       };
@@ -122,7 +124,7 @@ in {
     };
     services = {
       dunst = enabled;
-      mullvad-vpn = enabled;
+      # mullvad-vpn = enabled;
       tlp = enabled;
       xserver = enabled;
     };

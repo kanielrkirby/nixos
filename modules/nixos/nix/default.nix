@@ -24,7 +24,7 @@ in {
 
   config = mkIf cfg.enable {
     users.users.${config.${namespace}.user.name} = {
-      isSystemUser = true;
+      isNormalUser = true;
       group = config.${namespace}.user.name;
     };
     users.groups.${config.${namespace}.user.name} = {};
@@ -90,13 +90,7 @@ in {
         auto-optimise-store = true;
         builders-use-substitutes = true;
         experimental-features = "nix-command flakes";
-        flake-registry = "/etc/nix/registry.json";
-        http-connections = 50;
-        keep-derivations = true;
-        keep-going = true;
-        keep-outputs = true;
         log-lines = 50;
-        sandbox = true;
         warn-dirty = false;
 
         substituters = [
