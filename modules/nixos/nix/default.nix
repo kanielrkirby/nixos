@@ -70,12 +70,6 @@ in {
         (x: x // {nixpkgs.flake = inputs.nixpkgs;})
       ];
 
-      users = [
-        "root"
-        "@wheel"
-        "nix-builder"
-        config.${namespace}.user.name
-      ];
     in {
       gc = {
         automatic = true;
@@ -93,7 +87,6 @@ in {
       registry = mappedRegistry;
 
       settings = {
-        allowed-users = users;
         auto-optimise-store = true;
         builders-use-substitutes = true;
         experimental-features = "nix-command flakes";
@@ -104,7 +97,6 @@ in {
         keep-outputs = true;
         log-lines = 50;
         sandbox = true;
-        trusted-users = users;
         warn-dirty = false;
 
         substituters = [
