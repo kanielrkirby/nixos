@@ -125,11 +125,14 @@ in {
     };
     services = {
       dunst = enabled;
-      # mullvad-vpn = enabled;
+      mullvad-vpn = enabled;
       tlp = enabled;
       xserver = enabled;
     };
-    themes.catppuccin = enabled;
+    themes = {
+      catppuccin = enabled;
+      gtk = enabled;
+    };
     fonts = {
       monaspace = enabled;
       noto-sans = enabled;

@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
@@ -15,12 +16,12 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
+      users.defaultUserShell = pkgs.zsh;
       programs.zsh = {
         enable = true;
       };
     })
     (mkIf (cfg.enable && config.${namespace}.user.enable) {
-      users.users.${config.${namespace}.user.name}.defaultUserShell = pkgs.zsh;
       home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
         enable = true;
       };

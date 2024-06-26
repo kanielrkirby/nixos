@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
@@ -15,7 +16,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager = {
-      users."${config.gearshift.username}" = {
+      users."${config.${namespace}.user.name}" = {
         gtk = {
           font = {
             name = "Noto Sans";
