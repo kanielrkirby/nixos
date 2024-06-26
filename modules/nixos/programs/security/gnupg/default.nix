@@ -23,10 +23,10 @@ in {
       };
     };
 
-    sops.secrets = {
-      "gpg/primary/key" = {};
-      "gpg/primary/content" = {};
-      "gpg/primary/passphrase" = {};
-    };
+    # sops.secrets = {
+    #   "gpg/primary/key" = {};
+    #   "gpg/primary/content" = {};
+    #   "gpg/primary/passphrase" = {};
+    # };
   };
 }

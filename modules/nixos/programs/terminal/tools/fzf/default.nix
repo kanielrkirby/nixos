@@ -13,8 +13,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable fzf.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.fzf = {
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.programs.fzf = {
       enable = true;
     };
   };

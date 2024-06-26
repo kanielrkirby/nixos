@@ -14,8 +14,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable vscode.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.vscode = {
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [asvetliakov.vscode-neovim];
     };

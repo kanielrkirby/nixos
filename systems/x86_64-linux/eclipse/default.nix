@@ -6,7 +6,10 @@
   inherit (lib.gearshift) enabled;
 in {
   gearshift = {
-    user.name = "mx";
+    user = {
+      enable = true;
+      name = "mx";
+    };
 
     dms.sddm = enabled;
 

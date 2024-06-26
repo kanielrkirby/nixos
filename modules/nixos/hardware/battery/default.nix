@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   namespace,
@@ -31,12 +32,12 @@ in {
 
         export DISPLAY=":0"
 
-        BATTERY_LEVEL="$(acpi -b | grep -P -o '[0-9]+(?=%)' | tail -n1)"
+        BATTERY_LEVEL="$(${pkgs.acpi}/bin/acpi -b | grep -P -o '[0-9]+(?=%)' | tail -n1)"
         STATUS="$(cat "$POWERSUPPLY")"
 
         if [[ "$BATTERY_LEVEL" -le "$TOO_LOW" ]] && [[ "$STATUS" == "$NOT_CHARGING" ]]
         then
-            notify-send -u critical -t 3000 "Battery low" "Battery level is ''${BATTERY_LEVEL}%!"
+            ${pkgs.libnotify}/bin/notify-send -u critical -t 3000 "Battery low" "Battery level is ''${BATTERY_LEVEL}%!"
         fi
 
         exit 0

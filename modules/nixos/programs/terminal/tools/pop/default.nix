@@ -18,7 +18,7 @@ in {
     (mkIf cfg.enable {
       environment.systemPackages = with pkgs; [pop];
     })    
-    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
+    (mkIf (cfg.enable && config.${namespace}.user.enable) {
       sops.secrets = {
         "runbox.com/username" = {
           owner = "${config.${namespace}.user.name}";
@@ -28,7 +28,7 @@ in {
         };
       };
 
-      snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.zsh.initExtra = ''
+      home-manager.users.${config.${namespace}.user.name}.programs.zsh.initExtra = ''
         export POP_SMTP_HOST="mail.runbox.com"
         export POP_SMTP_PORT="587"
         export POP_SMTP_USERNAME="$(cat "${config.sops.secrets."runbox.com/username".path}")"

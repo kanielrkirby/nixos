@@ -13,20 +13,37 @@
   cfg = config.${namespace}.nix.defaultSettings;
 in {
   options.${namespace} = {
-    user.name = mkOpt str "mx" "The default username used on this system.";
+    user = {
+      enable = mkBoolOpt false "Whether or not to configure a user for this system";
+      name = mkOpt str "mx" "The default username used on this system.";
+    };
     nix.defaultSettings = {
       enable = mkBoolOpt false "Whether or not to set the default settings.";
     };
   };
 
   config = mkIf cfg.enable {
+    users.users.${config.${namespace}.user.name} = {
+      isSystemUser = true;
+      group = config.${namespace}.user.name;
+    };
+    users.groups.${config.${namespace}.user.name} = {};
+    home-manager.users.${config.${namespace}.user.name}.imports = with inputs; [
+      catppuccin.homeManagerModules.catppuccin
+      nix-index-database.hmModules.nix-index
+    ];
+
     # faster rebuilding
     documentation = {
       doc = disabled;
       info = disabled;
       man.enable = mkDefault true;
     };
-
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+      };
+    };
     environment = {
       etc = with inputs; {
         # set channels (backwards compatibility)

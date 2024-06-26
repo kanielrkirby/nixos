@@ -19,8 +19,8 @@ in {
         enable = true;
       };
     })
-    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.zsh = {
+    (mkIf (cfg.enable && config.${namespace}.user.enable) {
+      home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
         enable = true;
       };
     })

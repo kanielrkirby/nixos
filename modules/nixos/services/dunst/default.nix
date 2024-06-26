@@ -13,7 +13,7 @@ in {
     enable = mkBoolOpt false "Whether or not to enable dunst.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config.services.dunst = enabled;
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.services.dunst = enabled;
   };
 }

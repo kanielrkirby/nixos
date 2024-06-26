@@ -13,8 +13,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable tealdeer.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.tealdeer = {
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.programs.tealdeer = {
       enable = true;
     };
   };

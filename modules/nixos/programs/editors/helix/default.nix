@@ -15,8 +15,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable helix.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config = {
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name} = {
       programs.helix = {
         enable = true;
         defaultEditor = true;

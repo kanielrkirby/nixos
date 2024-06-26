@@ -57,8 +57,8 @@ in {
         };
       };
     })
-    (mkIf (config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.chromium = {
+    (mkIf (config.${namespace}.user.enable) {
+      home-manager.users.${config.${namespace}.user.name}.programs.chromium = {
         enable = true;
         package = pkgs.chromium;
         commandLineArgs = [

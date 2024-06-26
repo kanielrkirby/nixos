@@ -15,8 +15,8 @@ in {
   };
 
   config = mkMerge [
-    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name}.home.config = {
+    (mkIf (cfg.enable && config.${namespace}.user.enable) {
+      home-manager.users.${config.${namespace}.user.name} = {
         xdg.configFile."neovide/config.toml".text = ''
           [font]
           normal = "MonaspiceNe NF"

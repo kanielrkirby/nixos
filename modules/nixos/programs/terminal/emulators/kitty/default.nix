@@ -13,8 +13,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable kitty.";
   };
 
-  config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.kitty = {
+  config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    home-manager.users.${config.${namespace}.user.name}.programs.kitty = {
       enable = true;
     };
   };

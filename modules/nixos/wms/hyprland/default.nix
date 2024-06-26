@@ -16,8 +16,8 @@ in {
   };
 
   config = mkMerge [
-    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name}.home.config.wayland.windowManager.hyprland = {
+    (mkIf (cfg.enable && config.${namespace}.user.enable) {
+      home-manager.users.${config.${namespace}.user.name}.wayland.windowManager.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         xwayland = enabled;
@@ -27,11 +27,6 @@ in {
     })
     (mkIf cfg.enable {
       ${namespace}.services.xserver = enabled;
-      nix.settings = {
-        substituters = ["https://hyprland.cachix.org"];
-        trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-      };
-
       xdg.portal = {
         wlr = enabled;
         extraPortals = with pkgs; [

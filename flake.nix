@@ -186,17 +186,6 @@
         nur.overlay
       ];
 
-      homes.modules = with inputs; [
-        anyrun.homeManagerModules.default
-        catppuccin.homeManagerModules.catppuccin
-        nix-index-database.hmModules.nix-index
-        nixvim.homeManagerModules.nixvim
-        sops-nix.homeManagerModules.sops
-        {
-          programs.home-manager.enable = true;
-        }
-      ];
-
       systems = {
         modules = {
           nixos = with inputs; [
@@ -204,7 +193,6 @@
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             disko.nixosModules.disko
-            home-manager.nixosModules.default
             home-manager.nixosModules.home-manager
           ];
         };
