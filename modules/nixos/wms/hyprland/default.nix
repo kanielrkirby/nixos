@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -16,7 +17,7 @@ in {
 
   config = mkMerge [
     (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name}.wayland.windowManager.hyprland = {
+      snowfallorg.users.${config.${namespace}.user.name}.home.config.wayland.windowManager.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         xwayland = enabled;

@@ -16,16 +16,18 @@ in {
 
   config = mkMerge [
     (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      xdg.configFile."neovide/config.toml".text = ''
-        [font]
-        normal = "MonaspiceNe NF"
-        italic = "MonaspiceRn NF"
-        size = 14
-      '';
-      programs.zsh.initExtra = ''
-        export EDITOR="neovide --no-fork"
-        alias svim="sudo -E neovide"
-      '';
+      snowfallorg.users.${config.${namespace}.user.name}.home.config = {
+        xdg.configFile."neovide/config.toml".text = ''
+          [font]
+          normal = "MonaspiceNe NF"
+          italic = "MonaspiceRn NF"
+          size = 14
+        '';
+        programs.zsh.initExtra = ''
+          export EDITOR="neovide --no-fork"
+          alias svim="sudo -E neovide"
+        '';
+      };
     })
     (mkIf cfg.enable {
       environment.systemPackages = with pkgs; [neovide];

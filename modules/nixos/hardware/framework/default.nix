@@ -33,7 +33,7 @@ in {
       ];
     })
     (mkIf (cfg.soundfix.enable || cfg.enable) {
-      snowfallorg.users.${config.${namespace}.user.name} = {
+      snowfallorg.users.${config.${namespace}.user.name}.home.config = {
         services.easyeffects = {
           enable = true;
           preset = "lappy_mctopface";

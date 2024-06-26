@@ -134,7 +134,7 @@ in {
         '';
       };
 
-      snowfallorg.users.${config.${namespace}.user.name} = {
+      snowfallorg.users.${config.${namespace}.user.name}.home.config = {
         xdg.configFile."mods.yml" = config.sops.templates."mods.yml".path;
         programs.zsh.initExtra = ''
           np() {

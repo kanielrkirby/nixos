@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name} = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config = {
       programs.password-store = {
         enable = true;
         package = pkgs.gopass;

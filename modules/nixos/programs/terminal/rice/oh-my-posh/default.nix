@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.oh-my-posh = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.oh-my-posh = {
       enable = true;
       useTheme = "powerlevel10k_lean";
     };

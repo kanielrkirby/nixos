@@ -103,7 +103,7 @@ in {
           sd = enabled;
           tealdeer = enabled;
           util-linux = enabled;
-          uutils-coreutils = enabled;
+          coreutils = enabled;
           wget = enabled;
           zoxide = enabled;
         };
@@ -123,7 +123,7 @@ in {
       tlp = enabled;
       xserver = enabled;
     };
-    theme.catppuccin = enabled;
+    themes.catppuccin = enabled;
     wms.hyprland = enabled;
   };
 
@@ -246,4 +246,5 @@ in {
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   system.stateVersion = "24.11";
+  home-manager.users.mx.home.stateVersion = "24.11";
 }

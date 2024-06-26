@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.tealdeer = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.tealdeer = {
       enable = true;
     };
   };

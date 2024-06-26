@@ -28,7 +28,7 @@ in {
         };
       };
 
-      snowfallorg.users.${config.${namespace}.user.name}.programs.zsh.initExtra = ''
+      snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.zsh.initExtra = ''
         export POP_SMTP_HOST="mail.runbox.com"
         export POP_SMTP_PORT="587"
         export POP_SMTP_USERNAME="$(cat "${config.sops.secrets."runbox.com/username".path}")"

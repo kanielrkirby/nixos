@@ -15,7 +15,7 @@ in {
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
+    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
       virtualisation = {
         libvirtd = {
           enable = true;
@@ -33,9 +33,7 @@ in {
       };
 
       environment.systemPackages = with pkgs; [spice-gtk];
-    })    
-    (mkIf (cfg.enable && config.${namespace}.user.name != null) {
-      snowfallorg.users.${config.${namespace}.user.name} = {
+      snowfallorg.users.${config.${namespace}.user.name}.home.config = {
         dconf.settings = {
           "org/virt-manager/virt-manager/connections" = {
             autoconnect = ["qemu:///system"];

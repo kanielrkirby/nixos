@@ -14,6 +14,6 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.services.dunst = enabled;
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.services.dunst = enabled;
   };
 }

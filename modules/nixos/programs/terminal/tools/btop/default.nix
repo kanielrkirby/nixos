@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.btop = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.btop = {
       enable = true;
     };
   };

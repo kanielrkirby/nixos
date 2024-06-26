@@ -14,6 +14,6 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.fuzzel = enabled;
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.fuzzel = enabled;
   };
 }

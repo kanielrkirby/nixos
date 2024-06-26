@@ -18,13 +18,9 @@ in {
     ${namespace}.services.xserver = enabled;
     services.xserver.displayManager = {
       sddm = {
+        package = pkgs.kdePackages.sddm;
         enable = true;
         wayland.enable = true;
-        extraPackages = with pkgs.libsForQt5; [
-          qtgraphicaleffects
-          qtsvg
-          qtquickcontrols
-        ];
       };
     };
   };

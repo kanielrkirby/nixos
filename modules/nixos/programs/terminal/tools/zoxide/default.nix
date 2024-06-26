@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.zoxide = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.zoxide = {
       enable = true;
     };
   };

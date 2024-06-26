@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.hyprlock = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.hyprlock = {
       enable = true;
       extraConfig = builtins.readFile ./hyprlock.conf;
     };

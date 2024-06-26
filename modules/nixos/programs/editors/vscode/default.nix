@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.name != null) {
-    snowfallorg.users.${config.${namespace}.user.name}.programs.vscode = {
+    snowfallorg.users.${config.${namespace}.user.name}.home.config.programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [asvetliakov.vscode-neovim];
     };
