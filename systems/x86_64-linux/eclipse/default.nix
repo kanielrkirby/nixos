@@ -253,7 +253,7 @@ in {
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = true;
 
   system.stateVersion = "24.11";
   home-manager.users.mx.home.stateVersion = "24.11";
