@@ -20,6 +20,7 @@ in {
       };
     })
     (mkIf (cfg.enable && config.${namespace}.user.enable) {
+      users.users.${config.${namespace}.user.name}.defaultUserShell = pkgs.zsh;
       home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
         enable = true;
       };

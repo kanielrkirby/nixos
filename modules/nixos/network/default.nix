@@ -6,7 +6,8 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt enabled;
+  inherit (lib.types) str;
+  inherit (lib.${namespace}) mkOpt mkBoolOpt enabled;
 
   cfg = config.${namespace}.network;
 in {
@@ -21,10 +22,12 @@ in {
       mullvad-extended.enable = mkBoolOpt false "Whether or not to add the 'extended' mullvad DNS.";
       mullvad-all.enable = mkBoolOpt false "Whether or not to add the 'all' mullvad DNS.";
     };
+    hostId = mkOpt str "" "Host Id to use for the networking module.";
   };
 
   config = mkIf cfg.enable {
     networking = {
+      hostId = cfg.hostId;
       hostName = host;
       networkmanager = enabled;
       nameservers = [] ++
@@ -53,7 +56,7 @@ in {
       };
     };
 
-    users.users."${config.gearshift.user.name}".extraGroups = ["networkmanager"];
+    users.users."${config.${namespace}.user.name}".extraGroups = ["networkmanager"];
 
     time.timeZone = "America/Chicago";
   };

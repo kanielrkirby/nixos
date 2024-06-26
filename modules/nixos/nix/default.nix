@@ -23,9 +23,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    i18n.defaultLocale = "en_US.UTF-8";
     users.users.${config.${namespace}.user.name} = {
       isNormalUser = true;
       group = config.${namespace}.user.name;
+      extraGroups = [ "wheel" ];
     };
     users.groups.${config.${namespace}.user.name} = {};
     home-manager.users.${config.${namespace}.user.name}.imports = with inputs; [

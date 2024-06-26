@@ -26,6 +26,7 @@ in {
     network = {
       enable = true;
       firewall = enabled;
+      hostId = "1736abc2";
     };
 
     programs = {
@@ -72,10 +73,10 @@ in {
         nh = enabled;
       };
       security = {
-        # gnupg = enabled;
-        # pass = enabled;
+        gnupg = enabled;
+        pass = enabled;
         # sops = enabled;
-        # ssh = enabled;
+        ssh = enabled;
       };
       terminal = {
         emulators = {
@@ -129,12 +130,14 @@ in {
       xserver = enabled;
     };
     themes.catppuccin = enabled;
+    fonts = {
+      monaspace = enabled;
+      noto-sans = enabled;
+    };
     wms.hyprland = enabled;
   };
 
   sound.enable = true;
-
-  networking.hostId = "1736abc2";
 
   # disko.devices = {
   #   disk = {
@@ -246,7 +249,6 @@ in {
     extraModulePackages = [ ];
   };
 
-  networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
