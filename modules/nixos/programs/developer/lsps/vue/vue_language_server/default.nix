@@ -8,9 +8,9 @@
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt;
 
-  cfg = config.${namespace}.programs.developer.lsps.html.vue_language_server;
+  cfg = config.${namespace}.programs.developer.lsps.vue.vue_language_server;
 in {
-  options.${namespace}.programs.developer.lsps.html.vue_language_server = {
+  options.${namespace}.programs.developer.lsps.vue.vue_language_server = {
     enable = mkBoolOpt false "Whether or not to enable the vue_language_server.";
   };
 

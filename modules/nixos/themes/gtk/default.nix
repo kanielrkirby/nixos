@@ -16,6 +16,11 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${config.${namespace}.user.name} = {
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
+      };
       gtk = {
         enable = true;
   

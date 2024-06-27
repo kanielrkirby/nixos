@@ -3,11 +3,12 @@
   config,
   lib,
   namespace,
+  system,
   ...
 }: let
-  inherit (inputs) nixvim;
+  inherit (inputs) helix;
   inherit (lib) mkIf mkForce;
-  inherit (lib.${namespace}) mkBoolOpt enabled;
+  inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.editors.helix;
 in {
@@ -19,9 +20,11 @@ in {
     home-manager.users.${config.${namespace}.user.name} = {
       programs.helix = {
         enable = true;
+        package = helix.packages.${system}.default;
         defaultEditor = true;
       };
       xdg.configFile."helix/config.toml".source = mkForce ./config.toml;
+      xdg.configFile."helix/languages.toml".source = mkForce ./languages.toml;
     };
   };
 }

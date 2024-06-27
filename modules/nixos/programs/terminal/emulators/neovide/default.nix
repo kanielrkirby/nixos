@@ -23,10 +23,6 @@ in {
           italic = "MonaspiceRn NF"
           size = 14
         '';
-        programs.zsh.initExtra = ''
-          export EDITOR="neovide --no-fork"
-          alias svim="sudo -E neovide"
-        '';
       };
     })
     (mkIf cfg.enable {

@@ -42,6 +42,12 @@
       flake = false;
     };
 
+    # helix editor
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # home manager (master)
     home-manager = {
       url = "github:nix-community/home-manager";
