@@ -169,6 +169,7 @@ in {
           wget = enabled;
           yazi = enabled;
           zoxide = enabled;
+          zellij = enabled;
         };
       };
       wayland = {
