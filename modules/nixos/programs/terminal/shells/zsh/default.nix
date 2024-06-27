@@ -24,6 +24,12 @@ in {
     (mkIf (cfg.enable && config.${namespace}.user.enable) {
       home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
         enable = true;
+        initExtra = ''
+          alias y="yazi";
+          alias h="hx";
+          alias sy="yazi";
+          alias sh="hx";
+        '';
       };
     })
   ];

@@ -16,6 +16,11 @@ in {
   config = mkIf (cfg.enable && config.${namespace}.user.enable) {
     home-manager.users.${config.${namespace}.user.name}.programs.zellij = {
       enable = true;
+      enableZshIntegration = true;
+      settings = {
+        layout = "compact";
+        on_force_close = "quit";
+      };
     };
   };
 }
