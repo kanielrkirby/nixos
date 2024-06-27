@@ -142,6 +142,7 @@ in {
       terminal = {
         emulators = {
           kitty = enabled;
+          foot = enabled;
           neovide = enabled;
         };
         rice = {
