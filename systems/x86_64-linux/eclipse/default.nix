@@ -14,6 +14,7 @@ in {
 
     hardware = {
       battery = enabled;
+      bluetooth = enabled;
       boot.fs.zfs = enabled;
       framework = enabled;
       pipewire = enabled;
