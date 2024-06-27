@@ -27,8 +27,9 @@ in {
         initExtra = ''
           alias y="yazi";
           alias h="hx";
-          alias sy="yazi";
-          alias sh="hx";
+          alias sy="sudo -E yazi";
+          alias sh="sudo -E hx";
+          alias s="sudo -E";
         '';
       };
     })
