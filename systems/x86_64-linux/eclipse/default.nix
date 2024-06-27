@@ -16,6 +16,7 @@ in {
       battery = enabled;
       bluetooth = enabled;
       boot.fs.zfs = enabled;
+      brightness = enabled;
       framework = enabled;
       pipewire = enabled;
       opengl = enabled;
