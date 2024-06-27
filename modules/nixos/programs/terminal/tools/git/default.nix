@@ -14,74 +14,84 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.enable) {
-    home-manager.users.${config.${namespace}.user.name}.programs.git = {
-      enable = true;
-      delta.enable = true;
-      userEmail = "pirate7007@runbox.com";
-      userName = "Kaniel Kirby";
-      extraConfig.safe.directory = ["/etc/nixos"];
-      zsh.initExtra = ''
-ga() {
-  if [ -z "$1" ]; then
-    git add .
-  else
-    git add "$@"
-  fi
-}
+    home-manager.users.${config.${namespace}.user.name} = {
+      programs.git = {
+        enable = true;
+        delta.enable = true;
+        userEmail = "pirate7007@runbox.com";
+        userName = "Kaniel Kirby";
+        extraConfig.safe.directory = ["/etc/nixos"];
+      };
+      programs.zsh.initExtra = ''
+        ga() {
+          if [ -z "$1" ]; then
+            git add .
+          else
+            git add "$@"
+          fi
+        }
 
-gc() {
-  if [ -z "$1" ]; then
-    git commit
-  else
-    git commit -m "$*"
-  fi
-}
+        gc() {
+          if [ -z "$1" ]; then
+            git commit
+          else
+            git commit -m "$*"
+          fi
+        }
 
-gp() {
-  git push "$@"
-}
+        gp() {
+          git push "$@"
+        }
 
-gac() {
-  ga
-  gc "$@"
-}
+        gac() {
+          ga
+          gc "$@"
+        }
 
-gcp() {
-  gc "$@"
-  gp
-}
+        gcp() {
+          gc "$@"
+          gp
+        }
 
-gacp() {
-  ga
-  gcp "$@"
-}
+        gacp() {
+          ga
+          gcp "$@"
+        }
 
-sga() {
-  sudo -E ga "$@"
-}
+        sga() {
+          if [ -z "$1" ]; then
+            sudo -E git add .
+          else
+            sudo -E git add "$@"
+          fi
+        }
 
-sgc() {
-  sudo -E gc "$@"
-}
+        sgc() {
+          if [ -z "$1" ]; then
+            sudo -E git commit
+          else
+            sudo -E git commit -m "$*"
+          fi
+        }
 
-sgp() {
-  sudo -E gp "$@"
-}
+        sgp() {
+          sudo -E git push "$@"
+        }
 
-sgac() {
-  sga
-  sgc "$@"
-}
+        sgac() {
+          sga
+          sgc "$@"
+        }
 
-sgcp() {
-  sgc "$@"
-  sgp
-}
+        sgcp() {
+          sgc "$@"
+          sgp
+        }
 
-sgacp() {
-  sga
-  sgcp "$@"
-}
+        sgacp() {
+          sga
+          sgcp "$@"
+        }
       '';
     };
   };
