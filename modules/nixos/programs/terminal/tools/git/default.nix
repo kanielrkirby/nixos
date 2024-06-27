@@ -22,18 +22,18 @@ in {
       extraConfig.safe.directory = ["/etc/nixos"];
       zsh.initExtra = ''
         alias ga='if [ -z "$@" ]; then git add .; else git add "$@"; fi'
-        alias gc='if [ -z "$@" ]; then git commit; else git commit -m "$@" fi'
-        alias gp='git push "$@"'
-        alias gac='if [ -z "$@" ]; then git add . && git commit && git push; else git add . && git commit -m "$@"'
-        alias gacp='if [ -z "$@" ]; then git add . && git commit && git push; else git add . && git commit -m "$@" && git push'
-        alias gcp='if [ -z "$@" ]; then git commit && git push; else git commit -m "$@" && git push'
+        alias gc='if [ -z "$@" ]; then git commit; else git commit -m "$@"; fi'
+        alias gp='git push "$@";'
+        alias gac='if [ -z "$@" ]; then git add . && git commit && git push; else git add . && git commit -m "$@"; fi'
+        alias gacp='if [ -z "$@" ]; then git add . && git commit && git push; else git add . && git commit -m "$@" && git push; fi'
+        alias gcp='if [ -z "$@" ]; then git commit && git push; else git commit -m "$@" && git push; fi'
 
         alias sga='if [ -z "$@" ]; then sudo -E git add .; else sudo -E git add "$@"; fi'
-        alias sgc='if [ -z "$@" ]; then sudo -E git commit; else sudo -E git commit -m "$@" fi'
-        alias sgp='sudo -E git push "$@"'
-        alias sgac='if [ -z "$@" ]; then sudo -E git add . && sudo -E git commit && sudo -E git push; else sudo -E git add . && sudo -E git commit -m "$@"'
-        alias sgacp='if [ -z "$@" ]; then sudo -E git add . && sudo -E git commit && sudo -E git push; else sudo -E git add . && sudo -E git commit -m "$@" && sudo -E git push'
-        alias sgcp='if [ -z "$@" ]; then sudo -E git commit && sudo -E git push; else sudo -E git commit -m "$@" && sudo -E git push'
+        alias sgc='if [ -z "$@" ]; then sudo -E git commit; else sudo -E git commit -m "$@"; fi'
+        alias sgp='sudo -E git push "$@";'
+        alias sgac='if [ -z "$@" ]; then sudo -E git add . && sudo -E git commit && sudo -E git push; else sudo -E git add . && sudo -E git commit -m "$@"; fi'
+        alias sgacp='if [ -z "$@" ]; then sudo -E git add . && sudo -E git commit && sudo -E git push; else sudo -E git add . && sudo -E git commit -m "$@" && sudo -E git push; fi'
+        alias sgcp='if [ -z "$@" ]; then sudo -E git commit && sudo -E git push; else sudo -E git commit -m "$@" && sudo -E git push; fi'
       '';
     };
   };
