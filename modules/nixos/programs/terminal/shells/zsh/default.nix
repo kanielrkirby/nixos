@@ -25,11 +25,12 @@ in {
       home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
         enable = true;
         initExtra = ''
-          alias y="yazi";
-          alias h="hx";
-          alias sy="sudo -E yazi";
-          alias sh="sudo -E hx";
-          alias s="sudo -E";
+          alias y="yazi"
+          alias h="hx"
+          alias sy="sudo -E yazi"
+          alias sh="sudo -E hx"
+          alias s="sudo -E"
+          alias se="sudo echo"
         '';
       };
     })
