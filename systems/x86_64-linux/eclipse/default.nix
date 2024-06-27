@@ -65,6 +65,9 @@ in {
           lua = {
             lua_language_server = enabled;
           };
+          markdown = {
+            marksman = enabled;
+          };
           nix = {
             nil = enabled;
             alejandra = enabled;
