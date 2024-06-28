@@ -165,6 +165,7 @@ in {
           fzf = enabled;
           gh = enabled;
           git = enabled;
+          gitui = enabled;
           gnupg = enabled;
           httpie = enabled;
           # mods = enabled;
