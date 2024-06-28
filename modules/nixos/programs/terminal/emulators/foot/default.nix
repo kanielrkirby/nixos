@@ -18,10 +18,12 @@ in {
       enable = true;
       settings = {
         main = {
-          font = "MonaspiceNe NF:size=14";
-          fontItalic = "MonaspiceRn NF:size=14";
+          font = "MonaspiceNe NF:size=10";
+          font-italic = "MonaspiceRn NF:size=10";
           dpi-aware = "yes";
         };
+
+        colors.alpha = "0.8";
 
         mouse = {
           hide-when-typing = "yes";
