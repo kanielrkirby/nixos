@@ -167,6 +167,7 @@ in {
           git = enabled;
           gitui = enabled;
           gnupg = enabled;
+          handlr = enabled;
           httpie = enabled;
           # mods = enabled;
           # pop = enabled;
