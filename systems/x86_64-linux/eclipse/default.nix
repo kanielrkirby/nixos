@@ -150,6 +150,10 @@ in {
         };
         shells = {
           zsh = enabled;
+          nushell = {
+            enable = true;
+            default = true;
+          };
         };
         tools = {
           age = enabled;
