@@ -116,8 +116,7 @@ in {
         hyprlock = enabled;
         hyprshade = enabled;
         launchers = {
-          fuzzel = disabled;
-          tofi = enabled;
+          fuzzel = enabled;
         };
         libnotify = enabled;
         localsend = enabled;
