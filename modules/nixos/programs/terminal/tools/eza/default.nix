@@ -15,7 +15,7 @@ in {
 
   config = mkIf (cfg.enable && config.${namespace}.user.enable) {
     home-manager.users.${config.${namespace}.user.name}.programs.eza = {
-      enable = true;
+      # enable = true;
     };
   };
 }

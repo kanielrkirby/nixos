@@ -17,6 +17,7 @@ in {
     home-manager.users.${config.${namespace}.user.name}.programs.kitty = {
       enable = true;
       extraConfig = ''
+        scrollback_lines        -1
         confirm_os_window_close 0
         background_opacity      0.8
         font_family             MonaspiceNe NF

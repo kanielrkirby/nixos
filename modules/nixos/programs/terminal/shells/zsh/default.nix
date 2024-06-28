@@ -5,7 +5,7 @@
   namespace,
   ...
 }: let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib) mkIf mkMerge mkDefault;
   inherit (lib.${namespace}) mkBoolOpt;
 
   cfg = config.${namespace}.programs.terminal.shells.zsh;
@@ -25,19 +25,29 @@ in {
       };
     })
     (mkIf (cfg.enable && config.${namespace}.user.enable) {
-      home-manager.users.${config.${namespace}.user.name}.programs.zsh = {
-        enable = true;
-        syntaxHighlighting = {
+      home-manager.users.${config.${namespace}.user.name} = {
+        programs.fzf.enableZshIntegration = mkDefault true;
+        programs.yazi.enableZshIntegration = mkDefault true;
+        programs.nix-index.enableZshIntegration = mkDefault true;
+        programs.zoxide.enableZshIntegration = mkDefault true;
+        programs.carapace.enableZshIntegration = mkDefault true;
+        programs.oh-my-posh.enableZshIntegration = mkDefault true;
+        programs.kitty.shellIntegration.enableZshIntegration = mkDefault true;
+        programs.zellij.enableZshIntegration = mkDefault true;
+        programs.zsh = {
           enable = true;
+          syntaxHighlighting = {
+            enable = true;
+          };
+          initExtra = ''
+            alias y="yazi"
+            alias h="hx"
+            alias sy="sudo -E yazi"
+            alias sh="sudo -E hx"
+            alias s="sudo -E"
+            alias se="sudo echo"
+          '';
         };
-        initExtra = ''
-          alias y="yazi"
-          alias h="hx"
-          alias sy="sudo -E yazi"
-          alias sh="sudo -E hx"
-          alias s="sudo -E"
-          alias se="sudo echo"
-        '';
       };
     })
   ];

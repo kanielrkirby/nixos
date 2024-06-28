@@ -19,7 +19,6 @@ in {
   config = mkIf (cfg.enable && config.${namespace}.user.enable) {
     home-manager.users.${config.${namespace}.user.name}.programs.oh-my-posh = {
       enable = true;
-      enableZshIntegration = true;
       settings = fromTOML
         (unsafeDiscardStringContext 
           (readFile "${fetchFromGitHub {
