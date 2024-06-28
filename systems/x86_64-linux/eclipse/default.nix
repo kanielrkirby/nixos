@@ -116,7 +116,8 @@ in {
         hyprlock = enabled;
         hyprshade = enabled;
         launchers = {
-          fuzzel = enabled;
+          fuzzel = disabled;
+          tofi = enabled;
         };
         libnotify = enabled;
         localsend = enabled;
@@ -142,7 +143,7 @@ in {
       terminal = {
         emulators = {
           kitty = enabled;
-          foot = enabled;
+          foot = disabled;
           neovide = enabled;
         };
         rice = {
