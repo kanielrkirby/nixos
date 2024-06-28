@@ -12,11 +12,14 @@
 in {
   options.${namespace}.programs.terminal.shells.zsh = {
     enable = mkBoolOpt false "Whether or not to enable zsh.";
+    default = mkBoolOpt false "Whether or not to make zsh the default user shell.";
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
+    (mkIf cfg.default {
       users.defaultUserShell = pkgs.zsh;
+    })
+    (mkIf cfg.enable {
       programs.zsh = {
         enable = true;
       };
