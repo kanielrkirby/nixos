@@ -2,18 +2,6 @@
   description = "Gearshift";
 
   inputs = {
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-    };
-
-    anyrun-nixos-options = {
-      url = "github:n3oney/anyrun-nixos-options";
-    };
-
-    catppuccin-cursors = {
-      url = "github:catppuccin/cursors";
-    };
-
     catppuccin = {
       url = "github:catppuccin/nix";
     };
@@ -36,16 +24,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # gpg default configuration
-    gpg-base-conf = {
-      url = "github:drduh/config";
-      flake = false;
-    };
-
     # helix editor
     helix = {
       url = "github:helix-editor/helix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # home manager (master)
@@ -55,15 +36,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hypridle
-    hypridle.url = "github:hyprwm/hypridle";
-    # url = "git+file:///home/mx/documents/github/hypridle";
-
     # hyprlock
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      # note: required to prevent red screen on lock
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # hyprland
@@ -140,12 +115,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # snowfall flake
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # sops (secrets)
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -155,12 +124,6 @@
     waybar = {
       url = "github:alexays/waybar";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # yubikey guide
-    yubikey-guide = {
-      url = "github:drduh/yubikey-guide";
-      flake = false;
     };
   };
 

@@ -101,7 +101,7 @@ in {
         };
       };
       editors = {
-        neovim = enabled;
+        neovim = disabled;
         helix = enabled;
         # vscode = enabled;
       };
@@ -117,6 +117,8 @@ in {
         hyprshade = enabled;
         launchers = {
           fuzzel = enabled;
+          wofi = disabled;
+          kickoff = disabled;
         };
         libnotify = enabled;
         localsend = enabled;

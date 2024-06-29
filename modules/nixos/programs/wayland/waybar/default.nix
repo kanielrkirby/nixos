@@ -1,5 +1,6 @@
 {
-  pkgs,
+  inputs,
+  system,
   config,
   lib,
   namespace,
@@ -18,7 +19,9 @@ in {
     home-manager.users.${config.${namespace}.user.name} = {
       programs.waybar = {
         enable = true;
+        package = inputs.waybar.packages.${system}.default;
       };
     };
+    users.users.${config.${namespace}.user.name}.extraGroups = ["input"];
   };
 }

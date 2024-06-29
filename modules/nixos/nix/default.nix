@@ -100,6 +100,14 @@ in {
           "https://nix-community.cachix.org"
           "https://nixpkgs-unfree.cachix.org"
           "https://numtide.cachix.org"
+          "https://helix.cachix.org"
+          "https://catppuccin.cachix.org"
+          "https://nur.cachix.org"
+          "https://nixvim.cachix.org"
+          "https://nixpkgs-wayland.cachix.org"
+          "https://nix-darwin.cachix.org"
+          "https://home-manager.cachix.org"
+          "https://lanzaboote.cachix.org"
         ];
 
         trusted-public-keys = [
@@ -107,6 +115,14 @@ in {
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
           "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+          "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+          "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+          "nur.cachix.org-1:F8+2oprcHLfsYyZBCsVJZJrPyGHwuE+EZBtukwalV7o="
+          "nixvim.cachix.org-1:8xrm/43sWNaE3sqFYil49+3wO5LqCbS4FHGhMCuPNNA="
+          "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+          "nix-darwin.cachix.org-1:LxMyKzQk7Uqkc1Pfq5uhm9GSn07xkERpy+7cpwc006A="
+          "home-manager.cachix.org-1:nx0l4sX9c2ztlU9/RkBtqJZOuk3VFSqZSTf+ijiL1HE="
+          "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
         ];
 
         use-xdg-base-directories = true;

@@ -30,7 +30,6 @@ in {
         programs.oh-my-posh.enableNushellIntegration = mkDefault true;
         programs.nushell = {
           enable = true;
-          package = pkgs.nushellFull;
           extraConfig = /*nu*/ ''
             $env.config = {
               show_banner: false,
