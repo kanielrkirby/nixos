@@ -17,6 +17,10 @@ in {
   };
 
   config = mkIf (cfg.enable && config.${namespace}.user.enable) {
+    environment = {
+      sessionVariables.EDITOR = "hx";
+      variables.EDITOR = "hx";
+    };
     home-manager.users.${config.${namespace}.user.name} = {
       programs.helix = {
         enable = true;

@@ -1,4 +1,5 @@
 {
+  pkgs,
   inputs,
   system,
   config,
@@ -7,7 +8,8 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (lib.${namespace}) mkBoolOpt;
+  inherit (pkgs) fetchFromGitHub;
+  inherit (lib.${namespace}) mkBoolOpt disabled;
 
   cfg = config.${namespace}.programs.wayland.waybar;
 in {
