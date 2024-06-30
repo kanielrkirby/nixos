@@ -189,7 +189,7 @@ in {
         grim = enabled;
         slurp = enabled;
         swappy = enabled;
-        waybar = enabled;
+        waybar = disabled;
         wl-screenrec = enabled;
         wl-clipboard = enabled;
         ydotool = enabled;

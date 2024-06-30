@@ -31,6 +31,7 @@ in {
         NOT_CHARGING="0"
 
         export DISPLAY=":0"
+        export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
         BATTERY_LEVEL="$(${pkgs.acpi}/bin/acpi -b | grep -P -o '[0-9]+(?=%)' | tail -n1)"
         STATUS="$(cat "$POWERSUPPLY")"

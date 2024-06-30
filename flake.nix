@@ -2,6 +2,10 @@
   description = "Gearshift";
 
   inputs = {
+    arbtt = {
+      url = "github:nomeata/arbtt";
+    };
+
     catppuccin = {
       url = "github:catppuccin/nix";
     };
