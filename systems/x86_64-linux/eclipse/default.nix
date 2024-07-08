@@ -159,6 +159,7 @@ in {
         };
         tools = {
           age = enabled;
+          arbtt = disabled;
           bat = enabled;
           btop = enabled;
           eza = enabled;

@@ -1,4 +1,5 @@
 {
+  system,
   inputs,
   pkgs,
   config,
@@ -6,7 +7,7 @@
   namespace,
   ...
 }: let
-  inherit (lib) filterAttrs isType mapAttrs mapAttrsToList mkDefault mkIf pipe;
+  inherit (lib) optionals filterAttrs isType mapAttrs mapAttrsToList mkDefault mkIf pipe;
   inherit (lib.types) str;
   inherit (lib.${namespace}) mkBoolOpt mkOpt disabled;
 
@@ -27,7 +28,7 @@ in {
     users.users.${config.${namespace}.user.name} = {
       isNormalUser = true;
       group = config.${namespace}.user.name;
-      extraGroups = [ "wheel" ];
+      extraGroups = ["wheel"];
     };
     users.groups.${config.${namespace}.user.name} = {};
     home-manager.users.${config.${namespace}.user.name}.imports = with inputs; [
@@ -59,7 +60,7 @@ in {
 
       systemPackages = with pkgs; [
         cachix
-        deploy-rs
+        # deploy-rs TODO: Move this to it's own file.
         git
         nix-prefetch-git
       ];
@@ -95,35 +96,25 @@ in {
         log-lines = 50;
         warn-dirty = false;
 
-        substituters = [
-          "https://cache.nixos.org"
-          "https://nix-community.cachix.org"
-          "https://nixpkgs-unfree.cachix.org"
-          "https://numtide.cachix.org"
-          "https://helix.cachix.org"
-          "https://catppuccin.cachix.org"
-          "https://nur.cachix.org"
-          "https://nixvim.cachix.org"
-          "https://nixpkgs-wayland.cachix.org"
-          "https://nix-darwin.cachix.org"
-          "https://home-manager.cachix.org"
-          "https://lanzaboote.cachix.org"
-        ];
+        substituters =
+          []
+          ++ optionals (system == "x86_64-linux" || system == "aarch64-linux") [
+            "https://cache.nixos.org"
+            "https://home-manager.cachix.org"
+          ]
+          ++ optionals (system == "x86_64-darwin" || system == "aarch64-darwin") [
+            "https://nix-darwin.cachix.org"
+          ];
 
-        trusted-public-keys = [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-          "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-          "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-          "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-          "nur.cachix.org-1:F8+2oprcHLfsYyZBCsVJZJrPyGHwuE+EZBtukwalV7o="
-          "nixvim.cachix.org-1:8xrm/43sWNaE3sqFYil49+3wO5LqCbS4FHGhMCuPNNA="
-          "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-          "nix-darwin.cachix.org-1:LxMyKzQk7Uqkc1Pfq5uhm9GSn07xkERpy+7cpwc006A="
-          "home-manager.cachix.org-1:nx0l4sX9c2ztlU9/RkBtqJZOuk3VFSqZSTf+ijiL1HE="
-          "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
-        ];
+        trusted-public-keys =
+          []
+          ++ optionals (system == "x86_64-linux" || system == "aarch64-linux") [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "home-manager.cachix.org-1:nx0l4sX9c2ztlU9/RkBtqJZOuk3VFSqZSTf+ijiL1HE="
+          ]
+          ++ optionals (system == "x86_64-darwin" || system == "aarch64-darwin") [
+            "nix-darwin.cachix.org-1:LxMyKzQk7Uqkc1Pfq5uhm9GSn07xkERpy+7cpwc006A="
+          ];
 
         use-xdg-base-directories = true;
       };

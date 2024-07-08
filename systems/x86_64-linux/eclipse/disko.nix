@@ -1,4 +1,3 @@
-{ # Unused, because Disko doesn't support dual booting
   disko.devices = {
     disk = {
       main = {

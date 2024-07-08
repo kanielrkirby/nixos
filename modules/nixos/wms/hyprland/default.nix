@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
@@ -19,7 +18,6 @@ in {
     (mkIf (cfg.enable && config.${namespace}.user.enable) {
       home-manager.users.${config.${namespace}.user.name}.wayland.windowManager.hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         xwayland = enabled;
         systemd = enabled;
         extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./binds.conf ./main.conf]);

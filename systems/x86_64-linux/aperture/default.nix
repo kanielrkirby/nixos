@@ -1,10 +1,10 @@
 {
   lib,
-  config,
   ...
 }: let
   inherit (lib.gearshift) enabled disabled;
 in {
+  programs.wsl = enabled;
   gearshift = {
     user = {
       enable = true;
