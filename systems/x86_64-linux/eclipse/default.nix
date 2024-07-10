@@ -106,6 +106,7 @@ in {
         # vscode = enabled;
       };
       gui = {
+        ark = enabled;
         browsers = {
           chromium = enabled;
           firefox = enabled;
