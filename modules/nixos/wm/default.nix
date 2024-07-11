@@ -62,6 +62,7 @@
         users."${config.gearshift.username}" = {
           wayland.windowManager.hyprland = {
             enable = true;
+            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
             xwayland.enable = true;
             systemd.enable = true;
             extraConfig = builtins.concatStringsSep "\n" (builtins.map builtins.readFile [./hypr/binds.conf ./hypr/main.conf]);
