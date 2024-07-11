@@ -8,10 +8,10 @@
   inherit (lib) mkIf;
   inherit (lib.${namespace}) mkBoolOpt;
 
-  cfg = config.${namespace}.hardware.battery;
+  cfg = config.${namespace}.hardware.battery.checker;
 in {
-  options.${namespace}.hardware.battery = {
-    enable = mkBoolOpt false "Whether or not to enable battery.";
+  options.${namespace}.hardware.battery.checker = {
+    enable = mkBoolOpt false "Whether or not to enable battery checker.";
   };
 
   config = mkIf cfg.enable {

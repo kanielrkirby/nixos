@@ -13,7 +13,6 @@ in {
     dms.sddm = enabled;
 
     hardware = {
-      battery = enabled;
       boot.fs.zfs = enabled;
       framework = enabled;
       pipewire = enabled;

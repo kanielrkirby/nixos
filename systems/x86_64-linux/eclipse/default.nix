@@ -13,7 +13,10 @@ in {
     dms.sddm = enabled;
 
     hardware = {
-      battery = enabled;
+      battery = {
+        acpi = enabled;
+        checker = enabled;
+      };
       bluetooth = enabled;
       boot.fs.zfs = enabled;
       brightness = enabled;
