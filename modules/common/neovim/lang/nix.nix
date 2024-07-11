@@ -7,7 +7,7 @@
       nix-develop.enable = true;
       dap.extensions.dap-go.enable = true;
 
-      treesitter.ensureInstalled = [ "nix" ];
+      treesitter.nixvimInjections = true;
       
       lsp.servers = {
         nixd.enable = true;

@@ -3,8 +3,6 @@
 {
   programs.nixvim = {
     plugins = {
-      treesitter.ensureInstalled = [ "go" ];
-      
       lsp.servers.gopls.enable = true;
       
       conform-nvim = {

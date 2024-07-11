@@ -3,7 +3,7 @@
 {
   programs.nixvim = {
     extraPlugins = [{
-      plugin = (pkgs.vimUtils.buildVimPlugin {
+      plugin = pkgs.vimUtils.buildVimPlugin {
         name = "unocss-language-server";
         src = pkgs.fetchFromGitHub {
           owner = "xna00";
@@ -11,12 +11,9 @@
           rev = "270067956ecd2081cc056e6a62798fc4476c2e93";
           sha256 = "sha256-LvurkKCpP1VOG/4j6PPW69rA6SJxCNgk3SQyfVgv7Kg=";
         };
-      });
+      };
     }];
     plugins = {
-      treesitter.ensureInstalled =
-        [ "astro" "biome" "css" "html" "javascript" "typescript" "vue" ];
-
       lsp.servers = {
         astro.enable = true;
         biome = {
