@@ -8,7 +8,7 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.gearshift.swhkd.enable {
-      environment.systemPackage = [ inputs.swhkd ];
+      environment.systemPackages = [ inputs.swhkd.packages.x86_64-linux.swhkd ];
     })
   ];
 }
