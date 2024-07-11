@@ -13,9 +13,6 @@ in {
     dms.sddm = enabled;
 
     hardware = {
-      boot.fs.zfs = enabled;
-      framework = enabled;
-      pipewire = enabled;
       opengl = enabled;
     };
 
