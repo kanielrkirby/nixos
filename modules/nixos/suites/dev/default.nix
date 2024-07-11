@@ -31,6 +31,7 @@
         vscode.enable = true;
         zoxide.enable = true;
         zsh.enable = true;
+        nh.enable = true;
       };
     })
   ];
